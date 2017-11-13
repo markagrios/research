@@ -1,0 +1,82 @@
+[39mrunning build_ext[0m
+[39mrunning build_src[0m
+[39mbuild_src[0m
+[39mbuilding py_modules sources[0m
+[39mbuilding library "radau5" sources[0m
+[39mbuilding library "lapack_lite" sources[0m
+[39mbuilding extension "/home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp._radau5_HindmarshRose_vf" sources[0m
+[39mswig: /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/radau5_HindmarshRose_vf.i[0m
+[39mswig -python -I/usr/local/lib/python2.7/dist-packages/numpy/core/include -I/home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons -I/usr/local/lib/python2.7/dist-packages/PyDSTool/integrator -o /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/radau5_HindmarshRose_vf_wrap.c -outdir /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/radau5_HindmarshRose_vf.i[0m
+[39mbuild_src: building npy-pkg config files[0m
+[39mcustomize UnixCCompiler[0m
+[39mcustomize UnixCCompiler using build_clib[0m
+[39mcustomize Gnu95FCompiler[0m
+[39mFound executable /usr/bin/gfortran[0m
+[39mcustomize Gnu95FCompiler[0m
+[39mcustomize Gnu95FCompiler using build_clib[0m
+[39mbuilding 'radau5' library[0m
+[39mcompiling Fortran sources[0m
+[39mFortran f77 compiler: /usr/bin/gfortran -Wall -g -ffixed-form -fno-second-underscore -fPIC -O3 -funroll-loops
+Fortran f90 compiler: /usr/bin/gfortran -Wall -g -fno-second-underscore -fPIC -O3 -funroll-loops
+Fortran fix compiler: /usr/bin/gfortran -Wall -g -ffixed-form -fno-second-underscore -Wall -g -fno-second-underscore -fPIC -O3 -funroll-loops[0m
+[39mcreating build[0m
+[39mcreating build/temp.linux-x86_64-2.7[0m
+[39mcreating build/temp.linux-x86_64-2.7/usr[0m
+[39mcreating build/temp.linux-x86_64-2.7/usr/local[0m
+[39mcreating build/temp.linux-x86_64-2.7/usr/local/lib[0m
+[39mcreating build/temp.linux-x86_64-2.7/usr/local/lib/python2.7[0m
+[39mcreating build/temp.linux-x86_64-2.7/usr/local/lib/python2.7/dist-packages[0m
+[39mcreating build/temp.linux-x86_64-2.7/usr/local/lib/python2.7/dist-packages/PyDSTool[0m
+[39mcreating build/temp.linux-x86_64-2.7/usr/local/lib/python2.7/dist-packages/PyDSTool/integrator[0m
+[39mcompile options: '-I/usr/local/lib/python2.7/dist-packages/numpy/core/include -I/usr/include/python2.7 -c'[0m
+[39mextra f77 options: '-w'[0m
+[39mgfortran:f77: /usr/local/lib/python2.7/dist-packages/PyDSTool/integrator/radau5.f[0m
+[39mx86_64-linux-gnu-gcc-ar: adding 1 object files to build/temp.linux-x86_64-2.7/libradau5.a[0m
+[39mbuilding 'lapack_lite' library[0m
+[39mcompiling Fortran sources[0m
+[39mFortran f77 compiler: /usr/bin/gfortran -Wall -g -ffixed-form -fno-second-underscore -fPIC -O3 -funroll-loops
+Fortran f90 compiler: /usr/bin/gfortran -Wall -g -fno-second-underscore -fPIC -O3 -funroll-loops
+Fortran fix compiler: /usr/bin/gfortran -Wall -g -ffixed-form -fno-second-underscore -Wall -g -fno-second-underscore -fPIC -O3 -funroll-loops[0m
+[39mcompile options: '-I/usr/local/lib/python2.7/dist-packages/numpy/core/include -I/usr/include/python2.7 -c'[0m
+[39mextra f77 options: '-w'[0m
+[39mgfortran:f77: /usr/local/lib/python2.7/dist-packages/PyDSTool/integrator/lapackc.f[0m
+[39mextra f77 options: '-w'[0m
+[39mgfortran:f77: /usr/local/lib/python2.7/dist-packages/PyDSTool/integrator/lapack.f[0m
+[39mextra f77 options: '-w'[0m
+[39mgfortran:f77: /usr/local/lib/python2.7/dist-packages/PyDSTool/integrator/dc_lapack.f[0m
+[39mx86_64-linux-gnu-gcc-ar: adding 3 object files to build/temp.linux-x86_64-2.7/liblapack_lite.a[0m
+[39mcustomize UnixCCompiler[0m
+[39mcustomize UnixCCompiler using build_ext[0m
+[39mcustomize Gnu95FCompiler[0m
+[39mcustomize Gnu95FCompiler[0m
+[39mcustomize Gnu95FCompiler using build_ext[0m
+[39mbuilding '/home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp._radau5_HindmarshRose_vf' extension[0m
+[39mcompiling C sources[0m
+[39mC compiler: x86_64-linux-gnu-gcc -pthread -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fno-strict-aliasing -Wdate-time -D_FORTIFY_SOURCE=2 -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC
+[0m
+[39mcreating /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/home[0m
+[39mcreating /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/home/mark[0m
+[39mcreating /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/home/mark/Documents[0m
+[39mcreating /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/home/mark/Documents/RESEARCH[0m
+[39mcreating /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/home/mark/Documents/RESEARCH/Dropbox[0m
+[39mcreating /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/home/mark/Documents/RESEARCH/Dropbox/Mark[0m
+[39mcreating /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose[0m
+[39mcreating /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons[0m
+[39mcreating /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp[0m
+[39mcreating /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/usr[0m
+[39mcreating /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/usr/local[0m
+[39mcreating /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/usr/local/lib[0m
+[39mcreating /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/usr/local/lib/python2.7[0m
+[39mcreating /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/usr/local/lib/python2.7/dist-packages[0m
+[39mcreating /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/usr/local/lib/python2.7/dist-packages/PyDSTool[0m
+[39mcreating /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/usr/local/lib/python2.7/dist-packages/PyDSTool/integrator[0m
+[39mcompile options: '-I/usr/local/lib/python2.7/dist-packages/numpy/core/include -I/home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons -I/usr/local/lib/python2.7/dist-packages/PyDSTool/integrator -I/usr/local/lib/python2.7/dist-packages/numpy/core/include -I/usr/include/python2.7 -c'
+extra options: '-w -Wno-return-type -Wall -D__RADAU__'[0m
+[39mx86_64-linux-gnu-gcc: /usr/local/lib/python2.7/dist-packages/PyDSTool/integrator/integration.c[0m
+[39mx86_64-linux-gnu-gcc: /usr/local/lib/python2.7/dist-packages/PyDSTool/integrator/memory.c[0m
+[39mx86_64-linux-gnu-gcc: /usr/local/lib/python2.7/dist-packages/PyDSTool/integrator/radau5mod.c[0m
+[39mx86_64-linux-gnu-gcc: /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/HindmarshRose_vf.c[0m
+[39mx86_64-linux-gnu-gcc: /usr/local/lib/python2.7/dist-packages/PyDSTool/integrator/interface.c[0m
+[39mx86_64-linux-gnu-gcc: /usr/local/lib/python2.7/dist-packages/PyDSTool/integrator/eventFinding.c[0m
+[39mx86_64-linux-gnu-gcc: /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/radau5_HindmarshRose_vf_wrap.c[0m
+[39m/usr/bin/gfortran -Wall -g -Wall -g -shared /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/HindmarshRose_vf.o /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/usr/local/lib/python2.7/dist-packages/PyDSTool/integrator/radau5mod.o /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/usr/local/lib/python2.7/dist-packages/PyDSTool/integrator/integration.o /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/usr/local/lib/python2.7/dist-packages/PyDSTool/integrator/interface.o /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/usr/local/lib/python2.7/dist-packages/PyDSTool/integrator/eventFinding.o /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/usr/local/lib/python2.7/dist-packages/PyDSTool/integrator/memory.o /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/radau5_HindmarshRose_vf_wrap.o -Lbuild/temp.linux-x86_64-2.7 -lradau5 -llapack_lite -lgfortran -o /home/mark/Documents/RESEARCH/Dropbox/Mark/HindmarshRose/two_neurons/radau5_temp/_radau5_HindmarshRose_vf.so -w[0m

@@ -1,0 +1,6 @@
+131
+761
+199
+5
+Euler characteristic : -436
+Standard Betti numbers: 1 437 0 0 

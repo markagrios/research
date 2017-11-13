@@ -1,0 +1,35 @@
+[39mrunning build_ext[0m
+[39mrunning build_src[0m
+[39mbuild_src[0m
+[39mbuilding py_modules sources[0m
+[39mbuilding library "radau5" sources[0m
+[39mbuilding library "lapack_lite" sources[0m
+[39mbuilding extension "/Users/mdlama/Dropbox/Work/StudentResearch/Mark/HindmarshRose/two_neurons/drew_play/radau5_temp._radau5_HindmarshRose_vf" sources[0m
+[39mswig: /Users/mdlama/Dropbox/Work/StudentResearch/Mark/HindmarshRose/two_neurons/drew_play/radau5_temp/radau5_HindmarshRose_vf.i[0m
+[39mswig -python -I/System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python/numpy/core/include -I/Users/mdlama/Dropbox/Work/StudentResearch/Mark/HindmarshRose/two_neurons/drew_play -I/Users/mdlama/dev/PyDSTool/PyDSTool/integrator -o /Users/mdlama/Dropbox/Work/StudentResearch/Mark/HindmarshRose/two_neurons/drew_play/radau5_temp/radau5_HindmarshRose_vf_wrap.c -outdir /Users/mdlama/Dropbox/Work/StudentResearch/Mark/HindmarshRose/two_neurons/drew_play/radau5_temp /Users/mdlama/Dropbox/Work/StudentResearch/Mark/HindmarshRose/two_neurons/drew_play/radau5_temp/radau5_HindmarshRose_vf.i[0m
+[39mbuild_src: building npy-pkg config files[0m
+[39mcustomize UnixCCompiler[0m
+[39mcustomize UnixCCompiler using build_clib[0m
+[39mcustomize Gnu95FCompiler[0m
+[32mFound executable /opt/local/bin/gfortran[0m
+[39mcustomize Gnu95FCompiler[0m
+[39mcustomize Gnu95FCompiler using build_clib[0m
+[39mcustomize UnixCCompiler[0m
+[39mcustomize UnixCCompiler using build_ext[0m
+[39mcustomize Gnu95FCompiler[0m
+[39mcustomize Gnu95FCompiler[0m
+[39mcustomize Gnu95FCompiler using build_ext[0m
+[39mbuilding '/Users/mdlama/Dropbox/Work/StudentResearch/Mark/HindmarshRose/two_neurons/drew_play/radau5_temp._radau5_HindmarshRose_vf' extension[0m
+[39mcompiling C sources[0m
+[39mC compiler: cc -fno-strict-aliasing -fno-common -dynamic -arch i386 -arch x86_64 -g -Os -pipe -fno-common -fno-strict-aliasing -fwrapv -DENABLE_DTRACE -DMACOSX -DNDEBUG -Wall -Wstrict-prototypes -Wshorten-64-to-32 -DNDEBUG -g -fwrapv -Os -Wall -Wstrict-prototypes -DENABLE_DTRACE -arch i386 -arch x86_64 -pipe
+[0m
+[39mcompile options: '-I/System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python/numpy/core/include -I/Users/mdlama/Dropbox/Work/StudentResearch/Mark/HindmarshRose/two_neurons/drew_play -I/Users/mdlama/dev/PyDSTool/PyDSTool/integrator -I/System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python/numpy/core/include -I/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7 -c'
+extra options: '-w -Wno-return-type -Wall -D__RADAU__'[0m
+[39mcc: /Users/mdlama/Dropbox/Work/StudentResearch/Mark/HindmarshRose/two_neurons/drew_play/radau5_temp/radau5_HindmarshRose_vf_wrap.c[0m
+[39mcc: /Users/mdlama/dev/PyDSTool/PyDSTool/integrator/integration.c[0m
+[39mcc: /Users/mdlama/dev/PyDSTool/PyDSTool/integrator/radau5mod.c[0m
+[39mcc: /Users/mdlama/dev/PyDSTool/PyDSTool/integrator/eventFinding.c[0m
+[39mcc: /Users/mdlama/Dropbox/Work/StudentResearch/Mark/HindmarshRose/two_neurons/drew_play/radau5_temp/HindmarshRose_vf.c[0m
+[39mcc: /Users/mdlama/dev/PyDSTool/PyDSTool/integrator/interface.c[0m
+[39mcc: /Users/mdlama/dev/PyDSTool/PyDSTool/integrator/memory.c[0m
+[39m/opt/local/bin/gfortran -Wall -arch x86_64 -Wall -undefined dynamic_lookup -bundle /Users/mdlama/Dropbox/Work/StudentResearch/Mark/HindmarshRose/two_neurons/drew_play/radau5_temp/Users/mdlama/Dropbox/Work/StudentResearch/Mark/HindmarshRose/two_neurons/drew_play/radau5_temp/HindmarshRose_vf.o /Users/mdlama/Dropbox/Work/StudentResearch/Mark/HindmarshRose/two_neurons/drew_play/radau5_temp/Users/mdlama/dev/PyDSTool/PyDSTool/integrator/radau5mod.o /Users/mdlama/Dropbox/Work/StudentResearch/Mark/HindmarshRose/two_neurons/drew_play/radau5_temp/Users/mdlama/dev/PyDSTool/PyDSTool/integrator/integration.o /Users/mdlama/Dropbox/Work/StudentResearch/Mark/HindmarshRose/two_neurons/drew_play/radau5_temp/Users/mdlama/dev/PyDSTool/PyDSTool/integrator/interface.o /Users/mdlama/Dropbox/Work/StudentResearch/Mark/HindmarshRose/two_neurons/drew_play/radau5_temp/Users/mdlama/dev/PyDSTool/PyDSTool/integrator/eventFinding.o /Users/mdlama/Dropbox/Work/StudentResearch/Mark/HindmarshRose/two_neurons/drew_play/radau5_temp/Users/mdlama/dev/PyDSTool/PyDSTool/integrator/memory.o /Users/mdlama/Dropbox/Work/StudentResearch/Mark/HindmarshRose/two_neurons/drew_play/radau5_temp/Users/mdlama/Dropbox/Work/StudentResearch/Mark/HindmarshRose/two_neurons/drew_play/radau5_temp/radau5_HindmarshRose_vf_wrap.o -L/opt/local/lib/gcc47/gcc/x86_64-apple-darwin15/4.7.4 -Lbuild/temp.macosx-10.11-intel-2.7 -lradau5 -llapack_lite -lgfortran -o /Users/mdlama/Dropbox/Work/StudentResearch/Mark/HindmarshRose/two_neurons/drew_play/radau5_temp/_radau5_HindmarshRose_vf.so -w[0m

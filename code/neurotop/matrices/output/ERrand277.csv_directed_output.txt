@@ -1,0 +1,6 @@
+277
+2096
+465
+5
+Euler characteristic : -1359
+Standard Betti numbers: 1 1363 3 0 

@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<VectorField Name="hr" IndependentVariable="t" Description="Hindmarsh-Rose Neuron">
+<Parameter Name="a" DefaultValue="1.0" Description="related to the fast ion channels" />
+<Parameter Name="b" DefaultValue="3.3" Description="" />
+<Parameter Name="c" DefaultValue="1.0" Description="related to the fast ion channels" />
+<Parameter Name="d" DefaultValue="5.0" Description="related to the fast ion channels" />
+<Parameter Name="r" DefaultValue="0.001" Description="related to the slow ion channels" />
+<Parameter Name="s" DefaultValue="4.0" Description="" />
+<Parameter Name="xR" DefaultValue="-1.61803398875" Description="initial potential" />
+<Parameter Name="Iapp" DefaultValue="2.0" Description="external injected current" />
+<Parameter Name="g" DefaultValue="0.0" Description="" />
+<Parameter Name="Vo" DefaultValue="2.0" Description="" />
+<Parameter Name="lam" DefaultValue="10.0" Description="" />
+<Parameter Name="thet" DefaultValue="-0.6" Description="" />
+<Expression Name="Gam" Formula="(1/(1+((2.71828)^((-1)*lam*(x-thet)))))" />
+<StateVariable Name="x"
+    Formula="y - a*x*x*x + b*x*x + Iapp - z - g*(x-Vo)*Gam"
+    DefaultInitialCondition="-1.61803398875"
+    Description="membrane potential" />
+<StateVariable Name="y"
+    Formula="c - d*x*x - y"
+    DefaultInitialCondition="-12.0901699438"
+    Description="transport of fast ion channels" />
+<StateVariable Name="z"
+    Formula="r*(s*(x-xR)-z)"
+    DefaultInitialCondition="2.15"
+    Description="transport of slow ion channels" />
+</VectorField>
