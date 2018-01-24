@@ -1,0 +1,18 @@
+NOTES
+
+Not sure if matrix -> list of simplices -> my python code is feasible to be just one program because I'm not that good, especially for directed graphs with directed cliques.
+
+How can we make persistence that makes sense when not limiting ourselves to the connection matrix? Or better yet have a general model that under certain parameters will give what the original model that just used the matrix
+
+Still need the path persistence....
+
+
+
+
+
+
+
+
+
+
+.
