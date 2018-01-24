@@ -24,6 +24,8 @@
 //uncomment the line below if you would like to be able to read .h5 files:
 //#define H5Header
 
+// example run:
+// > ./directed ../matrices/12.csv 1 1
 
 #include "simplex.h"
 #include "SparseSquareBinaryMatrix.h"

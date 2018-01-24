@@ -3,9 +3,15 @@ import networkx as nx
 import numpy as np
 import math
 import csv
+import matplotlib.pyplot as plt
 import sys
 sys.path.append('/home/mark/gudhi/build/cython')
 import gudhi
+
+# example run:
+# > python persistence.py 6weird x 310
+# Looks at the state variable x at time 310 under the dynamics of the newtork labeled 6weird.csv
+
 
 #******************** UTILITY FUNCTIONS ****************************************
 
@@ -18,6 +24,22 @@ def connect_from_Matrix(matrix):
         for ci in range(len(a[0])):
             if(a[ri][ci] != "0"):
                 S.connect(i=ri,j=ci)
+
+def make_NX_graph(matrix):
+    with open("connection_matrices/"+matrix) as csvfile:
+        readCSV = csv.reader(csvfile, delimiter=',')
+        a = list(readCSV)
+
+    G = nx.Graph()
+    for ri in range(len(a[0])):
+        for ci in range(len(a[0])):
+            if(a[ri][ci] != "0"):
+                G.add_edge(ri,ci)
+
+    nx.draw(G)
+    plt.show()
+
+    return(G)
 
 def N_from_Matrix(matrix):
     with open("connection_matrices/"+matrix) as csvfile:
