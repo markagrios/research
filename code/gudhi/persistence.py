@@ -50,7 +50,7 @@ print(st.num_vertices(), st.num_simplices())           # yay, this matches neuro
 
 
 p = st.persistence()
-# gudhi.plot_persistence_diagram(p,0.5)
+gudhi.plot_persistence_diagram(p,0.5)
 
 
 # print(st.get_skeleton(3))      # ugh, I guess I need to make all the cliques into simplices..

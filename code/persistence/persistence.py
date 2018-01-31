@@ -9,12 +9,14 @@ sys.path.append('/home/mark/gudhi/build/cython')
 import gudhi
 
 # example run:
-# > python persistence.py 6weird x 310
-# Looks at the state variable x at time 310 under the dynamics of the newtork labeled 6weird.csv
+# > python persistence.py 6weird x 310 s
+# Looks at the state variable x at time 310 under the dynamics of the newtork
+# labeled 6weird.csv using the symmetric graph not the directed graph
 
 
 #******************** UTILITY FUNCTIONS ****************************************
 
+# reads in a connectivity matrix and creates synapes in the brian object S
 def connect_from_Matrix(matrix):
     with open("connection_matrices/"+matrix) as csvfile:
         readCSV = csv.reader(csvfile, delimiter=',')
@@ -25,6 +27,7 @@ def connect_from_Matrix(matrix):
             if(a[ri][ci] != "0"):
                 S.connect(i=ri,j=ci)
 
+# plots the graph using networkx
 def make_NX_graph(matrix):
     with open("connection_matrices/"+matrix) as csvfile:
         readCSV = csv.reader(csvfile, delimiter=',')
@@ -41,6 +44,7 @@ def make_NX_graph(matrix):
 
     return(G)
 
+# returns the number of nodes from a given connection matrix
 def N_from_Matrix(matrix):
     with open("connection_matrices/"+matrix) as csvfile:
         readCSV = csv.reader(csvfile, delimiter=',')
@@ -48,6 +52,7 @@ def N_from_Matrix(matrix):
 
     return(len(a))
 
+# counts the number of connections in a connection matrix....wow
 def count_connections(matrix):
     n = 0
     with open("connection_matrices/"+matrix) as csvfile:
@@ -61,7 +66,9 @@ def count_connections(matrix):
 
     return(n)
 
-def filtmetric(statevariablelist):        # given a list of values that are the state variables of the neurons of a clique
+# Given a list of values that are the state variables of the neurons of a clique, this
+# returns the Filtration value that is to be assigned to that simplex
+def filtmetric(statevariablelist):
     sumdist = 0
     countdist = 0
     for i in range(len(statevariablelist)):
@@ -78,6 +85,8 @@ def filtmetric(statevariablelist):        # given a list of values that are the 
     metric = max(statevariablelist) + meandist
     return(metric)
 
+# Reads in a list of simplices (created by neurotop) and adds them to the Gudhi
+# object and returns the simplicial complex
 def listofsimps_to_SC(sl,svar,time):
     simpcomp = gudhi.SimplexTree()
     time = time*100
@@ -127,9 +136,6 @@ def listofsimps_to_SC(sl,svar,time):
 start_scope()
 
 matrix = sys.argv[1] + ".csv"
-# matrix = raw_input("Please enter an adjacency matrix: \n>>")
-# if matrix == "":
-#     matrix = "di-sixclique.csv"
 
 N = N_from_Matrix(matrix)                   # number of neurons in network
 N_syn = count_connections(matrix)           # number of synapses
@@ -168,9 +174,6 @@ S = Synapses(G, G, model=coupling_model) # Synapses can also have a dt argument.
 connect_from_Matrix(matrix)
 
 sv = sys.argv[2]
-# sv = raw_input("Please enter an state variable to theshold over: \n>>")
-# if(sv == ''):
-#     sv = 'x'
 
 M = StateMonitor(G, sv, record=True)
 
@@ -205,15 +208,18 @@ run(duration)
     # http://gudhi.gforge.inria.fr/python/latest/persistence_graphical_tools_ref.html
     # http://gudhi.gforge.inria.fr/python/latest/rips_complex_user.html
 
+    # neurotop: the program used to create list of simplices from a (un)directed graphs: http://neurotop.gforge.inria.fr/
 
-
-# simplex_list = sys.argv[1] + "_dlist.csv"     # using the directed clique topology
-simplex_list = sys.argv[1] + "_slist.csv"       # using the clique topology
 
 try:
     time = int(sys.argv[3])
 except:
     time = 400
+
+if(sys.argv[4] == 's'):
+    simplex_list = sys.argv[1] + "_slist.csv"       # using the clique topology
+if(sys.argv[4] == 'd'):
+    simplex_list = sys.argv[1] + "_dlist.csv"     # using the directed clique topology
 
 simplex_tree = listofsimps_to_SC(simplex_list,sv,time)
 
