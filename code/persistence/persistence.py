@@ -77,12 +77,11 @@ def filtmetric(statevariablelist):
                 sumdist += abs(statevariablelist[i] - statevariablelist[j])
                 countdist += 1
 
-    if(countdist == 1):
-        countdist += 1
-
-    # meandist = sumdist/countdist
+    # meandist = sumdist/countdist                # I kinda wish this worked but it doesn't for some reason...
     meandist = sumdist/len(statevariablelist)     # this actually works with the set simplex to lower filt value than faces porblem. Not sure why, but it does
     metric = max(statevariablelist) + meandist
+
+    # print("countdist of " + str(len(statevariablelist)) + ": ",(countdist))
     return(metric)
 
 # Reads in a list of simplices (created by neurotop) and adds them to the Gudhi

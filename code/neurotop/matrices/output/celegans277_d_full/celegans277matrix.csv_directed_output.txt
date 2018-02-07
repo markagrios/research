@@ -7,4 +7,4 @@
 185
 6
 Euler characteristic : -16
-Standard Betti numbers: 1 196 235 92 37 3 2 0 
+Standard Betti numbers: 1 196 235 92 37 3 2 0
