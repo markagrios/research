@@ -249,7 +249,7 @@ print("   " + str(simplex_tree.betti_numbers()))
 simulation = plt.figure(figsize=(10,6))
 simulation.subplots_adjust(wspace=0.2, hspace=0.25)
 
-title = matrix.split(".")[0] + ":" + "N=" + str(N) + "," + "g=" + str(coupling_pars['g']) + " | " + sv + "," + str(time)
+title = matrix.split(".")[0] + ":" + "N=" + str(N) + "," + "g=" + str(coupling_pars['g']) + " | " + sv + "," + str(time) + "," + str(sys.argv[4])
 
 simulation.suptitle(title)
 
