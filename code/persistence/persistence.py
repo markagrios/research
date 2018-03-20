@@ -192,6 +192,9 @@ for param,value in neuron_pars.items():
 for param,value in coupling_pars.items():
     setattr(S,param,[value for _ in range(N_syn)]) # N_syn is the number of non-zero entries of the connection matrix
 
+
+#************ Set initial state variables of neurons ***************************
+
 # If you want the initial z value to be different
 # setattr(G,'z',[2+rand()*0.5-0.25 for _ in range(N)])
 for i in range(0,N):
