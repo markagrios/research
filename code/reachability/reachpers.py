@@ -16,8 +16,10 @@ def raiseton(matrix,n):
 
     for i in range(len(matrix[0])):
         for j in range(len(matrix[0])):
-            if(Nmatrix[i][j] > 0):
+            if(Nmatrix[i][j] >= 1):
                 Nmatrix[i][j] = n
+            else:
+                Nmatrix[i][j] = 0
 
     return Nmatrix
 
@@ -33,26 +35,25 @@ def getpowers(matrixarray):
     # iterate through to some number and then add to array to get sequence of min path length matrices
     M0 = matrixarray[0]
 
-    for i in range(2,SIZE): # should change this to a while loop. while (matrix not complete graph...):
+    for i in range(2,SIZE+1): # instead of SIZE+1 this should just be the length of the longest path in the graph
         newmatrix = raiseton(M0,i)
-        newmatrix = np.multiply(matrixarray[-1],newmatrix)
-
-        for i in range(ROWS):
-            for j in range(COLUMNS):
-                if(newmatrix[i][j] > 0):
-                    newmatrix[i][j] = i
-
         matrixarray.append(newmatrix)
 
-    return matrixarray[1:]
+    # return matrixarray[1:]
+    return matrixarray
 
 ################################################################################
 
 M = []
-
 reader = csv.reader(open("test.csv", "rb"), delimiter=",")
 x = list(reader)
 M.append(np.array(x).astype("int"))
+
+end = []
+reader = csv.reader(open("endtest.csv", "rb"), delimiter=",")
+y = list(reader)
+end.append(np.array(y).astype("int"))
+final = end[0]
 
 ROWS = len(M[0])
 COLUMNS = len(M[0])
@@ -60,6 +61,22 @@ SIZE = len(M[0])
 
 print(M[0])
 
-list = getpowers(M)
-for i in range(len(list)):
-    print list[i]
+
+powerlist = getpowers(M)
+# for i in range(len(powerlist)):
+#     print powerlist[i]
+#     print("~")
+
+
+print("---------")
+
+
+richM = np.zeros((ROWS,COLUMNS), dtype=int)
+for k in range(len(powerlist)):
+    richM = np.add(richM,powerlist[k])
+    for i in range(len(richM)):
+        for j in range(len(richM)):
+            if(richM[i][j] > k+1):
+                richM[i][j] -= k+1
+
+print(richM)
