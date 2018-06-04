@@ -5,7 +5,7 @@ import math
 import csv
 import matplotlib.pyplot as plt
 import sys
-sys.path.append('/home/mark/gudhi/build/cython')
+sys.path.append('/home/osboxes/gudhi/build/cython/')
 import gudhi
 
 # example run:
