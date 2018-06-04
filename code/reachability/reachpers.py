@@ -4,8 +4,9 @@ import math
 import csv
 import matplotlib.pyplot as plt
 import sys
-sys.path.append('/home/mark/gudhi/build/cython')
+sys.path.append('/home/osboxes/gudhi/build/cython')
 import gudhi
+
 
 # NEED TO MAKE FUNCTION THAT CONVERTS MATRIX TO SYMMETRIC !!!!!!!!!!!!!!!!!
 
@@ -80,3 +81,18 @@ for k in range(len(powerlist)):
                 richM[i][j] -= k+1
 
 print(richM)
+
+print("---------")
+
+N = len(richM[0])
+
+G = nx.DiGraph()
+G.add_nodes_from(range(0,N))
+
+for i in range(N):
+    for j in range(N):
+        if(M[0][i][j] > 0):
+            G.add_edge(i,j)
+
+nx.draw_shell(G,with_labels=True)
+plt.show()

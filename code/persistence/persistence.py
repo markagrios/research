@@ -33,14 +33,14 @@ def make_NX_graph(matrix):
         readCSV = csv.reader(csvfile, delimiter=',')
         a = list(readCSV)
 
-    G = nx.Graph()
+    G = nx.DiGraph()
     for ri in range(len(a[0])):
         for ci in range(len(a[0])):
             if(a[ri][ci] != "0"):
                 G.add_edge(ri,ci)
 
-    nx.draw(G)
-    plt.show()
+    # nx.draw(G)
+    # plt.show()
 
     return(G)
 
@@ -126,7 +126,6 @@ def listofsimps_to_SC(sl,svar,time):
 
     return(simpcomp)
 
-
 #******************** |ACTUAL CODE PART| ***************************************
 
 
@@ -195,10 +194,9 @@ for param,value in coupling_pars.items():
 
 #************ Set initial state variables of neurons ***************************
 
-# If you want the initial z value to be different
-# setattr(G,'z',[2+rand()*0.5-0.25 for _ in range(N)])
+# setattr(G,'z',[1.7+(_*0.1) for _ in range(N)])
 for i in range(0,N):
-    setattr(G,'z',1.7+(i*0.1))
+    setattr(G,'z',1.7)
 
 run(duration)
 
@@ -249,7 +247,7 @@ print("   " + str(simplex_tree.betti_numbers()))
 
 ######################## PLOTTING ##############################################
 
-simulation = plt.figure(figsize=(10,6))
+simulation = plt.figure(figsize=(12,7))
 simulation.subplots_adjust(wspace=0.2, hspace=0.25)
 
 title = matrix.split(".")[0] + ":" + "N=" + str(N) + "," + "g=" + str(coupling_pars['g']) + " | " + sv + "," + str(time) + "," + str(sys.argv[4])
@@ -267,7 +265,8 @@ for i in range(0,N):
 
 simulation.add_subplot(2,2,4)
 gudhi.plot_persistence_diagram(p)
-# gudhi.plot_persistence_barcode(p)
+
+# simulation.add_subplot(2,2,3)
 
 
 
@@ -283,3 +282,6 @@ gudhi.plot_persistence_diagram(p)
 # wut...
 
 show(block=False)
+
+nx.draw_shell(make_NX_graph(matrix),with_labels=True, font_weight='bold')
+plt.show()

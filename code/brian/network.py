@@ -113,7 +113,7 @@ M = StateMonitor(G, ['x','y','z'], record=True)     # we might not need all of t
 ix = -0.5*(1+sqrt(5))
 init_cond = {'x': ix, 'y': 1-5*ix*ix, 'z': 2}
 neuron_pars = {'a': 1, 'b': 3.3, 'I': 2, 'c': 1, 'd': 5, 'r': 0.001, 's': 4, 'xR': -0.5*(1+sqrt(5))}
-coupling_pars = {'Vo': 2, 'lam': 10, 'thet': -0.6, 'g': 0.2}
+coupling_pars = {'Vo': 2, 'lam': 10, 'thet': -0.6, 'g': 0.4}
 
 # Puts all the initial conditions in place.
 for ic,value in init_cond.items():
@@ -128,6 +128,8 @@ for param,value in coupling_pars.items():
 
 # If you want the initial z value to be different
 # setattr(G,'z',[2+rand()*0.5-0.25 for _ in range(N)])
+for i in range(0,N):
+    setattr(G,'z',1.7)
 
 # G.a = [1,1]
 # S.g = [1,1,1]
