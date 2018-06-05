@@ -254,8 +254,8 @@ title = matrix.split(".")[0] + ":" + "N=" + str(N) + "," + "g=" + str(coupling_p
 
 simulation.suptitle(title)
 
+simulation.add_subplot(2,1,1)
 for i in range(0,N):
-    simulation.add_subplot(2,1,1)
     plt.ylabel(sv)
     plt.xlabel('t')
 
@@ -266,9 +266,19 @@ for i in range(0,N):
 simulation.add_subplot(2,2,4)
 gudhi.plot_persistence_diagram(p)
 
-# simulation.add_subplot(2,2,3)
+simulation.add_subplot(2,2,3)
+nx.draw_shell(make_NX_graph(matrix),with_labels=True, font_weight='bold')
 
+# show(block=False)
+plt.show()
 
+print("---")
+
+for i in range(N):
+    print(np.min(M[i].x),np.max(M[i].x))
+
+print("~")
+print(np.min(M.x),np.max(M.x))
 
 # ---- This doesn't work because fuck ----
 
@@ -280,8 +290,3 @@ gudhi.plot_persistence_diagram(p)
 #     plt.savefig('simulation_files/' + simname + '.png')
 
 # wut...
-
-show(block=False)
-
-nx.draw_shell(make_NX_graph(matrix),with_labels=True, font_weight='bold')
-plt.show()

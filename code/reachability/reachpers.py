@@ -114,7 +114,6 @@ powerlist = getpowers(M)
 
 print("---------")
 
-
 richM = np.zeros((ROWS,COLUMNS), dtype=int)
 for k in range(len(powerlist)):
     richM = np.add(richM,powerlist[k])
