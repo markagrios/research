@@ -1,0 +1,10 @@
+277
+1918
+2699
+1689
+728
+227
+39
+2
+Euler characteristic : -93
+Standard Betti numbers: 1 180 90 4 0 0 0 0 

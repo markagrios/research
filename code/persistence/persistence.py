@@ -18,7 +18,7 @@ import gudhi
 
 # reads in a connectivity matrix and creates synapes in the brian object S
 def connect_from_Matrix(matrix):
-    with open("connection_matrices/"+matrix) as csvfile:
+    with open("../connection_matrices/"+matrix) as csvfile:
         readCSV = csv.reader(csvfile, delimiter=',')
         a = list(readCSV)
 
@@ -29,7 +29,7 @@ def connect_from_Matrix(matrix):
 
 # plots the graph using networkx
 def make_NX_graph(matrix):
-    with open("connection_matrices/"+matrix) as csvfile:
+    with open("../connection_matrices/"+matrix) as csvfile:
         readCSV = csv.reader(csvfile, delimiter=',')
         a = list(readCSV)
 
@@ -46,7 +46,7 @@ def make_NX_graph(matrix):
 
 # returns the number of nodes from a given connection matrix
 def N_from_Matrix(matrix):
-    with open("connection_matrices/"+matrix) as csvfile:
+    with open("../connection_matrices/"+matrix) as csvfile:
         readCSV = csv.reader(csvfile, delimiter=',')
         a = list(readCSV)
 
@@ -55,7 +55,7 @@ def N_from_Matrix(matrix):
 # counts the number of connections in a connection matrix....wow
 def count_connections(matrix):
     n = 0
-    with open("connection_matrices/"+matrix) as csvfile:
+    with open("../connection_matrices/"+matrix) as csvfile:
         readCSV = csv.reader(csvfile, delimiter=',')
         a = list(readCSV)
 
@@ -89,7 +89,7 @@ def filtmetric(statevariablelist):
 def listofsimps_to_SC(sl,svar,time):
     simpcomp = gudhi.SimplexTree()
     time = time*100
-    with open("connection_matrices/simp_lists/"+sl, 'rU') as p:
+    with open("../connection_matrices/simp_lists/"+sl, 'rU') as p:
         #reads csv into a list of lists
         simp_list = [list(map(int,rec)) for rec in csv.reader(p, delimiter=' ')]
 

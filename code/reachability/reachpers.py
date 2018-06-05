@@ -10,6 +10,29 @@ import gudhi
 
 # NEED TO MAKE FUNCTION THAT CONVERTS MATRIX TO SYMMETRIC !!!!!!!!!!!!!!!!!
 
+
+def drawGraph(matrix):
+
+    with open("connection_matrices/"+matrix) as csvfile:
+        readCSV = csv.reader(csvfile, delimiter=',')
+        a = list(readCSV)
+
+    G = nx.DiGraph()
+    for ri in range(len(a[0])):
+        for ci in range(len(a[0])):
+            if(a[ri][ci] != "0"):
+                G.add_edge(ri,ci)
+
+
+    options = {
+        'node_color': 'red',
+        'width': 2,
+    }
+
+    nx.draw_shell(G, with_labels=True, font_weight='bold', **options)
+    plt.show()
+
+
 def raiseton(matrix,n):
     Nmatrix = np.linalg.matrix_power(matrix,n)
     for i in range(len(Nmatrix[0])):
@@ -43,31 +66,51 @@ def getpowers(matrixarray):
     # return matrixarray[1:]
     return matrixarray
 
+def decompose(matrix):
+    N = len(matrix[0])
+
+    paths = []
+    for i in range(N):
+        for j in range(N):
+            paths.append(matrix[i][j])
+
+    maxpath = np.max(paths)
+    print(maxpath)
+    decomp = []
+
+    for k in range(0,maxpath+1):
+        part = np.zeros((N,N), dtype=int)
+        for i in range(0,N):
+            for j in range(0,N):
+                if(matrix[i][j] == k):
+                    part[i][j] = k
+        decomp.append(part)
+
+    return(decomp)
+
 ################################################################################
 
+matrix = sys.argv[1] + ".csv"
+
 M = []
-reader = csv.reader(open("test.csv", "rb"), delimiter=",")
+reader = csv.reader(open("../connection_matrices/" + matrix, "rb"), delimiter=",")
 x = list(reader)
 M.append(np.array(x).astype("int"))
-
-end = []
-reader = csv.reader(open("endtest.csv", "rb"), delimiter=",")
-y = list(reader)
-end.append(np.array(y).astype("int"))
-final = end[0]
 
 ROWS = len(M[0])
 COLUMNS = len(M[0])
 SIZE = len(M[0])
 
-print(M[0])
 
+if(sys.argv[2] == 's'):
+    M[0] = np.maximum(M[0], M[0].transpose())
+
+print(M[0])
 
 powerlist = getpowers(M)
 # for i in range(len(powerlist)):
 #     print powerlist[i]
 #     print("~")
-
 
 print("---------")
 
@@ -96,3 +139,8 @@ for i in range(N):
 
 nx.draw_shell(G,with_labels=True)
 plt.show()
+
+print("---------")
+D = decompose(richM)
+for i in D:
+    print(i)
