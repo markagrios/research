@@ -290,7 +290,7 @@ scaledM = []
 
 for i in range(0,N):
     scaledM.append([])
-    for j in range(0, int(str(duration).split(".")[0]) * 10000):           # 100000 takes about four minutes, maybe just select the interval you want..?
+    for j in range(0, int(str(duration).split(".")[0]) * 1000):           # 100000 takes about four minutes, maybe just select the interval you want..?
         scaledM[i].append(scaleToInterval(M[i].x[j], simMin, simMax))
 
 
@@ -302,8 +302,10 @@ for i in range(0,len(scaledM[0])):
 
     phasic[i] = abs(phasic[i])/N
 
+
 plt.plot(phasic)
-plt.show(block=False)
+# plt.ylim(ymax = 0, ymin = 1)
+plt.show()
 
 # ---- This doesn't work because fuck ----
 
