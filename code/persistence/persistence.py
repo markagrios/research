@@ -2,6 +2,7 @@ from brian2 import *
 import networkx as nx
 import numpy as np
 import math
+import cmath
 import csv
 import matplotlib.pyplot as plt
 import sys
@@ -125,6 +126,9 @@ def listofsimps_to_SC(sl,svar,time):
     # filtation of P less than Q will set Q to the new value
 
     return(simpcomp)
+
+def scaleToInterval(x,domainMin,domainMax):     # given an interval and value in the interval it scales it to be between 0 and 2pi
+    return(((x - domainMin)/(domainMax - domainMin))*2*cmath.pi)
 
 #******************** |ACTUAL CODE PART| ***************************************
 
@@ -274,11 +278,32 @@ plt.show()
 
 print("---")
 
-for i in range(N):
-    print(np.min(M[i].x),np.max(M[i].x))
+# for i in range(N):
+#     print(np.min(M[i].x),np.max(M[i].x))
 
-print("~")
-print(np.min(M.x),np.max(M.x))
+simMin = np.min(M.x)
+simMax = np.max(M.x)
+# print(simMin,simMax)
+# print(scaleToInterval(0,simMin,simMax))
+
+scaledM = []
+
+for i in range(0,N):
+    scaledM.append([])
+    for j in range(0, int(str(duration).split(".")[0]) * 10000):           # 100000 takes about four minutes, maybe just select the interval you want..?
+        scaledM[i].append(scaleToInterval(M[i].x[j], simMin, simMax))
+
+
+phasic = []
+for i in range(0,len(scaledM[0])):
+    phasic.append(0)
+    for j in range(0,N):
+         phasic[i] += cmath.exp(complex(scaledM[j][i],0)*complex(0,1))
+
+    phasic[i] = abs(phasic[i])/N
+
+plt.plot(phasic)
+plt.show(block=False)
 
 # ---- This doesn't work because fuck ----
 
