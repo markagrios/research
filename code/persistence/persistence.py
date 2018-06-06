@@ -4,6 +4,7 @@ import numpy as np
 import math
 import cmath
 import csv
+import time as TIME
 import matplotlib.pyplot as plt
 import sys
 sys.path.append('/home/osboxes/gudhi/build/cython/')
@@ -141,7 +142,7 @@ matrix = sys.argv[1] + ".csv"
 
 N = N_from_Matrix(matrix)                   # number of neurons in network
 N_syn = count_connections(matrix)           # number of synapses
-duration = 1000*ms                          # how long simulations runs
+duration = 2000*ms                          # how long simulations runs
 
 
 tau_param = {'tau': 1*ms}
@@ -198,9 +199,9 @@ for param,value in coupling_pars.items():
 
 #************ Set initial state variables of neurons ***************************
 
-# setattr(G,'z',[1.7+(_*0.1) for _ in range(N)])
-for i in range(0,N):
-    setattr(G,'z',1.7)
+setattr(G,'z',[1.7+(_*0.1) for _ in range(N)])
+# for i in range(0,N):
+#     setattr(G,'z',1.7)
 
 run(duration)
 
@@ -277,6 +278,8 @@ nx.draw_shell(make_NX_graph(matrix),with_labels=True, font_weight='bold')
 plt.show()
 
 print("---")
+start_time = TIME.time()
+
 
 # for i in range(N):
 #     print(np.min(M[i].x),np.max(M[i].x))
@@ -290,8 +293,8 @@ scaledM = []
 
 for i in range(0,N):
     scaledM.append([])
-    for j in range(0, int(str(duration).split(".")[0]) * 1000):           # 100000 takes about four minutes, maybe just select the interval you want..?
-        scaledM[i].append(scaleToInterval(M[i].x[j], simMin, simMax))
+    for j in range(0, int(str(duration).split(".")[0]) * 100000/7):           # the /7 and 7*j just take every seventh time step to make it go faster, it doesn't seem to sacrifice accuracy,,
+        scaledM[i].append(scaleToInterval(M[i].x[7*j], simMin, simMax))
 
 
 phasic = []
@@ -303,8 +306,12 @@ for i in range(0,len(scaledM[0])):
     phasic[i] = abs(phasic[i])/N
 
 
+simulation = plt.figure(figsize=(12,7))
+simulation.suptitle("Synchronization")
+
+print("--- %s seconds ---" % (TIME.time() - start_time))
 plt.plot(phasic)
-# plt.ylim(ymax = 0, ymin = 1)
+plt.ylim(ymin = 0, ymax = 1.1)
 plt.show()
 
 # ---- This doesn't work because fuck ----

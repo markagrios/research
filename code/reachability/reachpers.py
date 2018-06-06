@@ -8,9 +8,6 @@ sys.path.append('/home/osboxes/gudhi/build/cython')
 import gudhi
 
 
-# NEED TO MAKE FUNCTION THAT CONVERTS MATRIX TO SYMMETRIC !!!!!!!!!!!!!!!!!
-
-
 def drawGraph(matrix):
 
     with open("connection_matrices/"+matrix) as csvfile:
@@ -23,13 +20,7 @@ def drawGraph(matrix):
             if(a[ri][ci] != "0"):
                 G.add_edge(ri,ci)
 
-
-    options = {
-        'node_color': 'red',
-        'width': 2,
-    }
-
-    nx.draw_shell(G, with_labels=True, font_weight='bold', **options)
+    nx.draw_shell(G, with_labels=True, font_weight='bold')
     plt.show()
 
 
@@ -75,7 +66,7 @@ def decompose(matrix):
             paths.append(matrix[i][j])
 
     maxpath = np.max(paths)
-    print(maxpath)
+    # print(maxpath)
     decomp = []
 
     for k in range(0,maxpath+1):
@@ -87,6 +78,16 @@ def decompose(matrix):
         decomp.append(part)
 
     return(decomp)
+
+def getSimpsfromGraph(G):
+    undG = G.to_undirected()
+    simps = sorted(nx.find_cliques(undG))
+    # for i in range(0,N):
+    #     simps.append(i)
+
+    simps = simps[::-1]
+
+    return(simps)
 
 ################################################################################
 
@@ -136,10 +137,63 @@ for i in range(N):
         if(M[0][i][j] > 0):
             G.add_edge(i,j)
 
-nx.draw_shell(G,with_labels=True)
-plt.show()
 
-print("---------")
+print("----decompisition-----")
 D = decompose(richM)
 for i in D:
     print(i)
+
+print("----filtration--------")
+
+graphFiltration = []
+for i in range(len(D)):
+    graphFiltration.append(sum(D[:i+1]))
+
+# for filt in graphFiltration:
+#     print(filt)
+
+SimpComp = gudhi.SimplexTree()
+SimpComp.set_dimension(len(D))
+
+for i in range(N):
+    SimpComp.insert([i],0)
+
+for i in range(1,len(D)):
+    # print(D[i])
+    graph = nx.Graph()
+    for ri in range(len(graphFiltration[i][0])):
+        for ci in range(len(graphFiltration[i][0])):
+            if(graphFiltration[i][ri][ci] != 0):
+                graph.add_edge(ri,ci)
+
+    simplist = getSimpsfromGraph(graph)
+
+    for j in range(len(simplist)):
+        SimpComp.insert(simplist[j],i)
+
+    nx.draw_shell(graph,with_labels=True)
+    plt.show()
+
+SimpComp.initialize_filtration()
+
+# This takes like a super long time to print out..
+# print("Filtration:")
+# for i in range(len(SimpComp.get_filtration())):
+#     print(SimpComp.get_filtration()[i])
+
+p = SimpComp.persistence()
+
+perscolors = ["red","green","blue","cyan","magenta","yellow","black","maroon","chartreuse?","azure","a very unappealing yellowish green","purple","blue-grey"]
+for dim in range(len(SimpComp.get_filtration()[-1])+10):
+    print("Persistence of dim " + str(dim) + " (" + perscolors[dim] + ")" + ": ")
+    for i in SimpComp.persistence_intervals_in_dimension(dim):
+        print("   " + str(i))
+
+print("---")
+print("Betti numbers: ")
+print("   " + str(SimpComp.betti_numbers()))
+
+gudhi.plot_persistence_diagram(p)
+
+nx.draw_shell(G,with_labels=True)
+plt.show()
