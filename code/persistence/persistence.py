@@ -129,7 +129,7 @@ def listofsimps_to_SC(sl,svar,time):
     return(simpcomp)
 
 def scaleToInterval(x,domainMin,domainMax):     # given an interval and value in the interval it scales it to be between 0 and 2pi
-    return(((x - domainMin)/(domainMax - domainMin))*2*cmath.pi)
+    return(((x - domainMin)/(domainMax - domainMin))*cmath.pi)
 
 #******************** |ACTUAL CODE PART| ***************************************
 
@@ -143,7 +143,6 @@ matrix = sys.argv[1] + ".csv"
 N = N_from_Matrix(matrix)                   # number of neurons in network
 N_syn = count_connections(matrix)           # number of synapses
 duration = 2000*ms                          # how long simulations runs
-
 
 tau_param = {'tau': 1*ms}
 
@@ -199,9 +198,8 @@ for param,value in coupling_pars.items():
 
 #************ Set initial state variables of neurons ***************************
 
-setattr(G,'z',[1.7+(_*0.1) for _ in range(N)])
-# for i in range(0,N):
-#     setattr(G,'z',1.7)
+# setattr(G,'z',[1.7+(_*0.1) for _ in range(N)])        # for slightly different init cond
+setattr(G,'z',[1.7 for _ in range(N)])                  # for uniform init cond
 
 run(duration)
 
@@ -307,7 +305,7 @@ for i in range(0,len(scaledM[0])):
 
 
 simulation = plt.figure(figsize=(12,7))
-simulation.suptitle("Synchronization")
+simulation.suptitle("Synchronization" + " using pi not 2pi")
 
 print("--- %s seconds ---" % (TIME.time() - start_time))
 plt.plot(phasic)

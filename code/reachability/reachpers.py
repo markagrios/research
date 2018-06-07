@@ -102,9 +102,7 @@ ROWS = len(M[0])
 COLUMNS = len(M[0])
 SIZE = len(M[0])
 
-
-if(sys.argv[2] == 's'):
-    M[0] = np.maximum(M[0], M[0].transpose())
+M[0] = np.maximum(M[0], M[0].transpose())
 
 print(M[0])
 
@@ -129,7 +127,7 @@ print("---------")
 
 N = len(richM[0])
 
-G = nx.DiGraph()
+G = nx.Graph()
 G.add_nodes_from(range(0,N))
 
 for i in range(N):
@@ -184,7 +182,7 @@ SimpComp.initialize_filtration()
 p = SimpComp.persistence()
 
 perscolors = ["red","green","blue","cyan","magenta","yellow","black","maroon","chartreuse?","azure","a very unappealing yellowish green","purple","blue-grey"]
-for dim in range(len(SimpComp.get_filtration()[-1])+10):
+for dim in range(len(SimpComp.get_filtration()[-1])+3):
     print("Persistence of dim " + str(dim) + " (" + perscolors[dim] + ")" + ": ")
     for i in SimpComp.persistence_intervals_in_dimension(dim):
         print("   " + str(i))
