@@ -291,8 +291,8 @@ scaledM = []
 
 for i in range(0,N):
     scaledM.append([])
-    for j in range(0, int(str(duration).split(".")[0]) * 100000/7):           # the /7 and 7*j just take every seventh time step to make it go faster, it doesn't seem to sacrifice accuracy,,
-        scaledM[i].append(scaleToInterval(M[i].x[7*j], simMin, simMax))
+    for j in range(0, int(str(duration).split(".")[0]) * 100000, 7):           # the /7 and 7*j just take every seventh time step to make it go faster, it doesn't seem to sacrifice accuracy,,
+        scaledM[i].append(scaleToInterval(M[i].x[j], simMin, simMax))
 
 
 phasic = []
