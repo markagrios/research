@@ -9,10 +9,8 @@ import matplotlib.pyplot as plt
 import sys
 
 # example run:
-# > python persistence.py 6weird x 310 s
-# Looks at the state variable x at time 310 under the dynamics of the newtork
-# labeled 6weird.csv using the symmetric graph not the directed graph
-
+# > python persistence.py 6weird x
+# Looks at the state variable x
 
 #******************** UTILITY FUNCTIONS ****************************************
 
@@ -136,8 +134,8 @@ for param,value in coupling_pars.items():
 
 #************ Set initial state variables of neurons ***************************
 
-# setattr(G,'z',[1.7+(_*0.1) for _ in range(N)])        # for slightly different init cond
-setattr(G,'z',[1.7 for _ in range(N)])                  # for uniform init cond
+setattr(G,'z',[1.7+(_*0.1) for _ in range(N)])        # for slightly different init cond
+# setattr(G,'z',[1.7 for _ in range(N)])                  # for uniform init cond
 
 start_time = TIME.time()
 
@@ -175,7 +173,7 @@ scaledM = []
 
 for i in range(0,N):
     scaledM.append([])
-    for j in range(0, int(str(duration).split(".")[0]) * 100000, 7):
+    for j in range(0, int(str(duration).split(".")[0]) * 100000):
         scaledM[i].append(scaleToInterval(M[i].x[j], simMin, simMax))
 
 
@@ -203,16 +201,15 @@ for i in range(0,N):
     for j in range(0,N):
         adj_matrix[i][j] = int(qwe[i][j])
 
-# print(adj_matrix)
+print(adj_matrix)
 
-# plt.show(block=False)
-plt.show()
+plt.show(block=False)
 
-# savesim = raw_input("save simulation? ")
-# if(savesim == 'y'):
-#     simname = raw_input("Simulation name: ")
-#     if(simname == ''):
-#         simname = title
-#     plt.savefig('../simulation_files/' + simname + '.png')
+savesim = raw_input("save simulation? ")
+if(savesim == 'y'):
+    simname = raw_input("Simulation name: ")
+    if(simname == ''):
+        simname = title
+    plt.savefig('../simulation_files/' + simname + '.png')
 
 # wut...

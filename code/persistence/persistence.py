@@ -198,8 +198,8 @@ for param,value in coupling_pars.items():
 
 #************ Set initial state variables of neurons ***************************
 
-# setattr(G,'z',[1.7+(_*0.1) for _ in range(N)])        # for slightly different init cond
-setattr(G,'z',[1.7 for _ in range(N)])                  # for uniform init cond
+setattr(G,'z',[1.7+(_*0.1) for _ in range(N)])        # for slightly different init cond
+# setattr(G,'z',[1.7 for _ in range(N)])                  # for uniform init cond
 
 run(duration)
 
