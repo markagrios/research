@@ -65,7 +65,7 @@ def count_connections(matrix):
     return(n)
 
 def scaleToInterval(x,domainMin,domainMax):     # given an interval and value in the interval it scales it to be between 0 and 2pi
-    return(((x - domainMin)/(domainMax - domainMin))*cmath.pi)
+    return(((x - domainMin)/(domainMax - domainMin))*2*cmath.pi)
 
 #******************** |ACTUAL CODE PART| ***************************************
 
@@ -78,7 +78,7 @@ matrix = sys.argv[1] + ".csv"
 
 N = N_from_Matrix(matrix)                   # number of neurons in network
 N_syn = count_connections(matrix)           # number of synapses
-duration = 500*ms                          # how long simuldurations runs
+duration = 2000*ms                          # how long simuldurations runs
 
 tau_param = {'tau': 1*ms}
 
@@ -113,7 +113,7 @@ connect_from_Matrix(matrix)
 
 sv = sys.argv[2]
 
-M = StateMonitor(G, sv, record=True)
+M = StateMonitor(G, [sv, 'x'], record=True)
 
 ix = -0.5*(1+sqrt(5))
 init_cond = {'x': ix, 'y': 1-5*ix*ix, 'z': 2}
@@ -155,17 +155,24 @@ title = matrix
 simulation.suptitle(title)
 simulation.add_subplot(3,1,1)
 for i in range(0,N):
+    plt.ylabel("x")
+    plt.xlabel("t")
+    plot(M.t/ms, M.x[i])
+
+simulation.add_subplot(3,1,2)
+for i in range(0,N):
     plt.ylabel(sv)
     plt.xlabel("t")
     plot(M.t/ms, getattr(M,sv)[i])
+
 
 print("---")
 
 # for i in range(N):
 #     print(np.min(M[i].x),np.max(M[i].x))
 
-simMin = np.min(M.x)
-simMax = np.max(M.x)
+simMin = np.min(getattr(M,sv)[i])
+simMax = np.max(getattr(M,sv)[i])
 # print(simMin,simMax)
 # print(scaleToInterval(0,simMin,simMax))
 
@@ -173,8 +180,8 @@ scaledM = []
 
 for i in range(0,N):
     scaledM.append([])
-    for j in range(0, int(str(duration).split(".")[0]) * 100000):
-        scaledM[i].append(scaleToInterval(M[i].x[j], simMin, simMax))
+    for j in range(0, int(str(duration).split(".")[0]) * 100000/10):
+        scaledM[i].append(scaleToInterval(M[i].z[10*j], simMin, simMax))
 
 
 phasic = []
@@ -185,15 +192,17 @@ for i in range(0,len(scaledM[0])):
 
     phasic[i] = abs(phasic[i])/N
 
-simulation.add_subplot(3,1,2)
+simulation.add_subplot(3,1,3)
 plt.plot(phasic)
 plt.ylim(ymin = 0, ymax = 1.1)
-
-simulation.add_subplot(3,2,6)
-G = make_NX_graph(matrix)
-nx.draw_shell(G, with_labels=True, font_weight='bold')
+plt.ylabel("synchronization")
+plt.xlabel("timestep")
 
 print("--- %s seconds ---" % (TIME.time() - start_time))
+
+# simulation.add_subplot(4,2,8)
+G = make_NX_graph(matrix)
+# nx.draw_shell(G, with_labels=True, font_weight='bold')
 
 qwe = array(nx.to_numpy_matrix(G))
 adj_matrix = np.zeros((N,N), dtype=int)

@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 matrix = sys.argv[1] + ".csv"
 
-with open("connection_matrices/"+matrix) as csvfile:
+with open("../connection_matrices/"+matrix) as csvfile:
     readCSV = csv.reader(csvfile, delimiter=',')
     a = list(readCSV)
 
