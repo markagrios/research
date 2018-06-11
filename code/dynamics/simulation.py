@@ -143,10 +143,11 @@ perturb = np.random.normal(0,1, (3,N))
 for i in range(len(init_cond.items())):
     sv_inits.append(float(init_cond.items()[i][1]))
 
-print(sv_inits)
-print(perturb)
-print("---")
-
+# print("State variable initial values (x,y,z):")
+# print(sv_inits)
+# print("Perturbation values:")
+# print(perturb)
+# print("---")
 # for normal distribution init cond
 # for i in range(3):
 #     setattr(G,sv_list[i],[init_cond[sv_list[i]] + (perturb[i][_]) for _ in range(N)])
@@ -166,9 +167,8 @@ run(duration)                # http://brian2.readthedocs.io/en/stable/reference/
 
 
 simulation = plt.figure(figsize=(17,10))
+title = matrix[:-4] + " | "
 simulation.subplots_adjust(wspace=0.1,hspace=0.25)
-title = matrix
-simulation.suptitle(title)
 simulation.add_subplot(3,1,1)
 for i in range(0,N):
     plt.ylabel("x")
@@ -194,7 +194,7 @@ for i in range(N):
 
 simMin = np.min(simMinlist)
 simMax = np.max(simMaxlist)
-print(simMin,simMax)                            # I think we should sample from like halfway through the simulation to the end because having the network synchronize screws up the min and max
+# print(simMin,simMax)                            # I think we should sample from like halfway through the simulation to the end because having the network synchronize screws up the min and max
 # print(scaleToInterval(0,simMin,simMax))
 
 scaledM = []
@@ -213,15 +213,22 @@ for i in range(0,len(scaledM[0])):
 
     phasic[i] = abs(phasic[i])/N
 
+
+averagesync = sum(phasic)/len(phasic)
+print("Synchronization value: " + str(averagesync))
+title += str(averagesync)
+
 zlast = []
 print("z last time steps:")
 for i in range(N):
     zlast.append(float(M[i].z[-1]))
-    print("    " + str(M[i].z[-1]))
+    # print("    " + str(M[i].z[-1]))
 
 
 
 simulation.add_subplot(3,1,3)
+simulation.suptitle(title)
+
 plt.plot(phasic)
 plt.ylim(ymin = 0, ymax = 1.1)
 plt.ylabel("synchronization")
@@ -246,7 +253,7 @@ savesim = raw_input("save simulation? ")
 if(savesim == 'y'):
     simname = raw_input("Simulation name: ")
     if(simname == ''):
-        simname = title
+        simname = matrix[:-4]
     plt.savefig('../simulation_files/XZsync/' + simname + '.png')
 
 # wut...
