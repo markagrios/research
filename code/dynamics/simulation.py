@@ -67,6 +67,13 @@ def count_connections(matrix):
 def scaleToInterval(x,domainMin,domainMax):     # given an interval and value in the interval it scales it to be between 0 and 2pi
     return(((x - domainMin)/(domainMax - domainMin))*2*cmath.pi)
 
+def list_to_csv(data):
+    with open("storeddata/lasttoinit.csv", "wb") as csv_file:
+        writer = csv.writer(csv_file, delimiter=',')
+        for line in data:
+            writer.writerow(line)
+
+
 #******************** |ACTUAL CODE PART| ***************************************
 
 
@@ -111,9 +118,7 @@ S = Synapses(G, G, model=coupling_model) # Synapses can also have a dt argument.
 
 connect_from_Matrix(matrix)
 
-sv = sys.argv[2]
-
-M = StateMonitor(G, [sv, 'x'], record=True)
+M = StateMonitor(G, ['z', 'x'], record=True)
 
 ix = -0.5*(1+sqrt(5))
 init_cond = {'x': ix, 'y': 1-5*ix*ix, 'z': 2}
@@ -134,6 +139,7 @@ for param,value in coupling_pars.items():
 
 #************ Set initial state variables of neurons ***************************
 
+zinit = []
 setattr(G,'z',[1.7+(_*0.1) for _ in range(N)])        # for slightly different init cond
 # setattr(G,'z',[1.7 for _ in range(N)])                  # for uniform init cond
 
@@ -161,18 +167,15 @@ for i in range(0,N):
 
 simulation.add_subplot(3,1,2)
 for i in range(0,N):
-    plt.ylabel(sv)
+    plt.ylabel('z')
     plt.xlabel("t")
-    plot(M.t/ms, getattr(M,sv)[i])
+    plot(M.t/ms, getattr(M,'z')[i])
 
 
 print("---")
 
-# for i in range(N):
-#     print(np.min(M[i].x),np.max(M[i].x))
-
-simMin = np.min(getattr(M,sv)[i])
-simMax = np.max(getattr(M,sv)[i])
+simMin = np.min(getattr(M,'z')[i])
+simMax = np.max(getattr(M,'z')[i])
 # print(simMin,simMax)
 # print(scaleToInterval(0,simMin,simMax))
 
@@ -192,17 +195,24 @@ for i in range(0,len(scaledM[0])):
 
     phasic[i] = abs(phasic[i])/N
 
+zlast = []
+print("z last time steps:")
+for i in range(N):
+    zlast.append(float(M[i].z[-1]))
+    print("    " + str(M[i].z[-1]))
+
+
+
 simulation.add_subplot(3,1,3)
 plt.plot(phasic)
 plt.ylim(ymin = 0, ymax = 1.1)
 plt.ylabel("synchronization")
 plt.xlabel("timestep")
 
+print("   ")
 print("--- %s seconds ---" % (TIME.time() - start_time))
 
-# simulation.add_subplot(4,2,8)
 G = make_NX_graph(matrix)
-# nx.draw_shell(G, with_labels=True, font_weight='bold')
 
 qwe = array(nx.to_numpy_matrix(G))
 adj_matrix = np.zeros((N,N), dtype=int)
@@ -210,7 +220,7 @@ for i in range(0,N):
     for j in range(0,N):
         adj_matrix[i][j] = int(qwe[i][j])
 
-print(adj_matrix)
+# print(adj_matrix)
 
 plt.show(block=False)
 
@@ -219,6 +229,10 @@ if(savesim == 'y'):
     simname = raw_input("Simulation name: ")
     if(simname == ''):
         simname = title
-    plt.savefig('../simulation_files/' + simname + '.png')
+    plt.savefig('../simulation_files/XZsync/' + simname + '.png')
 
 # wut...
+
+showgraph = plt.figure()
+nx.draw_shell(G, with_labels=True, font_weight='bold')
+plt.show()
