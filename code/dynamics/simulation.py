@@ -148,7 +148,7 @@ for i in range(len(init_cond.items())):
 # print("Perturbation values:")
 # print(perturb)
 # print("---")
-# for normal distribution init cond
+# # for normal distribution init cond
 # for i in range(3):
 #     setattr(G,sv_list[i],[init_cond[sv_list[i]] + (perturb[i][_]) for _ in range(N)])
 
