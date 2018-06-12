@@ -156,7 +156,7 @@ for i in range(len(init_cond.items())):
 for ic,value in init_cond.items():
     setattr(G,ic,[value for _ in range(N)])
 
-setattr(G,'z',[1.7+(_*0.1) for _ in range(N)])        # for slightly different init cond
+setattr(G,'z',[1.7+(_*0.1) for _ in range(N)])            # for slightly different init cond
 # setattr(G,'z',[1.7 for _ in range(N)])                  # for uniform init cond
 
 start_time = TIME.time()
@@ -259,5 +259,6 @@ if(savesim == 'y'):
 # wut...
 
 showgraph = plt.figure()
-nx.draw_shell(G, with_labels=True, font_weight='bold')
+nx.draw_kamada_kawai(G, with_labels=True, font_weight='bold')
+# nx.draw_shell(G, with_labels=True, font_weight='bold')
 plt.show()
