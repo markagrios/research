@@ -167,7 +167,7 @@ run(duration)                # http://brian2.readthedocs.io/en/stable/reference/
 
 
 simulation = plt.figure(figsize=(17,10))
-title = matrix[:-4] + " | "
+title = matrix[:-4] + " | " + str(duration) + " | "
 simulation.subplots_adjust(wspace=0.1,hspace=0.25)
 simulation.add_subplot(3,1,1)
 for i in range(0,N):
@@ -214,7 +214,12 @@ for i in range(0,len(scaledM[0])):
     phasic[i] = abs(phasic[i])/N
 
 
-averagesync = sum(phasic)/len(phasic)
+h = phasic[len(phasic)/2:]
+dhdt = []
+for i in range(1,len(h)):
+    dhdt.append(abs(h[i] - h[i-1]))
+
+averagesync = sum(dhdt)/len(dhdt)
 print("Synchronization value: " + str(averagesync))
 title += str(averagesync)
 
@@ -259,6 +264,6 @@ if(savesim == 'y'):
 # wut...
 
 showgraph = plt.figure()
-nx.draw_kamada_kawai(G, with_labels=True, font_weight='bold')
-# nx.draw_shell(G, with_labels=True, font_weight='bold')
+# nx.draw_kamada_kawai(G, with_labels=True, font_weight='bold')
+nx.draw_shell(G, with_labels=True, font_weight='bold')
 plt.show()

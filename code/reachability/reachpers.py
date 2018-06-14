@@ -191,7 +191,7 @@ print("---")
 print("Betti numbers: ")
 print("   " + str(SimpComp.betti_numbers()))
 
-gudhi.plot_persistence_diagram(p)
+gudhi.plot_persistence_barcode(p)
 
 nx.draw_shell(G,with_labels=True)
 plt.show()
