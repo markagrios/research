@@ -223,13 +223,11 @@ averagesync = sum(dhdt)/len(dhdt)
 print("Synchronization value: " + str(averagesync))
 title += str(averagesync)
 
-zlast = []
-print("z last time steps:")
-for i in range(N):
-    zlast.append(float(M[i].z[-1]))
-    # print("    " + str(M[i].z[-1]))
-
-
+# zlast = []
+# print("z last time steps:")
+# for i in range(N):
+#     zlast.append(float(M[i].z[-1]))
+#     # print("    " + str(M[i].z[-1]))
 
 simulation.add_subplot(3,1,3)
 simulation.suptitle(title)
