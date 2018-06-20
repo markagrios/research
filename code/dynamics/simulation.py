@@ -217,7 +217,7 @@ for i in range(0,len(scaledM[0])):
 h = phasic[len(phasic)/2:]
 dhdt = []
 for i in range(1,len(h)):
-    dhdt.append(abs(h[i] - h[i-1]))
+    dhdt.append(abs(h[i] - h[i-1]) * 1000)
 
 averagesync = sum(dhdt)/len(dhdt)
 print("Synchronization value: " + str(averagesync))
@@ -266,4 +266,11 @@ if(savesim == 'y'):
 showgraph = plt.figure()
 # nx.draw_kamada_kawai(G, with_labels=True, font_weight='bold')
 nx.draw_shell(G, with_labels=True, font_weight='bold')
-plt.show()
+plt.show(block=False)
+
+savesim = raw_input("save graph? ")
+if(savesim == 'y'):
+    simname = raw_input("network name: ")
+    if(simname == ''):
+        simname = matrix[:-4]
+    plt.savefig('../networks/' + simname + '.png')
