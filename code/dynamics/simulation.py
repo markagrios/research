@@ -221,7 +221,7 @@ for i in range(1,len(h)):
 
 averagesync = sum(dhdt)/len(dhdt)
 print("Synchronization value: " + str(averagesync))
-title += str(averagesync)
+title += str('%.4f'%(averagesync))
 
 # zlast = []
 # print("z last time steps:")
