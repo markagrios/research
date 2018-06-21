@@ -96,11 +96,11 @@ int main( int argc, char** argv )
         for ( size_t dim = 0 ; dim != cmplx->elemen().size() ; ++dim )
         {
             ostringstream name;
-            name << argv[1] << "_simplices_dimension_" << ".txt";
+            name << argv[1] << "_simplices_dimension_" << dim << ".txt";
             std::string nameStr  = name.str();
             const char* filename1 = nameStr.c_str();
             ofstream out;
-            out.open(filename1, std::ofstream::app);
+            out.open( filename1 );
             for ( size_t i = 0 ; i != cmplx->elemen()[dim].size() ; ++i )
             {
                 out << *cmplx->elemen()[dim][i] << endl;

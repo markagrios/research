@@ -242,12 +242,12 @@ print("--- %s seconds ---" % (TIME.time() - start_time))
 
 G = make_NX_graph(matrix)
 
-qwe = array(nx.to_numpy_matrix(G))
-adj_matrix = np.zeros((N,N), dtype=int)
-for i in range(0,N):
-    for j in range(0,N):
-        adj_matrix[i][j] = int(qwe[i][j])
-
+# qwe = array(nx.to_numpy_matrix(G))
+# adj_matrix = np.zeros((N,N), dtype=int)
+# for i in range(0,N):
+#     for j in range(0,N):
+#         adj_matrix[i][j] = int(qwe[i][j])
+#
 # print(adj_matrix)
 
 plt.show(block=False)
