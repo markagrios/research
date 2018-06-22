@@ -7,6 +7,14 @@ import csv
 import time as TIME
 import matplotlib.pyplot as plt
 import sys
+from random import randint
+
+
+def longest(l):
+    if(not isinstance(l, list)): return(0)
+    return(max([len(l),] + [len(subl) for subl in l if isinstance(subl, list)] + [longest(subl) for subl in l]))
+
+################################################################################
 
 
 matrix = sys.argv[1] + ".csv"
@@ -28,7 +36,24 @@ def connect_from_Matrix(nxgraph,matrix):
 G = nx.DiGraph()
 G = connect_from_Matrix(G,matrix)
 
-H = G.subgraph(range(50,70))
+
+num = randint(0,257)
+# num = 36
+H = G.subgraph(range(num,num+20))
+print(num,num+20)
+# print(nx.is_connected(H.to_undirected()))
+# print(nx.number_connected_components(H.to_undirected()))
+
+cc = nx.connected_components(H.to_undirected())
+cc = list(cc)
+maxcc = list(max(cc, key=len))
+print(len(maxcc))
+
+H = G.subgraph(maxcc)
+
+
+print("---")
+
 
 N = H.number_of_nodes()
 print(N)
@@ -40,8 +65,6 @@ for i in range(0,N):
         adj_matrix[i][j] = int(qwe[i][j])
 
 print(adj_matrix)
-np.savetxt(matrix[:-4]+"-subgraph.csv", adj_matrix, delimiter=",", fmt='%s')
-
 
 nx.draw_kamada_kawai(H, with_labels=True, font_weight='bold')
 # nx.draw_shell(H, with_labels=True, font_weight='bold')
@@ -51,6 +74,7 @@ savesim = raw_input("save graph? ")
 if(savesim == 'y'):
     simname = raw_input("network name: ")
     if(simname == ''):
-        simname = matrix[:-4]+"-subgraph"
+        simname = matrix[:-4]+"-subgraph" + str(num)
     # plt.savefig('../networks/' + simname + '.png')
     plt.savefig(simname + '.png')
+    np.savetxt(matrix[:-4]+"-subgraph" + str(num) + ".csv", adj_matrix, delimiter=",", fmt='%s')

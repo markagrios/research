@@ -161,6 +161,7 @@ setattr(G,'z',[1.7+(_*0.1) for _ in range(N)])            # for slightly differe
 
 start_time = TIME.time()
 
+print("--- running simulation ----")
 run(duration)                # http://brian2.readthedocs.io/en/stable/reference/brian2.monitors.statemonitor.StateMonitor.html
 
 ######################## PLOTTING ##############################################
@@ -182,7 +183,9 @@ for i in range(0,N):
     plot(M.t/ms, getattr(M,'z')[i])
 
 
-print("---")
+sys.stdout.write('\x1b[1A')
+sys.stdout.write('\x1b[2K')                 # gets rid of some error that ruins my A E S T H E T I C
+print("--- measuring synchrony ---")
 
 num_timesteps = int(str(duration).split(".")[0]) * 100000
 simMinlist = []
@@ -222,12 +225,6 @@ for i in range(1,len(h)):
 averagesync = sum(dhdt)/len(dhdt)
 print("Synchronization value: " + str(averagesync))
 title += str('%.4f'%(averagesync))
-
-# zlast = []
-# print("z last time steps:")
-# for i in range(N):
-#     zlast.append(float(M[i].z[-1]))
-#     # print("    " + str(M[i].z[-1]))
 
 simulation.add_subplot(3,1,3)
 simulation.suptitle(title)
