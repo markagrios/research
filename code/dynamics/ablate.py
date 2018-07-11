@@ -74,6 +74,7 @@ def list_to_csv(data):
             writer.writerow(line)
 
 
+
 #******************** |ACTUAL CODE PART| ***************************************
 
 
@@ -85,7 +86,7 @@ matrix = sys.argv[1] + ".csv"
 
 N = N_from_Matrix(matrix)                   # number of neurons in network
 N_syn = count_connections(matrix)           # number of synapses
-duration = 1000*ms                          # how long simulations runs
+duration = 2000*ms                          # how long simulations runs
 
 tau_param = {'tau': 1*ms}
 
@@ -116,6 +117,15 @@ coupling_model = '''
 G = NeuronGroup(N, model=HR_neuron, method='rk4', namespace=tau_param, dt=0.01*ms)
 S = Synapses(G, G, model=coupling_model) # Synapses can also have a dt argument....?
 
+ablate = raw_input("synapse to ablate (numbers separated by a hyphen): ")
+if(ablate != ""):
+    presyn = ablate.split("-")[0]
+    postsyn = ablate.split("-")[1]
+    print(presyn,postsyn)
+else:
+    presyn = -1
+    postsyn = -1
+
 connect_from_Matrix(matrix)
 
 M = StateMonitor(G, ['x', 'y', 'z'], record=True)
@@ -143,47 +153,37 @@ perturb = np.random.normal(0,1, (3,N))
 for i in range(len(init_cond.items())):
     sv_inits.append(float(init_cond.items()[i][1]))
 
-# print("State variable initial values (x,y,z):")
-# print(sv_inits)
-# print("Perturbation values:")
-# print(perturb)
-# print("---")
-# # for normal distribution init cond
-# for i in range(3):
-#     setattr(G,sv_list[i],[init_cond[sv_list[i]] + (perturb[i][_]) for _ in range(N)])
+if(sys.argv[2] != 'cont'):
+    # print("State variable initial values (x,y,z):")
+    # print(sv_inits)
+    # print("Perturbation values:")
+    # print(perturb)
+    # print("---")
+    # # for normal distribution init cond
+    # for i in range(3):
+    #     setattr(G,sv_list[i],[init_cond[sv_list[i]] + (perturb[i][_]) for _ in range(N)])
 
-# uncomment this for loop for the other two init cond regimes
-for ic,value in init_cond.items():
-    setattr(G,ic,[value for _ in range(N)])
+    # uncomment this for loop for the other two init cond regimes
+    for ic,value in init_cond.items():
+        setattr(G,ic,[value for _ in range(N)])
 
-setattr(G,'z',[1.7+(_*0.1) for _ in range(N)])            # for slightly different init cond
-# setattr(G,'z',[1.7 for _ in range(N)])                  # for uniform init cond
+    setattr(G,'z',[1.7+(_*0.1) for _ in range(N)])            # for slightly different init cond
+    # setattr(G,'z',[1.7 for _ in range(N)])                  # for uniform init cond
+else:
+    with open("storeddata/" + "lastvals.csv") as csvfile:
+        readCSV = csv.reader(csvfile, delimiter=',')
+        continits = list(readCSV)
+        # print(continits)
+
+    setattr(G,'x',[float(continits[0][_]) for _ in range(N)])
+    setattr(G,'y',[float(continits[1][_]) for _ in range(N)])
+    setattr(G,'z',[float(continits[2][_]) for _ in range(N)])
+
 
 start_time = TIME.time()
 
 print("--- running simulation ----")
 run(duration)                # http://brian2.readthedocs.io/en/stable/reference/brian2.monitors.statemonitor.StateMonitor.html
-
-######################## PLOTTING ##############################################
-
-simulation = plt.figure(figsize=(17,10))
-title = matrix[:-4] + " | " + str(duration) + " | "
-simulation.subplots_adjust(wspace=0.1,hspace=0.25)
-simulation.add_subplot(3,1,1)
-for i in range(0,N):
-    plt.ylabel("x")
-    plt.xlabel("t")
-    plot(M.t/ms, M.x[i])
-
-simulation.add_subplot(3,1,2)
-for i in range(0,N):
-    plt.ylabel('z')
-    plt.xlabel("t")
-    plot(M.t/ms, getattr(M,'z')[i])
-
-
-sys.stdout.write('\x1b[1A')
-sys.stdout.write('\x1b[2K')                 # gets rid of some error that ruins my A E S T H E T I C
 
 
 xlast = []
@@ -194,20 +194,76 @@ for i in range(N):
         ylast.append(M.y[i][-1])
         zlast.append(M.z[i][-1])
 
-print(xlast)
-print(ylast)
-print(zlast)
+lastvals = [xlast,ylast,zlast]
 
-setattr(G,'x',[xlast[_] for _ in range(N)])
-setattr(G,'y',[ylast[_] for _ in range(N)])
-setattr(G,'z',[zlast[_] for _ in range(N)])
+np.savetxt("storeddata/" + "lastvals.csv", lastvals, delimiter=",", fmt='%s')
 
-S.connect(condition='p=0.9')
-run(duration)
+if(sys.argv[2] != "cont"):
+    np.savetxt("storeddata/" + matrix[:-4] + "-X" + ".csv", M.x, delimiter=",", fmt="%s")
+    np.savetxt("storeddata/" + matrix[:-4] + "-Y" + ".csv", M.y, delimiter=",", fmt="%s")
+    np.savetxt("storeddata/" + matrix[:-4] + "-Z" + ".csv", M.z, delimiter=",", fmt="%s")
+
+if(sys.argv[2] == 'cont'):
+    for i in range(len(M.x)):
+        with open(r"storeddata/" + matrix[:-4] + "-X" + ".csv", 'a') as f:
+            writer = csv.writer(f)
+            writer.writecolumn(M.x[0][i])
+
+        with open(r"storeddata/" + matrix[:-4] + "-Y" + ".csv", 'a') as f:
+            writer = csv.writer(f)
+            writer.writecolumn(M.y[0][i])
+
+        with open(r"storeddata/" + matrix[:-4] + "-Z" + ".csv", 'a') as f:
+            writer = csv.writer(f)
+            writer.writecolumn(M.z[0][i])
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+######################## PLOTTING ##############################################
+
+
+#
+# simulation = plt.figure(figsize=(17,10))
+# title = matrix[:-4] + " | " + str(duration) + " | "
+# simulation.subplots_adjust(wspace=0.1,hspace=0.25)
+# simulation.add_subplot(3,1,1)
+# for i in range(0,N):
+#     plt.ylabel("x")
+#     plt.xlabel("t")
+#     plot(M.t/ms, M.x[i])
+#
+# simulation.add_subplot(3,1,2)
+# for i in range(0,N):
+#     plt.ylabel('z')
+#     plt.xlabel("t")
+#     plt.ylim(1.8,3.1)
+#     plot(M.t/ms, getattr(M,'z')[i])
+#
+#
+# sys.stdout.write('\x1b[1A')
+# sys.stdout.write('\x1b[2K')                 # gets rid of some error that ruins my A E S T H E T I C
 # print("--- measuring synchrony ---")
 #
 # num_timesteps = int(str(duration).split(".")[0]) * 100000
@@ -240,7 +296,7 @@ run(duration)
 #     phasic[i] = abs(phasic[i])/N
 #
 #
-# h = phasic[len(phasic)/2:]
+# h = phasic[len(phasic)/3:]
 # dhdt = []
 # for i in range(1,len(h)):
 #     dhdt.append(abs(h[i] - h[i-1]) * 1000)
@@ -256,41 +312,39 @@ run(duration)
 # plt.ylim(ymin = 0, ymax = 1.1)
 # plt.ylabel("synchronization")
 # plt.xlabel("timestep")
-
-print("   ")
-print("--- %s seconds ---" % (TIME.time() - start_time))
-
-###############################################################################
-
-G = make_NX_graph(matrix)
-
-# qwe = array(nx.to_numpy_matrix(G))
-# adj_matrix = np.zeros((N,N), dtype=int)
-# for i in range(0,N):
-#     for j in range(0,N):
-#         adj_matrix[i][j] = int(qwe[i][j])
 #
-# print(adj_matrix)
-
-plt.show(block=False)
-
-savesim = raw_input("save simulation? ")
-if(savesim == 'y'):
-    simname = raw_input("Simulation name: ")
-    if(simname == ''):
-        simname = matrix[:-4]
-    plt.savefig('../simulation_files/XZsync/' + simname + '.png')
-
-# wut...
-
-showgraph = plt.figure()
-# nx.draw_kamada_kawai(G, with_labels=True, font_weight='bold')
-nx.draw_shell(G, with_labels=True, font_weight='bold')
-plt.show(block=False)
-
-savesim = raw_input("save graph? ")
-if(savesim == 'y'):
-    simname = raw_input("network name: ")
-    if(simname == ''):
-        simname = matrix[:-4]
-    plt.savefig('../networks/' + simname + '.png')
+# print("   ")
+# print("--- %s seconds ---" % (TIME.time() - start_time))
+#
+# G = make_NX_graph(matrix)
+#
+# # qwe = array(nx.to_numpy_matrix(G))
+# # adj_matrix = np.zeros((N,N), dtype=int)
+# # for i in range(0,N):
+# #     for j in range(0,N):
+# #         adj_matrix[i][j] = int(qwe[i][j])
+# #
+# # print(adj_matrix)
+#
+# plt.show(block=False)
+#
+# savesim = raw_input("save simulation? ")
+# if(savesim == 'y'):
+#     simname = raw_input("Simulation name: ")
+#     if(simname == ''):
+#         simname = matrix[:-4]
+#     plt.savefig('../simulation_files/XZsync/' + simname + '.png')
+#
+# # wut...
+#
+# showgraph = plt.figure()
+# # nx.draw_kamada_kawai(G, with_labels=True, font_weight='bold')
+# nx.draw_shell(G, with_labels=True, font_weight='bold')
+# plt.show(block=False)
+#
+# savesim = raw_input("save graph? ")
+# if(savesim == 'y'):
+#     simname = raw_input("network name: ")
+#     if(simname == ''):
+#         simname = matrix[:-4]
+#     plt.savefig('../networks/' + simname + '.png')
