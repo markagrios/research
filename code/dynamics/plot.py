@@ -7,37 +7,32 @@ import csv
 import time as TIME
 import matplotlib.pyplot as plt
 import sys
-
+import cPickle as pickle
 
 sim = sys.argv[1]
 
-with open("storeddata/" + sim + "-X.csv") as csvfile:
-    readCSV = csv.reader(csvfile, delimiter=',')
-    a = list(readCSV)
+# with open("storeddata/" + sim + "-X.csv") as csvfile:
+#     readCSV = csv.reader(csvfile, delimiter=',')
+#     a = list(readCSV)
+
+X = pickle.load(open("storeddata/" + sim + "-X.p","rb"))
+Y = pickle.load(open("storeddata/" + sim + "-Y.p","rb"))
+Z = pickle.load(open("storeddata/" + sim + "-Z.p","rb"))
+
+for i in range(len(X)):
+    plt.plot(X[i])
+
+plt.show()
 
 
-v = []
-for i in range(len(a)):
-    for j in range(len(a[0])):
-        v.append(float(a[i][j]))
-        a[i][j] = float(a[i][j])
-
-
-# plt.plot(a[0])
-# plt.xlabel('x')
-# plt.ylabel('t')
-# plt.show()
-# print("done.")
-
-
-simulation = plt.figure(figsize=(17,10))
-title = matrix
-simulation.subplots_adjust(wspace=0.1,hspace=0.25)
-simulation.add_subplot(3,1,1)
-for i in range(0,len(a)):
-    plt.ylabel("x")
-    plt.xlabel("t")
-    plt.plot(a[i])
+# simulation = plt.figure(figsize=(17,10))
+# title = matrix
+# simulation.subplots_adjust(wspace=0.1,hspace=0.25)
+# simulation.add_subplot(3,1,1)
+# for i in range(0,len(X)):
+#     plt.ylabel("x")
+#     plt.xlabel("t")
+#     plt.plot(X)
 
 # simulation.add_subplot(3,1,2)
 # for i in range(0,N):

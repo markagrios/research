@@ -7,6 +7,7 @@ import csv
 import time as TIME
 import matplotlib.pyplot as plt
 import sys
+import cPickle as pickle
 
 # example run:
 # > python persistence.py 6weird x
@@ -19,6 +20,8 @@ def connect_from_Matrix(matrix):
     with open("../connection_matrices/"+matrix) as csvfile:
         readCSV = csv.reader(csvfile, delimiter=',')
         a = list(readCSV)
+
+    a[presyn][postsyn] = "0"
 
     for ri in range(len(a[0])):
         for ci in range(len(a[0])):
@@ -57,6 +60,8 @@ def count_connections(matrix):
         readCSV = csv.reader(csvfile, delimiter=',')
         a = list(readCSV)
 
+    a[presyn][postsyn] = "0"
+
     for ri in range(len(a[0])):
         for ci in range(len(a[0])):
             if(a[ri][ci] != "0"):
@@ -83,6 +88,15 @@ def list_to_csv(data):
 start_scope()
 
 matrix = sys.argv[1] + ".csv"
+
+ablate = raw_input("synapse to ablate (numbers separated by a hyphen): ")
+if(ablate != ""):
+    presyn = int(ablate.split("-")[0])
+    postsyn = int(ablate.split("-")[1])
+    print(presyn,postsyn)
+else:
+    presyn = 0
+    postsyn = 0
 
 N = N_from_Matrix(matrix)                   # number of neurons in network
 N_syn = count_connections(matrix)           # number of synapses
@@ -116,15 +130,6 @@ coupling_model = '''
 
 G = NeuronGroup(N, model=HR_neuron, method='rk4', namespace=tau_param, dt=0.01*ms)
 S = Synapses(G, G, model=coupling_model) # Synapses can also have a dt argument....?
-
-ablate = raw_input("synapse to ablate (numbers separated by a hyphen): ")
-if(ablate != ""):
-    presyn = ablate.split("-")[0]
-    postsyn = ablate.split("-")[1]
-    print(presyn,postsyn)
-else:
-    presyn = -1
-    postsyn = -1
 
 connect_from_Matrix(matrix)
 
@@ -185,6 +190,7 @@ start_time = TIME.time()
 print("--- running simulation ----")
 run(duration)                # http://brian2.readthedocs.io/en/stable/reference/brian2.monitors.statemonitor.StateMonitor.html
 
+num_timesteps = len(M.x[0])
 
 xlast = []
 ylast = []
@@ -198,32 +204,21 @@ lastvals = [xlast,ylast,zlast]
 
 np.savetxt("storeddata/" + "lastvals.csv", lastvals, delimiter=",", fmt='%s')
 
+names = ["storeddata/" + matrix[:-4] + "-X", "storeddata/" + matrix[:-4] + "-Y", "storeddata/" + matrix[:-4] + "-Z"]
+
 if(sys.argv[2] != "cont"):
-    np.savetxt("storeddata/" + matrix[:-4] + "-X" + ".csv", M.x, delimiter=",", fmt="%s")
-    np.savetxt("storeddata/" + matrix[:-4] + "-Y" + ".csv", M.y, delimiter=",", fmt="%s")
-    np.savetxt("storeddata/" + matrix[:-4] + "-Z" + ".csv", M.z, delimiter=",", fmt="%s")
+    for i in range(3):
+        pickle.dump(M.x, open(names[i] + ".p", "wb"))
+
 
 if(sys.argv[2] == 'cont'):
-    for i in range(len(M.x)):
-        with open(r"storeddata/" + matrix[:-4] + "-X" + ".csv", 'a') as f:
-            writer = csv.writer(f)
-            writer.writecolumn(M.x[0][i])
-
-        with open(r"storeddata/" + matrix[:-4] + "-Y" + ".csv", 'a') as f:
-            writer = csv.writer(f)
-            writer.writecolumn(M.y[0][i])
-
-        with open(r"storeddata/" + matrix[:-4] + "-Z" + ".csv", 'a') as f:
-            writer = csv.writer(f)
-            writer.writecolumn(M.z[0][i])
-
-
-
-
-
-
-
-
+    for k in range(3):
+        Q = pickle.load(open(names[k] + ".p","rb"))
+        W = []
+        for i in range(len(Q)):
+            # W.append(np.append(Q[i],M.x[i]))
+            W.append(np.append(Q[i], getattr(M,sv_list[k])[i] ))
+        pickle.dump(W, open(names[k] + ".p", "wb"))
 
 
 
