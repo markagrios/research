@@ -21,7 +21,8 @@ def connect_from_Matrix(matrix):
         readCSV = csv.reader(csvfile, delimiter=',')
         a = list(readCSV)
 
-    a[presyn][postsyn] = "0"
+    for i in range(len(ablate)):
+        a[ablate[i][0]][ablate[i][1]] = "0"
 
     for ri in range(len(a[0])):
         for ci in range(len(a[0])):
@@ -60,7 +61,8 @@ def count_connections(matrix):
         readCSV = csv.reader(csvfile, delimiter=',')
         a = list(readCSV)
 
-    a[presyn][postsyn] = "0"
+    for i in range(len(ablate)):
+        a[ablate[i][0]][ablate[i][1]] = "0"
 
     for ri in range(len(a[0])):
         for ci in range(len(a[0])):
@@ -89,18 +91,23 @@ start_scope()
 
 matrix = sys.argv[1] + ".csv"
 
-ablate = raw_input("synapse to ablate (numbers separated by a hyphen): ")
+ablate = raw_input("synapse to ablate (ex: 0-2,3-4): ")
 if(ablate != ""):
-    presyn = int(ablate.split("-")[0])
-    postsyn = int(ablate.split("-")[1])
-    print(presyn,postsyn)
+
+    ablate = ablate.split(",")
+    for i in range(len(ablate)):
+        ablate[i] = ablate[i].split("-")
+
+    for i in range(len(ablate)):
+        for j in range(len(ablate[i])):
+            ablate[i][j] = int(ablate[i][j])
+
 else:
-    presyn = 0
-    postsyn = 0
+    ablate = [[0,0]]
 
 N = N_from_Matrix(matrix)                   # number of neurons in network
 N_syn = count_connections(matrix)           # number of synapses
-duration = 2000*ms                          # how long simulations runs
+duration = 1500*ms                          # how long simulations runs
 
 tau_param = {'tau': 1*ms}
 
@@ -191,6 +198,7 @@ print("--- running simulation ----")
 run(duration)                # http://brian2.readthedocs.io/en/stable/reference/brian2.monitors.statemonitor.StateMonitor.html
 
 num_timesteps = len(M.x[0])
+pickle.dump(num_timesteps, open("storeddata/singlerun.p","wb"))
 
 xlast = []
 ylast = []
@@ -208,7 +216,7 @@ names = ["storeddata/" + matrix[:-4] + "-X", "storeddata/" + matrix[:-4] + "-Y",
 
 if(sys.argv[2] != "cont"):
     for i in range(3):
-        pickle.dump(M.x, open(names[i] + ".p", "wb"))
+        pickle.dump(getattr(M,sv_list[i]), open(names[i] + ".p", "wb"))
 
 
 if(sys.argv[2] == 'cont'):
