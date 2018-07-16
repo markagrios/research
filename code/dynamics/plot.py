@@ -155,7 +155,8 @@ if(savesim == 'y'):
     simname = raw_input("Simulation name: ")
     if(simname == ''):
         simname = sim
-    plt.savefig('../simulation_files/XZsync/' + simname + '.png')
+        ablation_list = pickle.load(open("storeddata/ablation_list.p","rb"))
+    plt.savefig('../simulation_files/ablation/' + simname + "_" + ablation_list + '.png')
 
 # wut...
 

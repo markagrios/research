@@ -93,6 +93,7 @@ matrix = sys.argv[1] + ".csv"
 
 ablate = raw_input("synapse to ablate (ex: 0-2,3-4): ")
 if(ablate != ""):
+    pickle.dump(ablate, open("storeddata/ablation_list.p","wb"))
 
     ablate = ablate.split(",")
     for i in range(len(ablate)):
@@ -107,7 +108,7 @@ else:
 
 N = N_from_Matrix(matrix)                   # number of neurons in network
 N_syn = count_connections(matrix)           # number of synapses
-duration = 1500*ms                          # how long simulations runs
+duration = 2000*ms                          # how long simulations runs
 
 tau_param = {'tau': 1*ms}
 
