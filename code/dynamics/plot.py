@@ -92,8 +92,9 @@ for section in range(len(sections)):
     # print(scaleToInterval(0,simMin,simMax))
 
 runningsync = []
-phivals = []
-for section in range(len(sections)):
+phivals = [-1]
+avgsync = [-1]
+for section in range(1,len(sections)):
     scaledM = []
 
     for i in range(0,N):
@@ -117,8 +118,11 @@ for section in range(len(sections)):
     for i in range(1,len(phasic)):
         dhdt.append(abs(phasic[i] - phasic[i-1]) * 1000)
 
-    averagesync = sum(dhdt)/len(dhdt)
-    phivals.append(averagesync)
+    totalvar = sum(dhdt)/len(dhdt)
+    # totalvar = sum(dhdt)                    # this is actual total variation, without the averaging
+    phivals.append(totalvar)
+
+    avgsync.append(sum(phasic)/len(phasic))
 
 
 print(phivals)
@@ -148,6 +152,34 @@ plt.xlabel("timestep")
 #
 # print(adj_matrix)
 
+
+ablation_list = pickle.load(open("storeddata/ablation_list.p","rb"))
+
+plt.show(block=False)
+
+savesim = raw_input("save simulation? ")
+if(savesim == 'y'):
+    simname = raw_input("Simulation name: ")
+    if(simname == ''):
+        simname = sim
+    plt.savefig('../simulation_files/ablation/' + simname + "_" + ablation_list + '.png')
+
+
+print(phivals)
+print(avgsync)
+
+phivals = phivals[1:]
+avgsync = avgsync[1:]
+
+np.savetxt("../simulation_files/ablation/R2plots/" + sim + "_syncvals" + ".csv", (phivals,avgsync), delimiter=",", fmt='%s')
+
+plt.scatter(phivals,avgsync)
+plt.ylabel("average sync value")
+plt.xlabel("average total variation")
+
+for i in range(len(phivals)):
+    plt.annotate(i, (phivals[i],avgsync[i]))
+
 plt.show(block=False)
 
 savesim = raw_input("save simulation? ")
@@ -156,18 +188,4 @@ if(savesim == 'y'):
     if(simname == ''):
         simname = sim
         ablation_list = pickle.load(open("storeddata/ablation_list.p","rb"))
-    plt.savefig('../simulation_files/ablation/' + simname + "_" + ablation_list + '.png')
-
-# wut...
-
-# showgraph = plt.figure()
-# # nx.draw_kamada_kawai(G, with_labels=True, font_weight='bold')
-# nx.draw_shell(G, with_labels=True, font_weight='bold')
-# plt.show(block=False)
-#
-# savesim = raw_input("save graph? ")
-# if(savesim == 'y'):
-#     simname = raw_input("network name: ")
-#     if(simname == ''):
-#         simname = sim
-#     plt.savefig('../networks/' + simname + '.png')
+    plt.savefig('../simulation_files/ablation/R2plots/' + simname + "_" + ablation_list + '.png')
