@@ -91,7 +91,8 @@ start_scope()
 
 matrix = sys.argv[1] + ".csv"
 
-ablate = raw_input("synapse to ablate (ex: 0-2,3-4): ")
+# ablate = raw_input("synapse to ablate (ex: 0-2,3-4): ")
+ablate = sys.argv[3]
 if(ablate != ""):
     pickle.dump(ablate, open("storeddata/ablation_list.p","wb"))
 

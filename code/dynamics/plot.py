@@ -174,6 +174,8 @@ avgsync = avgsync[1:]
 np.savetxt("../simulation_files/ablation/R2plots/" + sim + "_syncvals" + ".csv", (phivals,avgsync), delimiter=",", fmt='%s')
 
 plt.scatter(phivals,avgsync)
+plt.ylim(ymin = 0, ymax = 1.1)
+plt.xlim(xmin = 0, xmax = 1.1)
 plt.ylabel("average sync value")
 plt.xlabel("average total variation")
 
