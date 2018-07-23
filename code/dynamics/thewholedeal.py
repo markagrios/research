@@ -2,6 +2,7 @@ import os
 import sys
 import random
 import numpy as np
+import cPickle as pickle
 
 def sublist(lst1, lst2):
     one = lst1
@@ -62,6 +63,10 @@ def generate_ablation_list(syn_list, simp_list):
     for i in range(len(ablations_index)):
         ablations.append(syn_list[ablations_index[i]])
 
+    # for i in range(len(ablations)):
+    #     for j in range(len(ablations[i])):
+    #         ablations[i][j] = str(int(ablations[i][j]) - 1)
+
     change_hom = []
     alist = []
 
@@ -69,7 +74,13 @@ def generate_ablation_list(syn_list, simp_list):
         alist.append("-".join(ablations[i]))
         change_hom.append(check_homology(ablations[i], simp_list))
 
-    # alist = ",".join(alist)
+    for i in range(len(alist)):
+        syn = alist[i].split("-")
+        neu1 = int(syn[0])-1
+        neu2 = int(syn[1])-1
+        newsyn = [str(neu1),str(neu2)]
+        alist[i] = "-".join(newsyn)
+
     return(alist,change_hom)
 
 def multiindex(element, lst):
@@ -105,6 +116,8 @@ AH = generate_ablation_list(SYNS,SIMPS)
 ablation_list = AH[0]
 H = AH[1]
 
+pickle.dump(H, open("storeddata/homo.p","wb"))
+
 print(ablation_list)
 print(H)
 
@@ -115,9 +128,9 @@ if(qcontinue == "y"):
     os.system(command + " q 0-0")           # just to stabilize the network
     os.system(command + " cont 0-0")        # just to run it once
 
-    for i in range(1,len(ablation_list)):
-        argpassed = "python ablate.py " + network + " cont " + ",".join(ablation_list[:i])
-        # print(argpassed)
+    for i in range(len(ablation_list)):
+        argpassed = "python ablate.py " + network + " cont " + ",".join(ablation_list[:i+1])
+        print("Now ablating synapse: " + ablation_list[i])
         os.system(argpassed)
 
 

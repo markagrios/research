@@ -49,8 +49,13 @@ for i in range(0,N):
     plt.xlabel("t")
     plt.plot(X[i])
 
-for i in range(1,duration/singlerun):
-    plt.axvline(x=i*singlerun, color='k', linestyle='--')
+homo = pickle.load(open("storeddata/homo.p","rb"))
+print(duration/singlerun)
+for i in range(2,duration/singlerun):
+    if(homo[i-2] == False):
+        plt.axvline(x=(i)*singlerun, color='k', linestyle='--')
+    if(homo[i-2] == True):
+        plt.axvline(x=(i)*singlerun, color='r', linestyle='--')
 
 simulation.add_subplot(3,1,2)
 for i in range(0,N):
@@ -58,8 +63,11 @@ for i in range(0,N):
     plt.xlabel("t")
     plt.plot(Z[i])
 
-for i in range(1,duration/singlerun):
-    plt.axvline(x=i*singlerun, color='k', linestyle='--')
+for i in range(2,duration/singlerun):
+    if(homo[i-2] == False):
+        plt.axvline(x=(i)*singlerun, color='k', linestyle='--')
+    if(homo[i-2] == True):
+        plt.axvline(x=(i)*singlerun, color='r', linestyle='--')
 
 
 sys.stdout.write('\x1b[1A')
