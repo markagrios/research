@@ -50,7 +50,7 @@ for i in range(0,N):
     plt.plot(X[i])
 
 homo = pickle.load(open("storeddata/homo.p","rb"))
-print(duration/singlerun)
+# print(duration/singlerun)
 for i in range(2,duration/singlerun):
     if(homo[i-2] == False):
         plt.axvline(x=(i)*singlerun, color='k', linestyle='--')
@@ -126,8 +126,8 @@ for section in range(1,len(sections)):
     for i in range(1,len(phasic)):
         dhdt.append(abs(phasic[i] - phasic[i-1]) * 1000)
 
-    totalvar = sum(dhdt)/len(dhdt)
-    # totalvar = sum(dhdt)                    # this is actual total variation, without the averaging
+    # totalvar = sum(dhdt)/len(dhdt)
+    totalvar = sum(dhdt)                    # this is actual total variation, without the averaging
     phivals.append(totalvar)
 
     avgsync.append(sum(phasic)/len(phasic))
@@ -182,8 +182,8 @@ avgsync = avgsync[1:]
 np.savetxt("../simulation_files/ablation/R2plots/" + sim + "_syncvals" + ".csv", (phivals,avgsync), delimiter=",", fmt='%s')
 
 plt.scatter(phivals,avgsync)
-plt.ylim(ymin = 0, ymax = 1.1)
-plt.xlim(xmin = 0, xmax = 1.1)
+# plt.ylim(ymin = 0, ymax = 1.1)
+# plt.xlim(xmin = 0, xmax = 1.1)
 plt.ylabel("average sync value")
 plt.xlabel("average total variation")
 

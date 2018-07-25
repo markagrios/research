@@ -96,32 +96,25 @@ def multiindex(element, lst):
 network = sys.argv[1]
 numabl = sys.argv[2]
 
-# ablation_list = sys.argv[2]
-# ablation_list = ablation_list.split(",")
+if(len(numabl) > 2):
+    ablation_list = sys.argv[2]
+    ablation_list = ablation_list.split(",")
+    print(ablation_list)
+else:
+    SYNS = getsimps(network)[0]
+    SIMPS = getsimps(network)[1]
+
+    AH = generate_ablation_list(SYNS,SIMPS)
+    ablation_list = AH[0]
+    H = AH[1]
+    pickle.dump(H, open("storeddata/homo.p","wb"))
+    print(ablation_list)
+    print(H)
+    print(multiindex(True,H))
 
 command = "python ablate.py " + network
 
-# a = getsimps(network)[0]
-# b = getsimps(network)[1]
-SYNS = getsimps(network)[0]
-SIMPS = getsimps(network)[1]
-
-# print(SYNS)
-# print("   ")
-# print(SIMPS)
-
 print("---")
-
-AH = generate_ablation_list(SYNS,SIMPS)
-ablation_list = AH[0]
-H = AH[1]
-
-pickle.dump(H, open("storeddata/homo.p","wb"))
-
-print(ablation_list)
-print(H)
-
-print(multiindex(True,H))
 
 qcontinue = raw_input("continue with this ablation sequence? ")
 if(qcontinue == "y"):
