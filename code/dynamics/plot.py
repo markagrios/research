@@ -28,6 +28,9 @@ def make_NX_graph(matrix):
 def scaleToInterval(x,domainMin,domainMax):     # given an interval and value in the interval it scales it to be between 0 and 2pi
     return(((x - domainMin)/(domainMax - domainMin))*cmath.pi)
 
+def normalizetan(x):
+    return(np.tan(x - 0.5) * math.pi)
+
 ###################### Actual Code part #######################################
 
 sim = sys.argv[1]
@@ -130,6 +133,7 @@ for section in range(1,len(sections)):
     totalvar = sum(dhdt)                    # this is actual total variation, without the averaging
     phivals.append(totalvar)
 
+
     avgsync.append(sum(phasic)/len(phasic))
 
 
@@ -172,6 +176,7 @@ if(savesim == 'y'):
         simname = sim
     plt.savefig('../simulation_files/ablation/' + simname + "_" + ablation_list + '.png')
 
+plt.close()
 
 print(phivals)
 print(avgsync)
@@ -184,8 +189,8 @@ np.savetxt("../simulation_files/ablation/R2plots/" + sim + "_syncvals" + ".csv",
 plt.scatter(phivals,avgsync)
 # plt.ylim(ymin = 0, ymax = 1.1)
 # plt.xlim(xmin = 0, xmax = 1.1)
+plt.xlabel("total variation")
 plt.ylabel("average sync value")
-plt.xlabel("average total variation")
 
 for i in range(len(phivals)):
     plt.annotate(i, (phivals[i],avgsync[i]))
