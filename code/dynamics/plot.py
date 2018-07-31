@@ -36,7 +36,7 @@ def normalizetan(x):
 sim = sys.argv[1]
 
 X = pickle.load(open("storeddata/" + sim + "-X.p","rb"))
-Y = pickle.load(open("storeddata/" + sim + "-Y.p","rb"))
+# Y = pickle.load(open("storeddata/" + sim + "-Y.p","rb"))
 Z = pickle.load(open("storeddata/" + sim + "-Z.p","rb"))
 
 duration = len(X[0])
@@ -57,8 +57,10 @@ homo = pickle.load(open("storeddata/homo.p","rb"))
 for i in range(2,duration/singlerun):
     if(homo[i-2] == False):
         plt.axvline(x=(i)*singlerun, color='k', linestyle='--')
-    if(homo[i-2] == True):
+    elif(homo[i-2] == True):
         plt.axvline(x=(i)*singlerun, color='r', linestyle='--')
+    else:
+        plt.axvline(x=(i)*singlerun, color='b', linestyle='--')
 
 simulation.add_subplot(3,1,2)
 for i in range(0,N):
@@ -69,8 +71,11 @@ for i in range(0,N):
 for i in range(2,duration/singlerun):
     if(homo[i-2] == False):
         plt.axvline(x=(i)*singlerun, color='k', linestyle='--')
-    if(homo[i-2] == True):
+    elif(homo[i-2] == True):
         plt.axvline(x=(i)*singlerun, color='r', linestyle='--')
+    else:
+        plt.axvline(x=(i)*singlerun, color='b', linestyle='--')
+
 
 
 sys.stdout.write('\x1b[1A')
@@ -105,7 +110,7 @@ for section in range(len(sections)):
 runningsync = []
 phivals = [-1]
 avgsync = [-1]
-for section in range(1,len(sections)):
+for section in range(0,len(sections)):
     scaledM = []
 
     for i in range(0,N):
@@ -121,6 +126,7 @@ for section in range(1,len(sections)):
         for j in range(0,N):
              phasic[i] += cmath.exp(complex(scaledM[j][i],0)*complex(0,1))
 
+        # phasic[i] = normalizetan(abs(phasic[i])/N)
         phasic[i] = abs(phasic[i])/N
 
     runningsync = np.append(runningsync,phasic)
@@ -167,6 +173,8 @@ plt.xlabel("timestep")
 
 ablation_list = pickle.load(open("storeddata/ablation_list.p","rb"))
 
+# print(len(X[0]),len(runningsync))
+
 plt.show(block=False)
 
 savesim = raw_input("save simulation? ")
@@ -181,8 +189,8 @@ plt.close()
 print(phivals)
 print(avgsync)
 
-phivals = phivals[1:]
-avgsync = avgsync[1:]
+phivals = phivals[2:]
+avgsync = avgsync[2:]
 
 np.savetxt("../simulation_files/ablation/R2plots/" + sim + "_syncvals" + ".csv", (phivals,avgsync), delimiter=",", fmt='%s')
 
