@@ -109,7 +109,7 @@ else:
 
 N = N_from_Matrix(matrix)                   # number of neurons in network
 N_syn = count_connections(matrix)           # number of synapses
-duration = 3000*ms                          # how long simulations runs
+duration = 500*ms                          # how long simulations runs
 
 tau_param = {'tau': 1*ms}
 
@@ -147,7 +147,7 @@ M = StateMonitor(G, ['x', 'y', 'z'], record=True)
 ix = -0.5*(1+sqrt(5))
 init_cond = {'x': ix, 'y': 1-5*ix*ix, 'z': 1.7}
 neuron_pars = {'a': 1, 'b': 3.3, 'I': 2, 'c': 1, 'd': 5, 'r': 0.001, 's': 4, 'xR': -0.5*(1+sqrt(5))}
-coupling_pars = {'Vo': 2, 'lam': 10, 'thet': -0.6, 'g': 0.1}
+coupling_pars = {'Vo': 2, 'lam': 10, 'thet': -0.6, 'g': 0.1}        # I've been changing g a lot....
 
 # These set the parameters to be homogeneous
 for param,value in neuron_pars.items():

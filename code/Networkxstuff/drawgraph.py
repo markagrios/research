@@ -18,6 +18,6 @@ for ri in range(len(a[0])):
 
 
 # nx.draw_kamada_kawai(G, with_labels=True, font_weight='bold')
-nx.draw_shell(G, with_labels=True, font_weight='bold')
-# nx.draw_kamada_kawai(G, with_labels=True)
+# nx.draw_shell(G, with_labels=True, font_weight='bold')
+nx.draw_kamada_kawai(G, with_labels=True)
 plt.show()
