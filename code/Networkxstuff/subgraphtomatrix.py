@@ -39,8 +39,8 @@ G = connect_from_Matrix(G,matrix)
 
 num = randint(0,257)
 # num = 36
-H = G.subgraph(range(num,num+20))
-print(num,num+20)
+H = G.subgraph(range(num,num+33))
+print(num,num+33)
 # print(nx.is_connected(H.to_undirected()))
 # print(nx.number_connected_components(H.to_undirected()))
 
