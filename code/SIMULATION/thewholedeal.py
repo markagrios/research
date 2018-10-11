@@ -101,7 +101,7 @@ numabl = sys.argv[2]
 
 if(len(numabl) > 0):
     ablation_list = sys.argv[2]
-    ablation_list = ablation_list.split(",")
+    ablation_list = ablation_list.split("-")
     pickle.dump(ablation_list, open("storeddata/homo.p","wb"))
     print(ablation_list)
 else:

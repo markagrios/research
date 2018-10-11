@@ -18,11 +18,19 @@ def connect_from_Matrix(matrix):
         readCSV = csv.reader(csvfile, delimiter=',')
         a = list(readCSV)
 
-    for neuron in range(len(ablate)):
-        for i in range(len(a[0])):
-            a[i][neuron] = "0"
-            for j in range(len(a[0])):
-                a[j][neuron] = "0"
+    for group in ablate:
+        for neuron in range(len(group)):
+            for i in range(len(a[0])):
+                a[i][neuron] = "0"
+                for j in range(len(a[0])):
+                    a[j][neuron] = "0"
+
+
+    # for neuron in range(len(ablate)):
+    #     for i in range(len(a[0])):
+    #         a[i][neuron] = "0"
+    #         for j in range(len(a[0])):
+    #             a[j][neuron] = "0"
 
     for ri in range(len(a[0])):
         for ci in range(len(a[0])):
@@ -61,11 +69,19 @@ def count_connections(matrix):
         readCSV = csv.reader(csvfile, delimiter=',')
         a = list(readCSV)
 
-    for neuron in range(len(ablate)):
-        for i in range(len(a[0])):
-            a[i][neuron] = "0"
-            for j in range(len(a[0])):
-                a[j][neuron] = "0"
+
+    for group in ablate:
+        for neuron in range(len(group)):
+            for i in range(len(a[0])):
+                a[i][neuron] = "0"
+                for j in range(len(a[0])):
+                    a[j][neuron] = "0"   
+
+    # for neuron in range(len(ablate)):                                           ###### here it is
+    #     for i in range(len(a[0])):
+    #         a[i][neuron] = "0"
+    #         for j in range(len(a[0])):
+    #             a[j][neuron] = "0"
 
     for ri in range(len(a[0])):
         for ci in range(len(a[0])):
@@ -101,14 +117,18 @@ if(ablate == "[]"):
 else:
     pickle.dump(ablate, open("storeddata/ablation_list.p","wb"))
 
-    ablate = ablate.split(",")
+    ablate = ablate.split("-")
     for i in range(len(ablate)):
-        ablate[i] = int(ablate[i])
+        ablate[i] = ablate[i].split(",")
+
+    for i in range(len(ablate)):
+        for j in range(len(ablate[i])):
+            ablate[i][j] = int(ablate[i][j])
 
 
 N = N_from_Matrix(matrix)                   # number of neurons in network
 N_syn = count_connections(matrix)           # number of synapses
-duration = 700*ms                          # how long simulations runs
+duration = 1000*ms                          # how long simulations runs
 
 tau_param = {'tau': 1*ms}
 
