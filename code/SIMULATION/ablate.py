@@ -75,7 +75,7 @@ def count_connections(matrix):
             for i in range(len(a[0])):
                 a[i][neuron] = "0"
                 for j in range(len(a[0])):
-                    a[j][neuron] = "0"   
+                    a[j][neuron] = "0"
 
     # for neuron in range(len(ablate)):                                           ###### here it is
     #     for i in range(len(a[0])):
