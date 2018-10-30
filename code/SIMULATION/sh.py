@@ -1,4 +1,5 @@
 import numpy as np
+import sys
 from mogutda import SimplicialComplex
 
 def getsimps(simpfile):
@@ -14,17 +15,33 @@ def getsimps(simpfile):
 
     return(simps)
 
+def ablateN(simpcomp,neuron):
+    newSC = []
+    for i in range(len(simpcomp)):
+        if neuron not in simpcomp[i]:
+            newSC.append(simpcomp[i])
 
-sc = getsimps("ER_n330p0125-subgraph15")
-K = SimplicialComplex(simplices=sc)
-
-print(K.betti_number(0))
-print(K.betti_number(1))
-print(K.betti_number(2))
-
-
+    return newSC
 
 
+simplist = sys.argv[1]
+neuron = sys.argv[2]
+
+# sc = getsimps("ER_n330p0125-subgraph15")
+sc = getsimps(simplist)
+K1 = SimplicialComplex(simplices=sc)
+print(K1.betti_number(0),K1.betti_number(1),K1.betti_number(2))
+print("---")
+K2 = SimplicialComplex(simplices=ablateN(sc,neuron))
+print(K2.betti_number(0),K2.betti_number(1),K2.betti_number(2))
+
+
+print("=============")
+betti = 0
+for i in range(2):
+    betti += (K2.betti_number(i)-K1.betti_number(i))
+
+print(betti)
 
 
 
