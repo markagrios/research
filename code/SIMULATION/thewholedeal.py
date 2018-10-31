@@ -23,6 +23,7 @@ def getsimps(simpfile):
 
 def ablateN(simpcomp,neuron):
     newSC = []
+    neuron = int(neuron)
     for i in range(len(simpcomp)):
         if neuron not in simpcomp[i]:
             newSC.append(simpcomp[i])
@@ -35,9 +36,17 @@ def preserves_homology(SC1,SC2): # True for keeps homology, False for changes it
 
     # betti = [K2.betti_number(0)-K1.betti_number(0),K2.betti_number(1)-K1.betti_number(1),K2.betti_number(2)-K1.betti_number(2),K2.betti_number(3)-K1.betti_number(3)]
 
-    bettis = tuple(np.subtract((K1.betti_number(0),K1.betti_number(1),K1.betti_number(2)),(K2.betti_number(0),K2.betti_number(1),K2.betti_number(2))))
+    # bettis = tuple(np.subtract((K1.betti_number(0),K1.betti_number(1),K1.betti_number(2)),(K2.betti_number(0),K2.betti_number(1),K2.betti_number(2))))
+    bettis = 0
+    for i in range(3):
+        bettis += K2.betti_number(i)-K1.betti_number(i)
 
-    return(bettis)
+    if(bettis == 0):
+        return(True)
+    else:
+        return(False)
+
+    # return(bettis)
 
 def check_homology(initSC,abllist):
     SC = initSC
@@ -74,7 +83,7 @@ if("-" in numabl):
 else:
     ablation_list = list(np.random.choice(32, int(numabl), replace=False ))
     for i in range(len(ablation_list)):
-        ablation_list[i] = str(ablation_list[i]+1)
+        ablation_list[i] = int(ablation_list[i]+1)
     pickle.dump(ablation_list, open("storeddata/homo.p","wb"))
     print(ablation_list)
 
@@ -83,6 +92,7 @@ networksimps = getsimps(network)
 homo = check_homology(networksimps,ablation_list)
 pickle.dump(homo, open("storeddata/homo.p","wb"))
 for i in range(len(ablation_list)):
+    ablation_list[i] = str(ablation_list[i])
     print(ablation_list[i], homo[i])
 
 

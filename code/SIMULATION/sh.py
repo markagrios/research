@@ -23,26 +23,41 @@ def ablateN(simpcomp,neuron):
 
     return newSC
 
+def preserves_homology(SC1,SC2): # True for keeps homology, False for changes it
+    K1 = SimplicialComplex(simplices=SC1)
+    K2 = SimplicialComplex(simplices=SC2)
 
-simplist = sys.argv[1]
-neuron = sys.argv[2]
+    # betti = [K2.betti_number(0)-K1.betti_number(0),K2.betti_number(1)-K1.betti_number(1),K2.betti_number(2)-K1.betti_number(2),K2.betti_number(3)-K1.betti_number(3)]
 
-# sc = getsimps("ER_n330p0125-subgraph15")
-sc = getsimps(simplist)
-K1 = SimplicialComplex(simplices=sc)
-print(K1.betti_number(0),K1.betti_number(1),K1.betti_number(2))
-print("---")
-K2 = SimplicialComplex(simplices=ablateN(sc,neuron))
-print(K2.betti_number(0),K2.betti_number(1),K2.betti_number(2))
+    bettis = tuple(np.subtract((K1.betti_number(0),K1.betti_number(1),K1.betti_number(2)),(K2.betti_number(0),K2.betti_number(1),K2.betti_number(2))))
 
+    return(bettis)
 
-print("=============")
-betti = 0
-for i in range(2):
-    betti += (K2.betti_number(i)-K1.betti_number(i))
+def check_homology(initSC,abllist):
+    SC = initSC
+    homolist = []
+    K = SimplicialComplex(simplices=SC)
+    print(K.betti_number(0),K.betti_number(1),K.betti_number(2))
+    for i in range(0,len(abllist)):
+        homolist.append(preserves_homology(SC,ablateN(SC,int(ablation_list[i]))))
+        SC = ablateN(SC,int(ablation_list[i]))
+        K = SimplicialComplex(simplices=SC)
+        print(K.betti_number(0),K.betti_number(1),K.betti_number(2))
 
-print(betti)
+    print(SC)
+    return(homolist)
 
+##########################
+simps = sys.argv[1]
+neuron1 = int(sys.argv[2])
+neuron2 = int(sys.argv[3])
+
+SC = getsimps(simps)
+K = SimplicialComplex(simplices=SC)
+print(ablateN(SC,int(neuron1)))
+print(preserves_homology(SC,ablateN(SC,neuron1)))
+SC = ablateN(SC,neuron1)
+print(preserves_homology(SC,ablateN(SC,neuron2)))
 
 
 
