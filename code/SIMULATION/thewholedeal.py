@@ -34,9 +34,6 @@ def preserves_homology(SC1,SC2): # True for keeps homology, False for changes it
     K1 = SimplicialComplex(simplices=SC1)
     K2 = SimplicialComplex(simplices=SC2)
 
-    # betti = [K2.betti_number(0)-K1.betti_number(0),K2.betti_number(1)-K1.betti_number(1),K2.betti_number(2)-K1.betti_number(2),K2.betti_number(3)-K1.betti_number(3)]
-
-    # bettis = tuple(np.subtract((K1.betti_number(0),K1.betti_number(1),K1.betti_number(2)),(K2.betti_number(0),K2.betti_number(1),K2.betti_number(2))))
     bettis = 0
     for i in range(3):
         bettis += K2.betti_number(i)-K1.betti_number(i)
@@ -53,12 +50,20 @@ def check_homology(initSC,abllist):
     homolist = []
     K = SimplicialComplex(simplices=SC)
     print(K.betti_number(0),K.betti_number(1),K.betti_number(2))
+
+    betas = [[K.betti_number(0)],[K.betti_number(1)],[K.betti_number(2)]]
+
     for i in range(0,len(abllist)):
         homolist.append(preserves_homology(SC,ablateN(SC,int(ablation_list[i]))))
         SC = ablateN(SC,int(ablation_list[i]))
         K = SimplicialComplex(simplices=SC)
         print(K.betti_number(0),K.betti_number(1),K.betti_number(2))
+        betas[0].append(K.betti_number(0))
+        betas[1].append(K.betti_number(1))
+        betas[2].append(K.betti_number(2))
 
+
+    pickle.dump(betas, open("storeddata/betas.p","wb"))
     print(SC)
     return(homolist)
 
