@@ -34,6 +34,8 @@ def normalizetan(x):
 ###################### Actual Code part #######################################
 
 sim = sys.argv[1]
+ablist = pickle.load(open("storeddata/ablationlist.p","rb"))
+# print(ablist)
 
 X = pickle.load(open("storeddata/" + sim + "-X.p","rb"))
 # Y = pickle.load(open("storeddata/" + sim + "-Y.p","rb"))
@@ -96,17 +98,23 @@ for i in range(N):
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+print("--- plotting ---")
+print(" ")
+
 simulation.add_subplot(2,1,2)
 simulation.suptitle(title)
-
 # for i in range(1,duration/singlerun):
 #     plt.axvline(x=i*singlerun, color='k', linestyle='--')
 
 for i in range(N):
-    plt.scatter(range(duration),spiketrain[i])
+    # plt.scatter(range(duration),spiketrain[i], s=10)
+    plt.plot(range(duration),spiketrain[i], marker="o", markersize=3, linewidth=0)
+    sys.stdout.write('\x1b[1A')
+    sys.stdout.write('\x1b[2K')
+    print("plotting spikes of neuron " + str(i))
 plt.ylim(ymin = -1, ymax = N+1)
-plt.ylabel("synchronization")
-plt.xlabel("timestep")
+plt.ylabel("spikes")
+plt.xlabel("t")
 
 
 # G = make_NX_graph(matrix)

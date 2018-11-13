@@ -83,13 +83,13 @@ numabl = sys.argv[2]
 if("-" in numabl):
     ablation_list = sys.argv[2]
     ablation_list = ablation_list.split("-")
-    pickle.dump(ablation_list, open("storeddata/homo.p","wb"))
+    pickle.dump(ablation_list, open("storeddata/ablationlist.p","wb"))
     print(ablation_list)
 else:
     ablation_list = list(np.random.choice(32, int(numabl), replace=False ))
     for i in range(len(ablation_list)):
         ablation_list[i] = int(ablation_list[i]+1)
-    pickle.dump(ablation_list, open("storeddata/homo.p","wb"))
+    pickle.dump(ablation_list, open("storeddata/ablationlist.p","wb"))
     print(ablation_list)
 
 command = "python ablate.py " + network
@@ -114,4 +114,5 @@ if(qcontinue == "y"):
         os.system(argpassed)
 
 
-    os.system("python plot.py " + network)
+    # os.system("python plot.py " + network)
+    os.system("python spikeplot.py " + network)
