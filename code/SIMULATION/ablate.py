@@ -218,6 +218,7 @@ start_time = TIME.time()
 print("--- running simulation ----")
 run(duration)                # http://brian2.readthedocs.io/en/stable/reference/brian2.monitors.statemonitor.StateMonitor.html
 
+
 num_timesteps = len(M.x[0])
 pickle.dump(num_timesteps, open("storeddata/singlerun.p","wb"))
 
