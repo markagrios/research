@@ -34,8 +34,9 @@ def normalizetan(x):
 ###################### Actual Code part #######################################
 
 sim = sys.argv[1]
-ablist = pickle.load(open("storeddata/ablationlist.p","rb"))
-# print(ablist)
+ablation_list = pickle.load(open("storeddata/ablationlist.p","rb"))
+
+print(ablation_list)
 
 X = pickle.load(open("storeddata/" + sim + "-X.p","rb"))
 # Y = pickle.load(open("storeddata/" + sim + "-Y.p","rb"))
@@ -89,8 +90,12 @@ spiketrain = []
 for i in range(N):
     spiketrain.append([-2])
     for t in range(1,duration):
-        if(float(X[i][t]) > 0 and float(X[i][t-2]) < 0):
-            spiketrain[i].append(i)
+        if(float(X[i][t]) > 0 and float(X[i][t-1]) < 0):
+            if((i in ablation_list) and (t > singlerun*(ablation_list.index(i)+2))):               # if it's after the ablation event
+                spiketrain[i].append(-2)
+            else:
+                spiketrain[i].append(i)
+
         else:
             spiketrain[i].append(-2)
 
@@ -103,34 +108,17 @@ print(" ")
 
 simulation.add_subplot(2,1,2)
 simulation.suptitle(title)
-# for i in range(1,duration/singlerun):
-#     plt.axvline(x=i*singlerun, color='k', linestyle='--')
+for i in range(2,duration/singlerun):                           # I'd like to annotate on the line which neuron was ablated.
+    plt.axvline(x=i*singlerun, color='k', linestyle='--')
 
 for i in range(N):
-    # plt.scatter(range(duration),spiketrain[i], s=10)
     plt.plot(range(duration),spiketrain[i], marker="o", markersize=3, linewidth=0)
     sys.stdout.write('\x1b[1A')
     sys.stdout.write('\x1b[2K')
     print("plotting spikes of neuron " + str(i))
 plt.ylim(ymin = -1, ymax = N+1)
-plt.ylabel("spikes")
+plt.ylabel("neuron index, 0 to " + str(N))
 plt.xlabel("t")
-
-
-# G = make_NX_graph(matrix)
-
-# qwe = array(nx.to_numpy_matrix(G))
-# adj_matrix = np.zeros((N,N), dtype=int)
-# for i in range(0,N):
-#     for j in range(0,N):
-#         adj_matrix[i][j] = int(qwe[i][j])
-#
-# print(adj_matrix)
-
-
-ablation_list = pickle.load(open("storeddata/ablation_list.p","rb"))
-
-# print(len(X[0]),len(runningsync))
 
 plt.show(block=False)
 

@@ -21,9 +21,10 @@ def connect_from_Matrix(matrix):
     for group in ablate:
         for neuron in range(len(group)):
             for i in range(len(a[0])):
-                a[i][neuron] = "0"
-                for j in range(len(a[0])):
-                    a[j][neuron] = "0"
+                a[i][group[neuron]] = "0"
+                a[group[neuron]][i] = "0"
+                # for j in range(len(a[0])):
+                #     a[j][neuron] = "0"
 
 
     # for neuron in range(len(ablate)):
@@ -73,9 +74,10 @@ def count_connections(matrix):
     for group in ablate:
         for neuron in range(len(group)):
             for i in range(len(a[0])):
-                a[i][neuron] = "0"
-                for j in range(len(a[0])):
-                    a[j][neuron] = "0"
+                a[i][group[neuron]] = "0"
+                a[group[neuron]][i] = "0"
+                # for j in range(len(a[0])):
+                #     a[j][neuron] = "0"
 
     # for neuron in range(len(ablate)):                                           ###### here it is
     #     for i in range(len(a[0])):
@@ -123,7 +125,7 @@ else:
 
     for i in range(len(ablate)):
         for j in range(len(ablate[i])):
-            ablate[i][j] = int(ablate[i][j])-1              # I'M STARTING TO FREAK ABOUT ABOUT INCREMENTS STARTING FROM 0 OR 1. The homology stuff starts at 1 but matrix stuff starts at 0
+            ablate[i][j] = int(ablate[i][j])              # I'M STARTING TO FREAK ABOUT ABOUT INCREMENTS STARTING FROM 0 OR 1. The homology stuff starts at 1 but matrix stuff starts at 0
 
 
 N = N_from_Matrix(matrix)                   # number of neurons in network

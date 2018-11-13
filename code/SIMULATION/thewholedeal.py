@@ -88,7 +88,7 @@ if("-" in numabl):
 else:
     ablation_list = list(np.random.choice(32, int(numabl), replace=False ))
     for i in range(len(ablation_list)):
-        ablation_list[i] = int(ablation_list[i]+1)
+        ablation_list[i] = int(ablation_list[i])
     pickle.dump(ablation_list, open("storeddata/ablationlist.p","wb"))
     print(ablation_list)
 
