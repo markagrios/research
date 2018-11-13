@@ -108,9 +108,6 @@ print(" ")
 
 simulation.add_subplot(2,1,2)
 simulation.suptitle(title)
-for i in range(2,duration/singlerun):                           # I'd like to annotate on the line which neuron was ablated.
-    plt.axvline(x=i*singlerun, color='k', linestyle='--')
-
 for i in range(N):
     plt.plot(range(duration),spiketrain[i], marker="o", markersize=3, linewidth=0)
     sys.stdout.write('\x1b[1A')
@@ -119,6 +116,12 @@ for i in range(N):
 plt.ylim(ymin = -1, ymax = N+1)
 plt.ylabel("neuron index, 0 to " + str(N))
 plt.xlabel("t")
+
+for i in range(2,duration/singlerun):                           # I'd like to annotate on the line which neuron was ablated.
+    plt.axvline(x=i*singlerun, color='k', linestyle='--')
+    plt.plot(i*singlerun, ablation_list[i-2], marker="x", color="black")
+
+
 
 plt.show(block=False)
 
