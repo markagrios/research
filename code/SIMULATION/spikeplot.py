@@ -117,7 +117,7 @@ plt.ylim(ymin = -1, ymax = N+1)
 plt.ylabel("neuron index, 0 to " + str(N))
 plt.xlabel("t")
 
-for i in range(2,duration/singlerun):                           # I'd like to annotate on the line which neuron was ablated.
+for i in range(2,duration/singlerun):
     plt.axvline(x=i*singlerun, color='k', linestyle='--')
     plt.plot(i*singlerun, ablation_list[i-2], marker="x", color="black")
 
@@ -130,33 +130,33 @@ if(savesim == 'y'):
     simname = raw_input("Simulation name: ")
     if(simname == ''):
         simname = sim
-    plt.savefig('../simulation_files/ablation/' + simname + "_" + ablation_list + '.png')
+    plt.savefig('../simulation_files/spiketrain/' + simname + "_" + str(ablation_list) + '.png')
 
 plt.close()
-
-print(phivals)
-print(avgsync)
-
-phivals = phivals[2:]
-avgsync = avgsync[2:]
-
-np.savetxt("../simulation_files/ablation/R2plots/" + sim + "_syncvals" + ".csv", (phivals,avgsync), delimiter=",", fmt='%s')
-
-plt.scatter(phivals,avgsync)
-plt.ylim(ymin = 0, ymax = 1.1)
-# plt.xlim(xmin = 0, xmax = 1.1)
-plt.xlabel("total variation")
-plt.ylabel("average sync value")
-
-for i in range(len(phivals)):
-    plt.annotate(i, (phivals[i],avgsync[i]))
-
-plt.show(block=False)
-
-savesim = raw_input("save simulation? ")
-if(savesim == 'y'):
-    simname = raw_input("Simulation name: ")
-    if(simname == ''):
-        simname = sim
-        ablation_list = pickle.load(open("storeddata/ablation_list.p","rb"))
-    plt.savefig('../simulation_files/ablation/R2plots/' + simname + "_" + ablation_list + '.png')
+#
+# print(phivals)
+# print(avgsync)
+#
+# phivals = phivals[2:]
+# avgsync = avgsync[2:]
+#
+# np.savetxt("../simulation_files/ablation/R2plots/" + sim + "_syncvals" + ".csv", (phivals,avgsync), delimiter=",", fmt='%s')
+#
+# plt.scatter(phivals,avgsync)
+# plt.ylim(ymin = 0, ymax = 1.1)
+# # plt.xlim(xmin = 0, xmax = 1.1)
+# plt.xlabel("total variation")
+# plt.ylabel("average sync value")
+#
+# for i in range(len(phivals)):
+#     plt.annotate(i, (phivals[i],avgsync[i]))
+#
+# plt.show(block=False)
+#
+# savesim = raw_input("save simulation? ")
+# if(savesim == 'y'):
+#     simname = raw_input("Simulation name: ")
+#     if(simname == ''):
+#         simname = sim
+#         ablation_list = pickle.load(open("storeddata/ablation_list.p","rb"))
+#     plt.savefig('../simulation_files/ablation/R2plots/' + simname + "_" + ablation_list + '.png')
