@@ -184,26 +184,26 @@ for param,value in coupling_pars.items():
 
 sv_list = ['x', 'y', 'z']
 sv_inits = []
-perturb = np.random.normal(0,1, (3,N))
+perturb = np.random.normal(0,0.5, (3,N))
 for i in range(len(init_cond.items())):
     sv_inits.append(float(init_cond.items()[i][1]))
 
 if(sys.argv[2] != 'cont'):
-    # print("State variable initial values (x,y,z):")
-    # print(sv_inits)
-    # print("Perturbation values:")
-    # print(perturb)
-    # print("---")
-    # # for normal distribution init cond
-    # for i in range(3):
-    #     setattr(G,sv_list[i],[init_cond[sv_list[i]] + (perturb[i][_]) for _ in range(N)])
+    print("State variable initial values (x,y,z):")
+    print(sv_inits)
+    print("Perturbation values:")
+    print(perturb)
+    print("---")
+    # for normal distribution init cond
+    for i in range(3):
+        setattr(G,sv_list[i],[init_cond[sv_list[i]] + (perturb[i][_]) for _ in range(N)])
 
-    # uncomment this for loop for the other two init cond regimes
-    for ic,value in init_cond.items():
-        setattr(G,ic,[value for _ in range(N)])
-
-    setattr(G,'z',[1.7+(_*0.1) for _ in range(N)])            # for slightly different init cond
-    # setattr(G,'z',[1.7 for _ in range(N)])                  # for uniform init cond
+    # # uncomment this for loop for the other two init cond regimes
+    # for ic,value in init_cond.items():
+    #     setattr(G,ic,[value for _ in range(N)])
+    #
+    # setattr(G,'z',[1.7+(_*0.1) for _ in range(N)])            # for slightly different init cond
+    # # setattr(G,'z',[1.7 for _ in range(N)])                  # for uniform init cond
 else:
     with open("storeddata/" + "lastvals.csv") as csvfile:
         readCSV = csv.reader(csvfile, delimiter=',')
