@@ -8,6 +8,7 @@ import time as TIME
 import matplotlib.pyplot as plt
 import sys
 import cPickle as pickle
+import pyspike as spk
 
 def make_NX_graph(matrix):
     with open("../connection_matrices/"+matrix) as csvfile:
@@ -101,6 +102,24 @@ for i in range(N):
 
 # still need to remove the dots (set to -2) after the neuron is ablated.
 
+
+spiketimes = []
+for n in range(len(spiketrain)):
+    spiketimes.append([0])
+    for t in range(len(spiketrain[n])):
+        if (spiketrain[n][t] >= 0):
+            spiketimes[n].append(t)
+
+# for i in range(len(spiketimes)):
+#     print(spiketimes[i])
+
+ST = []
+for i in range(len(spiketimes)):
+    ST.append(spk.SpikeTrain(spiketimes[i],duration))
+
+avrg_isi_profile = spk.isi_profile(ST)
+avrg_spike_profile = spk.spike_profile(ST)
+avrg_spike_sync_profile = spk.spike_sync_profile(ST)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 print("--- plotting ---")
