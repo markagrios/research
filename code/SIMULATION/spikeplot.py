@@ -50,7 +50,7 @@ singlerun = pickle.load(open("storeddata/singlerun.p","rb"))
 simulation = plt.figure(figsize=(17,10))
 title = sim + " | " + str(duration) + " | "
 simulation.subplots_adjust(wspace=0.1,hspace=0.25)
-simulation.add_subplot(2,1,1)
+simulation.add_subplot(3,1,1)
 for i in range(0,N):
     plt.ylabel("x")
     plt.xlabel("t")
@@ -80,7 +80,7 @@ for i in range(2,duration/singlerun):
 #     else:
 #         plt.axvline(x=(i)*singlerun, color='b', linestyle='--')
 #
-#
+
 
 sys.stdout.write('\x1b[1A')
 sys.stdout.write('\x1b[2K')                 # gets rid of some error that ruins my A E S T H E T I C
@@ -100,8 +100,6 @@ for i in range(N):
         else:
             spiketrain[i].append(-2)
 
-# still need to remove the dots (set to -2) after the neuron is ablated.
-
 
 spiketimes = []
 for n in range(len(spiketrain)):
@@ -113,19 +111,41 @@ for n in range(len(spiketrain)):
 # for i in range(len(spiketimes)):
 #     print(spiketimes[i])
 
-ST = []
-for i in range(len(spiketimes)):
-    ST.append(spk.SpikeTrain(spiketimes[i],duration))
+# ST = []
+# for i in range(len(spiketimes)):
+#     ST.append(spk.SpikeTrain(spiketimes[i],duration))
+#
+# # avrg_isi_profile = spk.isi_profile(ST)
+# # avrg_spike_profile = spk.spike_profile(ST)
+# # avrg_spike_sync_profile = spk.spike_sync_profile(ST)
+#
+# isi_distance = spk.isi_distance_matrix(ST)
+# print(isi_distance)
+# # plt.imshow(isi_distance, interpolation='none')
+# # plt.title("ISI-distance")
+# # plt.show()
+print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 
-avrg_isi_profile = spk.isi_profile(ST)
-avrg_spike_profile = spk.spike_profile(ST)
-avrg_spike_sync_profile = spk.spike_sync_profile(ST)
+distList = []
+for c in range(duration/singlerun):
+    ST = []
+    for i in range(len(spiketimes)):
+        ST.append(spk.SpikeTrain(spiketimes[i],(c*singlerun, (c+1)*singlerun)))
+        # isi_distance = spk.isi_distance_matrix(ST)
+        spike_sync = spk.spike_distance_matrix(ST)
+
+    averageDist = np.average(spike_sync)
+    distList.append(averageDist)
+
+print(distList)
+
+print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 print("--- plotting ---")
 print(" ")
 
-simulation.add_subplot(2,1,2)
+simulation.add_subplot(3,1,2)
 simulation.suptitle(title)
 for i in range(N):
     plt.plot(range(duration),spiketrain[i], marker="o", markersize=3, linewidth=0)
@@ -140,6 +160,13 @@ for i in range(2,duration/singlerun):
     plt.axvline(x=i*singlerun, color='k', linestyle='--')
     plt.plot(i*singlerun, ablation_list[i-2], marker="x", color="black")
 
+simulation.add_subplot(3,1,3)
+simulation.suptitle(title)
+plt.plot(range(duration/singlerun),distList, marker="o", markersize=3, linewidth=0)
+sys.stdout.write('\x1b[1A')
+sys.stdout.write('\x1b[2K')
+plt.ylabel("average ISI distnace" )
+plt.xlabel("t")
 
 
 plt.show(block=False)
