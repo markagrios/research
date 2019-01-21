@@ -124,22 +124,24 @@ for n in range(len(spiketrain)):
 # # plt.imshow(isi_distance, interpolation='none')
 # # plt.title("ISI-distance")
 # # plt.show()
-print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+
+print("--- analyzing spike train ---")
 
 distList = []
+matrixList = []
 for c in range(duration/singlerun):
     ST = []
     for i in range(len(spiketimes)):
         ST.append(spk.SpikeTrain(spiketimes[i],(c*singlerun, (c+1)*singlerun)))
-        # isi_distance = spk.isi_distance_matrix(ST)
+        # spike_sync = spk.isi_distance_matrix(ST)
         spike_sync = spk.spike_distance_matrix(ST)
 
+
+    matrixList.append(spike_sync)
     averageDist = np.average(spike_sync)
     distList.append(averageDist)
 
 print(distList)
-
-print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 print("--- plotting ---")
@@ -169,6 +171,14 @@ plt.ylabel("average ISI distnace" )
 plt.xlabel("t")
 
 
+plt.show(block=False)
+
+matrixPlot = plt.figure()
+matrixTitle = sim + " | " + str(duration) + " | "
+# matrixPlot.subplots_adjust(wspace=0.1,hspace=0.25)
+for m in range(1,(duration/singlerun)):
+    matrixPlot.add_subplot(1,(duration/singlerun),m)
+    plt.imshow(matrixList[m], interpolation='none')
 plt.show(block=False)
 
 savesim = raw_input("save simulation? ")
