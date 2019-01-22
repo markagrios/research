@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import sys
 from random import randint
 
-G = nx.erdos_renyi_graph(330,0.125,directed=True)
+G = nx.erdos_renyi_graph(33,0.125,directed=True)
 
 N = G.number_of_nodes()
 print(N)
@@ -21,7 +21,8 @@ for i in range(0,N):
         adj_matrix[i][j] = int(qwe[i][j])
 
 print(adj_matrix)
-np.savetxt("ER_n330p0.125", adj_matrix, delimiter=",", fmt='%s')
+
+np.savetxt("small_ER_n33p0125.csv", adj_matrix, delimiter=",", fmt='%s')
 
 
 nx.draw_kamada_kawai(G)
