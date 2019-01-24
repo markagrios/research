@@ -173,13 +173,13 @@ plt.xlabel("t")
 
 plt.show(block=False)
 
-matrixPlot = plt.figure()
-matrixTitle = sim + " | " + str(duration) + " | "
-# matrixPlot.subplots_adjust(wspace=0.1,hspace=0.25)
-for m in range(1,(duration/singlerun)):
-    matrixPlot.add_subplot(1,(duration/singlerun),m)
-    plt.imshow(matrixList[m], interpolation='none')
-plt.show(block=False)
+# matrixPlot = plt.figure()
+# matrixTitle = sim + " | " + str(duration) + " | "
+# # matrixPlot.subplots_adjust(wspace=0.1,hspace=0.25)
+# for m in range(1,(duration/singlerun)):
+#     matrixPlot.add_subplot(1,(duration/singlerun),m)
+#     plt.imshow(matrixList[m], interpolation='none')
+# plt.show(block=False)
 
 savesim = raw_input("save simulation? ")
 if(savesim == 'y'):
