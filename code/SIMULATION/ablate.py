@@ -125,7 +125,7 @@ else:
 
     for i in range(len(ablate)):
         for j in range(len(ablate[i])):
-            ablate[i][j] = int(ablate[i][j])              # I'M STARTING TO FREAK ABOUT ABOUT INCREMENTS STARTING FROM 0 OR 1. The homology stuff starts at 1 but matrix stuff starts at 0
+            ablate[i][j] = int(ablate[i][j])
 
 
 N = N_from_Matrix(matrix)                   # number of neurons in network

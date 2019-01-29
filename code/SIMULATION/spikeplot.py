@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import sys
 import cPickle as pickle
 import pyspike as spk
+import thorns as th
 
 def make_NX_graph(matrix):
     with open("../connection_matrices/"+matrix) as csvfile:
@@ -58,13 +59,13 @@ for i in range(0,N):
 
 homo = pickle.load(open("storeddata/homo.p","rb"))
 # print(duration/singlerun)
-for i in range(2,duration/singlerun):
-    if(homo[i-2] == False):
-        plt.axvline(x=(i)*singlerun, color='k', linestyle='--')
-    elif(homo[i-2] == True):
-        plt.axvline(x=(i)*singlerun, color='r', linestyle='--')
-    else:
-        plt.axvline(x=(i)*singlerun, color='b', linestyle='--')
+# for i in range(2,duration/singlerun):
+#     if(homo[i-2] == False):
+#         plt.axvline(x=(i)*singlerun, color='k', linestyle='--')
+#     elif(homo[i-2] == True):
+#         plt.axvline(x=(i)*singlerun, color='r', linestyle='--')
+#     else:
+#         plt.axvline(x=(i)*singlerun, color='b', linestyle='--')
 
 # simulation.add_subplot(3,1,2)
 # for i in range(0,N):
@@ -87,6 +88,8 @@ sys.stdout.write('\x1b[2K')                 # gets rid of some error that ruins 
 print("--- measuring synchrony ---")
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+
+# create spike train raster from x state variable plot
 spiketrain = []
 for i in range(N):
     spiketrain.append([-2])
@@ -100,13 +103,18 @@ for i in range(N):
         else:
             spiketrain[i].append(-2)
 
-
+# create list of spike times from raster
 spiketimes = []
 for n in range(len(spiketrain)):
     spiketimes.append([0])
     for t in range(len(spiketrain[n])):
         if (spiketrain[n][t] >= 0):
             spiketimes[n].append(t)
+
+# making running histogram from spike times
+thornsTrain = th.make_trains(spiketimes)
+spikeHist = th.psth(thornsTrain, duration/singlerun)
+# print(ISIH)
 
 # for i in range(len(spiketimes)):
 #     print(spiketimes[i])
@@ -134,7 +142,7 @@ for c in range(duration/singlerun):
     for i in range(len(spiketimes)):
         ST.append(spk.SpikeTrain(spiketimes[i],(c*singlerun, (c+1)*singlerun)))
         # spike_sync = spk.isi_distance_matrix(ST)
-        spike_sync = spk.spike_distance_matrix(ST)
+        spike_sync = spk.spike_sync_matrix(ST)
 
 
     matrixList.append(spike_sync)
@@ -164,11 +172,20 @@ for i in range(2,duration/singlerun):
 
 simulation.add_subplot(3,1,3)
 simulation.suptitle(title)
-plt.plot(range(duration/singlerun),distList, marker="o", markersize=3, linewidth=0)
+plt.plot(spikeHist[0])
 sys.stdout.write('\x1b[1A')
 sys.stdout.write('\x1b[2K')
-plt.ylabel("average ISI distnace" )
+plt.ylabel("PST histogram")
+plt.ylim(ymax= 0.07)
 plt.xlabel("t")
+
+# simulation.add_subplot(3,1,3)
+# simulation.suptitle(title)
+# plt.plot(range(duration/singlerun),distList, marker="o", markersize=3, linewidth=0)
+# sys.stdout.write('\x1b[1A')
+# sys.stdout.write('\x1b[2K')
+# plt.ylabel("average ISI distnace" )
+# plt.xlabel("t")
 
 
 plt.show(block=False)
