@@ -130,7 +130,7 @@ else:
 
 N = N_from_Matrix(matrix)                   # number of neurons in network
 N_syn = count_connections(matrix)           # number of synapses
-duration = 1500*ms                          # how long simulations runs
+duration = 2000*ms                          # how long simulations runs
 
 tau_param = {'tau': 1*ms}
 

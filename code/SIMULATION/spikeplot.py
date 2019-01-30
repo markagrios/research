@@ -42,7 +42,7 @@ print(ablation_list)
 
 X = pickle.load(open("storeddata/" + sim + "-X.p","rb"))
 # Y = pickle.load(open("storeddata/" + sim + "-Y.p","rb"))
-Z = pickle.load(open("storeddata/" + sim + "-Z.p","rb"))
+# Z = pickle.load(open("storeddata/" + sim + "-Z.p","rb"))
 
 duration = len(X[0])
 N = len(X)
@@ -58,14 +58,14 @@ for i in range(0,N):
     plt.plot(X[i])
 
 homo = pickle.load(open("storeddata/homo.p","rb"))
-# print(duration/singlerun)
-# for i in range(2,duration/singlerun):
-#     if(homo[i-2] == False):
-#         plt.axvline(x=(i)*singlerun, color='k', linestyle='--')
-#     elif(homo[i-2] == True):
-#         plt.axvline(x=(i)*singlerun, color='r', linestyle='--')
-#     else:
-#         plt.axvline(x=(i)*singlerun, color='b', linestyle='--')
+print(duration/singlerun)
+for i in range(2,duration/singlerun):
+    if(homo[i-2] == False):
+        plt.axvline(x=(i)*singlerun, color='k', linestyle='--')
+    elif(homo[i-2] == True):
+        plt.axvline(x=(i)*singlerun, color='r', linestyle='--')
+    else:
+        plt.axvline(x=(i)*singlerun, color='b', linestyle='--')
 
 # simulation.add_subplot(3,1,2)
 # for i in range(0,N):
@@ -206,30 +206,3 @@ if(savesim == 'y'):
     plt.savefig('../simulation_files/spiketrain/' + simname + "_" + str(ablation_list) + '.png')
 
 plt.close()
-#
-# print(phivals)
-# print(avgsync)
-#
-# phivals = phivals[2:]
-# avgsync = avgsync[2:]
-#
-# np.savetxt("../simulation_files/ablation/R2plots/" + sim + "_syncvals" + ".csv", (phivals,avgsync), delimiter=",", fmt='%s')
-#
-# plt.scatter(phivals,avgsync)
-# plt.ylim(ymin = 0, ymax = 1.1)
-# # plt.xlim(xmin = 0, xmax = 1.1)
-# plt.xlabel("total variation")
-# plt.ylabel("average sync value")
-#
-# for i in range(len(phivals)):
-#     plt.annotate(i, (phivals[i],avgsync[i]))
-#
-# plt.show(block=False)
-#
-# savesim = raw_input("save simulation? ")
-# if(savesim == 'y'):
-#     simname = raw_input("Simulation name: ")
-#     if(simname == ''):
-#         simname = sim
-#         ablation_list = pickle.load(open("storeddata/ablation_list.p","rb"))
-#     plt.savefig('../simulation_files/ablation/R2plots/' + simname + "_" + ablation_list + '.png')

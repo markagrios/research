@@ -13,12 +13,17 @@ def getsimps(simpfile):
     simps = []
     for line in open("../connection_matrices/simp_lists/" + simpfile):
         line = line.rstrip()
+        oneD = [-1]
         if " " in line:
             line = line.split(" ")
             for n in range(len(line)):
                 line[n] = int(line[n])
             simps.append(tuple(line))
+        else:
+            oneD[0] = int(line)
+            simps.append(oneD)
 
+    print(simps)
     return(simps)
 
 def ablateN(simpcomp,neuron):
@@ -39,9 +44,9 @@ def preserves_homology(SC1,SC2): # True for keeps homology, False for changes it
         bettis += K2.betti_number(i)-K1.betti_number(i)
 
     if(bettis == 0):
-        return(True)
+        return("X?")
     else:
-        return(False)
+        return("S?")
 
     # return(bettis)
 
@@ -64,7 +69,7 @@ def check_homology(initSC,abllist):
 
 
     pickle.dump(betas, open("storeddata/betas.p","wb"))
-    print(SC)
+    # print(SC)
     return(homolist)
 
 def multiindex(element, lst):
@@ -80,12 +85,13 @@ def multiindex(element, lst):
 network = sys.argv[1]
 numabl = sys.argv[2]
 
-if("-" in numabl):
+if("," in numabl):
     ablation_list = sys.argv[2]
-    ablation_list = ablation_list.split("-")
+    ablation_list = ablation_list.split(",")
     pickle.dump(ablation_list, open("storeddata/ablationlist.p","wb"))
     print(ablation_list)
-else:
+if(numabl == "r"):
+    numabl = raw_input("how many ablations? ")
     ablation_list = list(np.random.choice(32, int(numabl), replace=False ))
     for i in range(len(ablation_list)):
         ablation_list[i] = int(ablation_list[i])
@@ -101,6 +107,9 @@ for i in range(len(ablation_list)):
     print(ablation_list[i], homo[i])
 
 
+
+
+
 print("---")
 
 qcontinue = raw_input("continue with this ablation sequence? ")
@@ -110,9 +119,9 @@ if(qcontinue == "y"):
 
     for i in range(len(ablation_list)):
         argpassed = "python ablate.py " + network + " cont " + ",".join(ablation_list[:i+1])
+        # argpassed = "python ablate.py " + network + " cont " + str(ablation_list)
         print("Now ablating neuron: " + ablation_list[i])
         os.system(argpassed)
 
 
-    # os.system("python plot.py " + network)
     os.system("python spikeplot.py " + network)

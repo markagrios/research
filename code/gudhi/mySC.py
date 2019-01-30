@@ -1,6 +1,6 @@
 import csv
 import sys
-sys.path.append('/home/mark/gudhi/build/cython')
+sys.path.append('/home/osboxes/gudhi/build/cython/')
 import gudhi
 
 def csv_to_SC(matrix):
