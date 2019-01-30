@@ -179,12 +179,11 @@ plt.ylabel("PST histogram")
 plt.ylim(ymax= 0.07)
 plt.xlabel("t")
 
+# betas = pickle.load(open("storeddata/betas.p","rb"))
 # simulation.add_subplot(3,1,3)
 # simulation.suptitle(title)
-# plt.plot(range(duration/singlerun),distList, marker="o", markersize=3, linewidth=0)
-# sys.stdout.write('\x1b[1A')
-# sys.stdout.write('\x1b[2K')
-# plt.ylabel("average ISI distnace" )
+# plt.plot(range(len(betas),betas, marker="o", markersize=3, linewidth=0))
+# plt.ylabel("betti numbers")
 # plt.xlabel("t")
 
 

@@ -23,7 +23,7 @@ def getsimps(simpfile):
             oneD[0] = int(line)
             simps.append(oneD)
 
-    print(simps)
+    # print(simps)
     return(simps)
 
 def ablateN(simpcomp,neuron):
