@@ -89,23 +89,8 @@ print("--- measuring synchrony ---")
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-# create spike train raster from x state variable plot
-spiketrain = []
-for i in range(N):
-    spiketrain.append([-2])
-    for t in range(1,duration):
-        if(float(X[i][t]) > 0 and float(X[i][t-1]) < 0):
-            if((str(i) in ablation_list) and (t > singlerun*(ablation_list.index(str(i))+2))):               # if it's after the ablation event
-                spiketrain[i].append(-2)
-            else:
-                spiketrain[i].append(i)
-        else:
-            spiketrain[i].append(-2)
 
-        sys.stdout.write('\x1b[1A')
-        sys.stdout.write('\x1b[2K')
-        print(":" + str((i,t)))
-
+spiketrain = pickle.load(open("storeddata/train.p", "rb"))
 # create list of spike times from raster
 spiketimes = []
 for n in range(len(spiketrain)):
@@ -114,9 +99,10 @@ for n in range(len(spiketrain)):
         if (spiketrain[n][t] >= 0):
             spiketimes[n].append(t)
 
-# making running histogram from spike times
-thornsTrain = th.make_trains(spiketimes)
-spikeHist = th.psth(thornsTrain, duration/singlerun)
+
+
+
+# spikeHist = th.psth(thornsTrain, duration/singlerun)
 # print(ISIH)
 
 # for i in range(len(spiketimes)):
