@@ -252,7 +252,7 @@ if(sys.argv[2] != "cont"):
 if(sys.argv[2] == "cont"):
     bigtrain = pickle.load(open("storeddata/train.p", "rb"))
     for n in range(N):
-        bigtrain = np.append(bigtrain[n], spiketrain[n]).tolist()
+        bigtrain[n] = np.append(bigtrain[n], spiketrain[n]).tolist()
 
     pickle.dump(bigtrain, open("storeddata/train.p", "wb"))
 
