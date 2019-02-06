@@ -20,7 +20,7 @@ os.system("python ablate.py " + matrix + " cont []")
 
 
 for g in range(len(ablate_groups)):
-    os.system("python ablate.py " + matrix + " cont " + ablate_groups[g])
+    os.system("python ablate.py " + matrix + " cont " + ",".join(ablate_groups[:g+1]))
 
 
 os.system("python plot.py " + matrix)
