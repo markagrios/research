@@ -15,6 +15,9 @@ train = pickle.load(open("storeddata/" + matrix + "-train.p", "rb"))
 singlerun = pickle.load(open("storeddata/" + matrix + "-singlerun.p","rb"))
 duration = len(train[0])
 N = len(train)
+betas = pickle.load(open("storeddata/betas.p", "rb"))
+homXS = pickle.load(open("storeddata/homXS.p", "rb"))
+
 
 print("--- plotting ---")
 
@@ -29,12 +32,12 @@ for n in range(len(train)):
 st = th.make_trains(spiketimes)
 
 simulation = plt.figure(figsize=(17,10))
-simulation.add_subplot(2,1,1)
+simulation.add_subplot(3,1,1)
 th.plot_raster(st)
 
-simulation.add_subplot(2,1,2)
+# histogram for spikes
+simulation.add_subplot(3,1,2)
 spikeHist = th.psth(st, duration/1000)
-# spikeHist = th.psth(st, singlerun)
 plt.plot(spikeHist[0])
 sys.stdout.write('\x1b[1A')
 sys.stdout.write('\x1b[2K')
@@ -42,6 +45,21 @@ plt.ylabel("PST histogram")
 # plt.ylim(ymax= 0.07)
 plt.xlabel("t")
 
+# betti number plot
+simulation.add_subplot(3,1,3)
+plt.plot(betas[0], linestyle="--", marker="o", label="beta 0")
+plt.plot(betas[1], linestyle="--", marker="o", label="beta 1")
+plt.plot(betas[2], linestyle="--", marker="o", label="beta 2")
+plt.legend(loc='upper right')
 
 
-plt.show()
+plt.show(block=False)
+
+savesim = raw_input("save simulation? ")
+if(savesim == 'y'):
+    simname = raw_input("Simulation name: ")
+    if(simname == ''):
+        simname = matrix + str(homXS)
+    plt.savefig('../simulation_files/SPIKE/' + simname + '.png')
+
+plt.close()

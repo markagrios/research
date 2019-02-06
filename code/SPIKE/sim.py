@@ -21,6 +21,10 @@ os.rename(matrix+".csv_simplices_dimension_.txt", matrix+"_dlist.csv")
 os.chdir("../SPIKE")
 
 
+print(",".join(ablate_groups))
+
+os.system("python hom.py " + matrix + " " + ",".join(ablate_groups))
+
 os.system("python ablate.py " + matrix + " q []")
 os.system("python ablate.py " + matrix + " cont []")
 
