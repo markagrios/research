@@ -14,6 +14,13 @@ ablate_groups = ablation_list.split("-")
 
 print("---")
 
+os.chdir("neurotop/src")
+os.system("./directed  ../../../connection_matrices/" + matrix +".csv 1 1")
+os.chdir("../../../connection_matrices")
+os.rename(matrix+".csv_simplices_dimension_.txt", matrix+"_dlist.csv")
+os.chdir("../SPIKE")
+
+
 os.system("python ablate.py " + matrix + " q []")
 os.system("python ablate.py " + matrix + " cont []")
 
