@@ -11,9 +11,12 @@ import cPickle as pickle
 import thorns as th
 
 matrix = sys.argv[1]
-
-train = pickle.load(open("storeddata/train.p", "rb"))
+train = pickle.load(open("storeddata/" + matrix + "-train.p", "rb"))
+singlerun = pickle.load(open("storeddata/" + matrix + "-singlerun.p","rb"))
+duration = len(train[0])
 N = len(train)
+
+print("--- plotting ---")
 
 # create list of spike times from raster
 spiketimes = []
@@ -24,19 +27,21 @@ for n in range(len(train)):
             spiketimes[n].append(t)
 
 st = th.make_trains(spiketimes)
-th.plot_raster(st)
-th.show()
 
-# simulation = plt.figure()
-# simulation.add_subplot(3,1,2)
-# simulation.suptitle(title)
-# for i in range(len(train)):
-#     plt.plot(range(len(train[0])),train[i], marker="o", markersize=3, linewidth=0)
-#     sys.stdout.write('\x1b[1A')
-#     sys.stdout.write('\x1b[2K')
-#     print("plotting spikes of neuron " + str(i))
-# plt.ylim(ymin = -1, ymax = N+1)
-# plt.ylabel("neuron index, 0 to " + str(N))
-# plt.xlabel("t")
-#
-# plt.show()
+simulation = plt.figure(figsize=(17,10))
+simulation.add_subplot(2,1,1)
+th.plot_raster(st)
+
+simulation.add_subplot(2,1,2)
+spikeHist = th.psth(st, duration/1000)
+# spikeHist = th.psth(st, singlerun)
+plt.plot(spikeHist[0])
+sys.stdout.write('\x1b[1A')
+sys.stdout.write('\x1b[2K')
+plt.ylabel("PST histogram")
+# plt.ylim(ymax= 0.07)
+plt.xlabel("t")
+
+
+
+plt.show()

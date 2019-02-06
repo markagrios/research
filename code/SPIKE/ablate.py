@@ -128,6 +128,7 @@ print(ablate)
 N = N_from_Matrix(matrix)                   # number of neurons in network
 N_syn = count_connections(matrix)           # number of synapses
 duration = 2000*ms                          # how long simulations runs
+pickle.dump((int(duration/ms))*1000, open("storeddata/" + matrix[:-4] + "-singlerun.p","wb"))
 
 tau_param = {'tau': 1*ms}
 
@@ -202,7 +203,7 @@ else:
 
 start_time = TIME.time()
 
-print("--- running simulation ----")
+print("--- running simulation for " + str(duration) + " ----")
 run(duration)                # http://brian2.readthedocs.io/en/stable/reference/brian2.monitors.statemonitor.StateMonitor.html
 
 
@@ -247,14 +248,14 @@ for i in range(N):
 # print(spiketrain)
 
 if(sys.argv[2] != "cont"):
-    pickle.dump(spiketrain, open("storeddata/train.p", "wb"))
+    pickle.dump(spiketrain, open("storeddata/" + matrix[:-4] + "-train.p", "wb"))
 
 if(sys.argv[2] == "cont"):
-    bigtrain = pickle.load(open("storeddata/train.p", "rb"))
+    bigtrain = pickle.load(open("storeddata/" + matrix[:-4] + "-train.p", "rb"))
     for n in range(N):
         bigtrain[n] = np.append(bigtrain[n], spiketrain[n]).tolist()
 
-    pickle.dump(bigtrain, open("storeddata/train.p", "wb"))
+    pickle.dump(bigtrain, open("storeddata/" + matrix[:-4] + "-train.p", "wb"))
 
 
 
