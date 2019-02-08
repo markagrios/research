@@ -22,6 +22,12 @@ def getsimps(simpfile):
     # print(simps)
     return(simps)
 
+def getBettis(simpfile):
+    simpfile = simpfile + ".csv_directed_output.txt"
+
+
+
+
 def ablateN(simpcomp,neuron):
     newSC = []
     neuron = int(neuron)
