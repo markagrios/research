@@ -62,7 +62,7 @@ def check_homology(initSC,abllist):
         betas[2].append(K.betti_number(2))
 
 
-    pickle.dump(betas, open("storeddata/betas.p","wb"))
+    pickle.dump(betas, open("storeddata/" + matrix + "-betas.p","wb"))
     # print(SC)
     return(homolist)
 
@@ -80,7 +80,7 @@ print(ablation_list)
 simplist = getsimps(matrix)
 homo = check_homology(simplist,ablation_list)
 # pickle.dump(homo, open("storeddata/homo.p","wb"))
-betas = pickle.load(open("storeddata/betas.p", "rb"))
+betas = pickle.load(open("storeddata/" + matrix + "-betas.p", "rb"))
 print(betas)
 
 homXS = []
@@ -89,4 +89,4 @@ for i in range(len(ablation_list)):
     homXS.append((ablation_list[i], homo[i]))
 
 print(homXS)
-pickle.dump(homXS, open("storeddata/homXS.p", "wb"))
+pickle.dump(homXS, open("storeddata/" + matrix + "-homXS.p", "wb"))

@@ -9,14 +9,15 @@ import matplotlib.pyplot as plt
 import sys
 import cPickle as pickle
 import thorns as th
+import pyspike as spk
 
 matrix = sys.argv[1]
 train = pickle.load(open("storeddata/" + matrix + "-train.p", "rb"))
-singlerun = pickle.load(open("storeddata/" + matrix + "-singlerun.p","rb"))
-duration = len(train[0])
 N = len(train)
-betas = pickle.load(open("storeddata/betas.p", "rb"))
-homXS = pickle.load(open("storeddata/homXS.p", "rb"))
+betas = pickle.load(open("storeddata/" + matrix + "-betas.p", "rb"))
+homXS = pickle.load(open("storeddata/" + matrix + "-homXS.p", "rb"))
+duration = len(train[0])
+singlerun = duration/(len(homXS)+2)
 
 
 print("--- plotting ---")
@@ -32,11 +33,11 @@ for n in range(len(train)):
 st = th.make_trains(spiketimes)
 
 simulation = plt.figure(figsize=(17,10))
-simulation.add_subplot(3,1,1)
+simulation.add_subplot(4,1,1)
 th.plot_raster(st)
 
 # histogram for spikes
-simulation.add_subplot(3,1,2)
+simulation.add_subplot(4,1,2)
 spikeHist = th.psth(st, duration/1000)
 plt.plot(spikeHist[0])
 sys.stdout.write('\x1b[1A')
@@ -46,11 +47,36 @@ plt.ylabel("PST histogram")
 plt.xlabel("t")
 
 # betti number plot
-simulation.add_subplot(3,1,3)
+simulation.add_subplot(4,1,3)
 plt.plot(betas[0], linestyle="--", marker="o", label="beta 0")
 plt.plot(betas[1], linestyle="--", marker="o", label="beta 1")
 plt.plot(betas[2], linestyle="--", marker="o", label="beta 2")
 plt.legend(loc='upper right')
+
+
+# synchrony
+simulation.add_subplot(4,1,4)
+chunk = duration/singlerun
+# print(chunk)
+slices = []
+for c in range(1,chunk+1):
+    # print(c)
+    section = []
+    for n in range(len(spiketimes)):
+        section.append([])
+        subint = [x for x in spiketimes[n] if x >= ((c-1)*singlerun) and x <= (c*singlerun)]
+        section[n] = spk.SpikeTrain(subint, (0,singlerun))
+
+    slices.append(section)
+
+sync = []
+for c in range(len(slices)):
+    sync.append(np.average(spk.spike_distance_matrix(slices[c])))
+
+plt.plot(sync, linestyle="", marker="o", markersize="7")
+
+
+
 
 
 plt.show(block=False)

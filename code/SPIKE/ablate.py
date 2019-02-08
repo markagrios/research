@@ -128,7 +128,8 @@ print(ablate)
 N = N_from_Matrix(matrix)                   # number of neurons in network
 N_syn = count_connections(matrix)           # number of synapses
 duration = 2000*ms                          # how long simulations runs
-pickle.dump((int(duration/ms))*1000, open("storeddata/" + matrix[:-4] + "-singlerun.p","wb"))
+print(int(duration/ms))
+pickle.dump((int(duration/ms)), open("storeddata/" + matrix[:-4] + "-singlerun.p","wb"))
 
 tau_param = {'tau': 1*ms}
 
