@@ -24,7 +24,7 @@ def getsimps(simpfile):
 
 def getBettis(simpfile):
     simpfile = simpfile + ".csv_directed_output.txt"
-
+    # I don't even use this
 
 
 

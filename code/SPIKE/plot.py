@@ -19,7 +19,6 @@ homXS = pickle.load(open("storeddata/" + matrix + "-homXS.p", "rb"))
 duration = len(train[0])
 singlerun = duration/(len(homXS)+2)
 
-
 print("--- plotting ---")
 
 # create list of spike times from raster
@@ -35,6 +34,18 @@ st = th.make_trains(spiketimes)
 simulation = plt.figure(figsize=(17,10))
 simulation.add_subplot(4,1,1)
 th.plot_raster(st)
+for i in range(2,duration/singlerun):
+    if(homXS[i-2][1] == 'X'):
+        plt.axvline(x=(i)*singlerun, color='k', linestyle='--')
+    elif(homXS[i-2][1] == 'S'):
+        plt.axvline(x=(i)*singlerun, color='r', linestyle='--')
+    else:
+        plt.axvline(x=(i)*singlerun, color='b', linestyle='--')
+
+    plt.plot(i*singlerun, int(homXS[i-2][0]), marker="x", color="black")
+
+
+
 
 # histogram for spikes
 simulation.add_subplot(4,1,2)
@@ -43,7 +54,7 @@ plt.plot(spikeHist[0])
 sys.stdout.write('\x1b[1A')
 sys.stdout.write('\x1b[2K')
 plt.ylabel("PST histogram")
-# plt.ylim(ymax= 0.07)
+plt.xlim(xmin= 0,xmax=1000)
 plt.xlabel("t")
 
 # betti number plot
@@ -52,6 +63,7 @@ plt.plot(betas[0], linestyle="--", marker="o", label="beta 0")
 plt.plot(betas[1], linestyle="--", marker="o", label="beta 1")
 plt.plot(betas[2], linestyle="--", marker="o", label="beta 2")
 plt.legend(loc='upper right')
+plt.xlim(xmin=-1.5,xmax=len(betas[0])-0.5)
 
 
 # synchrony
@@ -71,9 +83,10 @@ for c in range(1,chunk+1):
 
 sync = []
 for c in range(len(slices)):
-    sync.append(np.average(spk.spike_distance_matrix(slices[c])))
+    sync.append(np.linalg.norm(spk.spike_sync_matrix(slices[c])))
 
 plt.plot(sync, linestyle="", marker="o", markersize="7")
+plt.xlim(xmin=-0.5,xmax=len(homXS)+1.5)
 
 
 
