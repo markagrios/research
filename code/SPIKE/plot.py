@@ -58,12 +58,18 @@ plt.xlim(xmin= 0,xmax=1000)
 plt.xlabel("t")
 
 # betti number plot
+difbetas = []
+for i in range(len(betas)):
+    difbetas.append([])
+    for c in range(len(betas[i])-1):
+        difbetas[i].append(betas[i][c+1]-betas[i][c])
+
 simulation.add_subplot(4,1,3)
-plt.plot(betas[0], linestyle="--", marker="o", label="beta 0")
-plt.plot(betas[1], linestyle="--", marker="o", label="beta 1")
-plt.plot(betas[2], linestyle="--", marker="o", label="beta 2")
+plt.plot(difbetas[0], linestyle="--", marker="o", label="beta 0")
+plt.plot(difbetas[1], linestyle="--", marker="o", label="beta 1")
+plt.plot(difbetas[2], linestyle="--", marker="o", label="beta 2")
 plt.legend(loc='upper right')
-plt.xlim(xmin=-1.5,xmax=len(betas[0])-0.5)
+plt.xlim(xmin=-2,xmax=len(difbetas[0]))
 
 
 # synchrony
