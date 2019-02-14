@@ -25,13 +25,16 @@ print(",".join(ablate_groups))
 
 os.system("python hom.py " + matrix + " " + ",".join(ablate_groups))
 
-os.system("python ablate.py " + matrix + " q []")
-os.system("python ablate.py " + matrix + " cont []")
+run = raw_input("Continue with this ablation sequence? ")
+
+if(run == 'y'):
+    os.system("python ablate.py " + matrix + " q []")
+    os.system("python ablate.py " + matrix + " cont []")
 
 
 
-for g in range(len(ablate_groups)):
-    os.system("python ablate.py " + matrix + " cont " + ",".join(ablate_groups[:g+1]))
+    for g in range(len(ablate_groups)):
+        os.system("python ablate.py " + matrix + " cont " + ",".join(ablate_groups[:g+1]))
 
 
-os.system("python plot.py " + matrix)
+    os.system("python plot.py " + matrix)
