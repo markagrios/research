@@ -7,7 +7,7 @@ from mogutda import SimplicialComplex
 def getsimps(simpfile):
     simpfile = simpfile + "_dlist.csv"
     simps = []
-    for line in open("../connection_matrices/simp_lists/" + simpfile):
+    for line in open("../connection_matrices/" + simpfile):
         line = line.rstrip()
         oneD = [-1]
         if " " in line:
@@ -79,6 +79,14 @@ def check_homology(initSC,abllist):
 
 matrix = sys.argv[1]
 ablation_list = sys.argv[2].split(",")
+
+if(len(ablation_list) == 1):
+    numabl = raw_input("how many ablations? ")
+    ablation_list = list(np.random.choice(32, int(numabl), replace=False ))
+    for i in range(len(ablation_list)):
+        ablation_list[i] = int(ablation_list[i])
+    pickle.dump(ablation_list, open("storeddata/ablationlist.p","wb"))
+
 
 
 print(ablation_list)

@@ -25,7 +25,8 @@ for i in range(0,N):
 
 print(adj_matrix)
 
-np.savetxt("ER_n" + str(n) + "p" +str(p) + ".csv", adj_matrix, delimiter=",", fmt='%s')
+np.savetxt("ER_n" + str(n) + "p" +str(p) + "_B" + ".csv", adj_matrix, delimiter=",", fmt='%s')
+# np.savetxt("ER_n" + str(n) + "p" +str(p) + ".csv", adj_matrix, delimiter=",", fmt='%s')
 
 
 nx.draw_kamada_kawai(G)
