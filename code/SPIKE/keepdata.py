@@ -4,6 +4,7 @@ import numpy as np
 import math
 import cmath
 import csv
+import ast
 import time as TIME
 import matplotlib.pyplot as plt
 import sys
@@ -52,27 +53,25 @@ for c in range(1,chunk+1):
     slices.append(section)
 
 sync = []
-for c in range(len(slices)):
-    sync.append(np.linalg.norm(spk.spike_sync_matrix(slices[c])))
+for c in range(1,len(slices)):
+    sync.append(round(float(np.linalg.norm(spk.spike_sync_matrix(slices[c]))),3))
 
-plt.plot(sync, linestyle="-", marker="o", markersize="7")
-# plt.hlines(15, 0, len(homXS), linewidth=0.3)
-plt.grid(which='both', axis='y')
-plt.xlim(xmin=-0.5,xmax=len(homXS)+1.5)
-for i in range(len(sync)):
-    plt.text(i+0.3, sync[i]+0.3, str(round(sync[i],2)))
+difsync = []
+for i in range(1,len(sync)):
+    difsync.append(round(sync[i] - sync[i-1],3))
 
-
-
+bettichange = []
+for i in range(len(difbetas[0])):
+    bettichange.append([difbetas[i][0],difbetas[i][1],difbetas[i][2]])
 
 
-plt.show(block=False)
+block = []
+for i in range(len(difsync)):
+    block.append([matrix,bettichange[i],difsync[i]])
 
-savesim = raw_input("save simulation? ")
-if(savesim == 'y'):
-    simname = raw_input("Simulation name: ")
-    if(simname == ''):
-        simname = matrix + str(homXS)
-    plt.savefig('../simulation_files/SPIKE/' + simname + '.png')
+# print(block)
+# ast.literal_eval("[0,-2,-1]") = [0,-2,-1]
 
-plt.close()
+with open('output_data/data.csv', 'a') as f:
+    writer = csv.writer(f)
+    writer.writerows(block)
