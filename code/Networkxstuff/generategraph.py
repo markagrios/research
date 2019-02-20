@@ -9,6 +9,10 @@ import matplotlib.pyplot as plt
 import sys
 from random import randint
 
+
+# graph = raw_input("Erdos-Renyi (ER), Small World (SW), Scale Free (SF): ")
+
+
 n = 33
 p = 0.1
 
@@ -25,9 +29,9 @@ for i in range(0,N):
 
 print(adj_matrix)
 
-np.savetxt("ER_n" + str(n) + "p" +str(p) + "_D" + ".csv", adj_matrix, delimiter=",", fmt='%s')
-# np.savetxt("ER_n" + str(n) + "p" +str(p) + ".csv", adj_matrix, delimiter=",", fmt='%s')
+np.savetxt("../connection_matrices/" + "ER_n" + str(n) + "p" + str(p) + "_J" + ".csv", adj_matrix, delimiter=",", fmt='%s')
 
 
+# nx.draw_circular(G)
 nx.draw_kamada_kawai(G)
 plt.show()

@@ -80,20 +80,11 @@ def check_homology(initSC,abllist):
 matrix = sys.argv[1]
 ablation_list = sys.argv[2].split(",")
 
-if(len(ablation_list) == 1):
-    numabl = raw_input("how many ablations? ")
-    ablation_list = list(np.random.choice(32, int(numabl), replace=False ))
-    for i in range(len(ablation_list)):
-        ablation_list[i] = int(ablation_list[i])
-    pickle.dump(ablation_list, open("storeddata/ablationlist.p","wb"))
-
-
 
 print(ablation_list)
 
 simplist = getsimps(matrix)
 homo = check_homology(simplist,ablation_list)
-# pickle.dump(homo, open("storeddata/homo.p","wb"))
 betas = pickle.load(open("storeddata/" + matrix + "-betas.p", "rb"))
 print(betas)
 

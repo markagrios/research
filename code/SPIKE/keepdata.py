@@ -61,8 +61,9 @@ for i in range(1,len(sync)):
     difsync.append(round(sync[i] - sync[i-1],3))
 
 bettichange = []
+# print(len(difbetas[0]))
 for i in range(len(difbetas[0])):
-    bettichange.append([difbetas[i][0],difbetas[i][1],difbetas[i][2]])
+    bettichange.append([difbetas[0][i],difbetas[1][i],difbetas[2][i]])
 
 
 block = []

@@ -102,6 +102,7 @@ for c in range(1,chunk+1):
 
 sync = []
 for c in range(len(slices)):
+    # sync.append(np.var(spk.spike_sync_matrix(slices[c])))
     sync.append(np.linalg.norm(spk.spike_sync_matrix(slices[c])))
 
 plt.plot(sync, linestyle="-", marker="o", markersize="7")

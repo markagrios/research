@@ -12,6 +12,7 @@ matrix = sys.argv[1]
 ablation_list = sys.argv[2]
 ablate_groups = ablation_list.split("-")
 
+
 print("---")
 
 os.chdir("neurotop/src")
@@ -21,7 +22,6 @@ os.rename(matrix+".csv_simplices_dimension_.txt", matrix+"_dlist.csv")
 os.chdir("../SPIKE")
 
 
-print(",".join(ablate_groups))
 
 os.system("python hom.py " + matrix + " " + ",".join(ablate_groups))
 
@@ -36,5 +36,5 @@ if(run == 'y'):
     for g in range(len(ablate_groups)):
         os.system("python ablate.py " + matrix + " cont " + ",".join(ablate_groups[:g+1]))
 
-
+    os.system('spd-say "beep boop its a joop"')
     os.system("python plot.py " + matrix)
