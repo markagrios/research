@@ -52,129 +52,129 @@ for i in range(0,N):
     plt.xlabel("t")
     plt.plot(X[i])
 
-homo = pickle.load(open("storeddata/homo.p","rb"))
-# print(duration/singlerun)
-for i in range(2,duration/singlerun):
-    if(homo[i-2] == False):
-        plt.axvline(x=(i)*singlerun, color='k', linestyle='--')
-    elif(homo[i-2] == True):
-        plt.axvline(x=(i)*singlerun, color='r', linestyle='--')
-    else:
-        plt.axvline(x=(i)*singlerun, color='b', linestyle='--')
-
-simulation.add_subplot(3,1,2)
-for i in range(0,N):
-    plt.ylabel('z')
-    plt.xlabel("t")
-    plt.plot(Z[i])
-
-for i in range(2,duration/singlerun):
-    if(homo[i-2] == False):
-        plt.axvline(x=(i)*singlerun, color='k', linestyle='--')
-    elif(homo[i-2] == True):
-        plt.axvline(x=(i)*singlerun, color='r', linestyle='--')
-    else:
-        plt.axvline(x=(i)*singlerun, color='b', linestyle='--')
-
-
-
-sys.stdout.write('\x1b[1A')
-sys.stdout.write('\x1b[2K')                 # gets rid of some error that ruins my A E S T H E T I C
-print("--- measuring synchrony ---")
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-sections = []
-for i in range(0,duration/singlerun):
-    sections.append([])
-
-for i in range(len(sections)):
-    for j in range(N):
-        sections[i].append(Z[j][singlerun*i:singlerun*(i+1)])
-
-mins = []
-maxs = []
-
-for section in range(len(sections)):
-    simMinlist = []
-    simMaxlist = []
-
-    for i in range(N):
-        simMinlist.append(np.min(sections[section][i]))
-        simMaxlist.append(np.max(sections[section][i]))
-
-    mins.append(np.min(simMinlist))
-    maxs.append(np.max(simMaxlist))
-    # print(simMin,simMax)                            # I think we should sample from like halfway through the simulation to the end because having the network synchronize screws up the min and max
-    # print(scaleToInterval(0,simMin,simMax))
-
-runningsync = []
-phivals = [-1]
-avgsync = [-1]
-for section in range(0,len(sections)):
-    scaledM = []
-
-    for i in range(0,N):
-        scaledM.append([])
-        for j in range(0, singlerun/10):
-            # scaledM[i].append(scaleToInterval(Z[i][10*j], simMin, simMax))
-            scaledM[i].append(scaleToInterval(sections[section][i][10*j], mins[section], maxs[section]))
-
-
-    phasic = []
-    for i in range(0,len(scaledM[0])):
-        phasic.append(0)
-        for j in range(0,N):
-             phasic[i] += cmath.exp(complex(scaledM[j][i],0)*complex(0,1))
-
-        # phasic[i] = normalizetan(abs(phasic[i])/N)
-        phasic[i] = abs(phasic[i])/N
-
-    runningsync = np.append(runningsync,phasic)
-    # h = phasic
-    dhdt = []
-    for i in range(1,len(phasic)):
-        dhdt.append(abs(phasic[i] - phasic[i-1]) * 1000)
-
-    # totalvar = sum(dhdt)/len(dhdt)
-    totalvar = sum(dhdt)                    # this is actual total variation, without the averaging
-    phivals.append(totalvar)
-
-
-    avgsync.append(sum(phasic)/len(phasic))
-
-
-print(phivals)
-for i in range(len(phivals)):
-    title += " : " + str('%.4f'%(phivals[i]))
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-simulation.add_subplot(3,1,3)
-simulation.suptitle(title)
-
-# for i in range(1,duration/singlerun):
-#     plt.axvline(x=i*singlerun, color='k', linestyle='--')
-
-plt.plot(runningsync)
-plt.ylim(ymin = 0, ymax = 1.1)
-plt.ylabel("synchronization")
-plt.xlabel("timestep")
-
-
-# G = make_NX_graph(matrix)
-
-# qwe = array(nx.to_numpy_matrix(G))
-# adj_matrix = np.zeros((N,N), dtype=int)
-# for i in range(0,N):
-#     for j in range(0,N):
-#         adj_matrix[i][j] = int(qwe[i][j])
+# homo = pickle.load(open("storeddata/homo.p","rb"))
+# # print(duration/singlerun)
+# for i in range(2,duration/singlerun):
+#     if(homo[i-2] == False):
+#         plt.axvline(x=(i)*singlerun, color='k', linestyle='--')
+#     elif(homo[i-2] == True):
+#         plt.axvline(x=(i)*singlerun, color='r', linestyle='--')
+#     else:
+#         plt.axvline(x=(i)*singlerun, color='b', linestyle='--')
 #
-# print(adj_matrix)
-
-
-ablation_list = pickle.load(open("storeddata/ablation_list.p","rb"))
-
-# print(len(X[0]),len(runningsync))
-
+# simulation.add_subplot(3,1,2)
+# for i in range(0,N):
+#     plt.ylabel('z')
+#     plt.xlabel("t")
+#     plt.plot(Z[i])
+#
+# for i in range(2,duration/singlerun):
+#     if(homo[i-2] == False):
+#         plt.axvline(x=(i)*singlerun, color='k', linestyle='--')
+#     elif(homo[i-2] == True):
+#         plt.axvline(x=(i)*singlerun, color='r', linestyle='--')
+#     else:
+#         plt.axvline(x=(i)*singlerun, color='b', linestyle='--')
+# 
+#
+#
+# sys.stdout.write('\x1b[1A')
+# sys.stdout.write('\x1b[2K')                 # gets rid of some error that ruins my A E S T H E T I C
+# print("--- measuring synchrony ---")
+# #~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# sections = []
+# for i in range(0,duration/singlerun):
+#     sections.append([])
+#
+# for i in range(len(sections)):
+#     for j in range(N):
+#         sections[i].append(Z[j][singlerun*i:singlerun*(i+1)])
+#
+# mins = []
+# maxs = []
+#
+# for section in range(len(sections)):
+#     simMinlist = []
+#     simMaxlist = []
+#
+#     for i in range(N):
+#         simMinlist.append(np.min(sections[section][i]))
+#         simMaxlist.append(np.max(sections[section][i]))
+#
+#     mins.append(np.min(simMinlist))
+#     maxs.append(np.max(simMaxlist))
+#     # print(simMin,simMax)                            # I think we should sample from like halfway through the simulation to the end because having the network synchronize screws up the min and max
+#     # print(scaleToInterval(0,simMin,simMax))
+#
+# runningsync = []
+# phivals = [-1]
+# avgsync = [-1]
+# for section in range(0,len(sections)):
+#     scaledM = []
+#
+#     for i in range(0,N):
+#         scaledM.append([])
+#         for j in range(0, singlerun/10):
+#             # scaledM[i].append(scaleToInterval(Z[i][10*j], simMin, simMax))
+#             scaledM[i].append(scaleToInterval(sections[section][i][10*j], mins[section], maxs[section]))
+#
+#
+#     phasic = []
+#     for i in range(0,len(scaledM[0])):
+#         phasic.append(0)
+#         for j in range(0,N):
+#              phasic[i] += cmath.exp(complex(scaledM[j][i],0)*complex(0,1))
+#
+#         # phasic[i] = normalizetan(abs(phasic[i])/N)
+#         phasic[i] = abs(phasic[i])/N
+#
+#     runningsync = np.append(runningsync,phasic)
+#     # h = phasic
+#     dhdt = []
+#     for i in range(1,len(phasic)):
+#         dhdt.append(abs(phasic[i] - phasic[i-1]) * 1000)
+#
+#     # totalvar = sum(dhdt)/len(dhdt)
+#     totalvar = sum(dhdt)                    # this is actual total variation, without the averaging
+#     phivals.append(totalvar)
+#
+#
+#     avgsync.append(sum(phasic)/len(phasic))
+#
+#
+# print(phivals)
+# for i in range(len(phivals)):
+#     title += " : " + str('%.4f'%(phivals[i]))
+#
+# #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# simulation.add_subplot(3,1,3)
+# simulation.suptitle(title)
+#
+# # for i in range(1,duration/singlerun):
+# #     plt.axvline(x=i*singlerun, color='k', linestyle='--')
+#
+# plt.plot(runningsync)
+# plt.ylim(ymin = 0, ymax = 1.1)
+# plt.ylabel("synchronization")
+# plt.xlabel("timestep")
+#
+#
+# # G = make_NX_graph(matrix)
+#
+# # qwe = array(nx.to_numpy_matrix(G))
+# # adj_matrix = np.zeros((N,N), dtype=int)
+# # for i in range(0,N):
+# #     for j in range(0,N):
+# #         adj_matrix[i][j] = int(qwe[i][j])
+# #
+# # print(adj_matrix)
+#
+#
+# ablation_list = pickle.load(open("storeddata/ablation_list.p","rb"))
+#
+# # print(len(X[0]),len(runningsync))
+#
 plt.show(block=False)
 
 savesim = raw_input("save simulation? ")

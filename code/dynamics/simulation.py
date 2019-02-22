@@ -85,7 +85,7 @@ matrix = sys.argv[1] + ".csv"
 
 N = N_from_Matrix(matrix)                   # number of neurons in network
 N_syn = count_connections(matrix)           # number of synapses
-duration = 2000*ms                          # how long simulations runs
+duration = 3000*ms                          # how long simulations runs
 
 tau_param = {'tau': 1*ms}
 
@@ -123,7 +123,7 @@ M = StateMonitor(G, ['x', 'y', 'z'], record=True)
 ix = -0.5*(1+sqrt(5))
 init_cond = {'x': ix, 'y': 1-5*ix*ix, 'z': 1.7}
 neuron_pars = {'a': 1, 'b': 3.3, 'I': 2, 'c': 1, 'd': 5, 'r': 0.001, 's': 4, 'xR': -0.5*(1+sqrt(5))}
-coupling_pars = {'Vo': 2, 'lam': 10, 'thet': -0.6, 'g': 0.4}
+coupling_pars = {'Vo': 2, 'lam': 10, 'thet': -0.2, 'g': 0.4}
 
 # These set the parameters to be homogeneous
 for param,value in neuron_pars.items():
@@ -209,61 +209,61 @@ for i in range(0,N):
     plot(M.t/ms, getattr(M,'z')[i])
 
 
-sys.stdout.write('\x1b[1A')
-sys.stdout.write('\x1b[2K')                 # gets rid of some error that ruins my A E S T H E T I C
-print("--- measuring synchrony ---")
-
-num_timesteps = int(str(duration).split(".")[0]) * 100000
-simMinlist = []
-simMaxlist = []
-
-for i in range(N):
-    simMinlist.append(np.min(M[i].z[(num_timesteps/2):]))
-    simMaxlist.append(np.max(M[i].z[(num_timesteps/2):]))
-
-simMin = np.min(simMinlist)
-simMax = np.max(simMaxlist)
-# print(simMin,simMax)                            # I think we should sample from like halfway through the simulation to the end because having the network synchronize screws up the min and max
-# print(scaleToInterval(0,simMin,simMax))
-
-scaledM = []
-
-for i in range(0,N):
-    scaledM.append([])
-    for j in range(0, num_timesteps/10):
-        scaledM[i].append(scaleToInterval(M[i].z[10*j], simMin, simMax))
-
-
-phasic = []
-for i in range(0,len(scaledM[0])):
-    phasic.append(0)
-    for j in range(0,N):
-         phasic[i] += cmath.exp(complex(scaledM[j][i],0)*complex(0,1))
-
-    phasic[i] = abs(phasic[i])/N
-
-
-h = phasic[len(phasic)/3:]
-dhdt = []
-for i in range(1,len(h)):
-    dhdt.append(abs(h[i] - h[i-1]) * 1000)
-
-averagesync = sum(dhdt)/len(dhdt)
-print("Synchronization value: " + str(averagesync))
-title += str('%.4f'%(averagesync))
-
-simulation.add_subplot(3,1,3)
-simulation.suptitle(title)
-
-plt.plot(phasic)
-plt.ylim(ymin = 0, ymax = 1.1)
-plt.ylabel("synchronization")
-plt.xlabel("timestep")
+# sys.stdout.write('\x1b[1A')
+# sys.stdout.write('\x1b[2K')                 # gets rid of some error that ruins my A E S T H E T I C
+# print("--- measuring synchrony ---")
+#
+# num_timesteps = int(str(duration).split(".")[0]) * 100000
+# simMinlist = []
+# simMaxlist = []
+#
+# for i in range(N):
+#     simMinlist.append(np.min(M[i].z[(num_timesteps/2):]))
+#     simMaxlist.append(np.max(M[i].z[(num_timesteps/2):]))
+#
+# simMin = np.min(simMinlist)
+# simMax = np.max(simMaxlist)
+# # print(simMin,simMax)                            # I think we should sample from like halfway through the simulation to the end because having the network synchronize screws up the min and max
+# # print(scaleToInterval(0,simMin,simMax))
+#
+# scaledM = []
+#
+# for i in range(0,N):
+#     scaledM.append([])
+#     for j in range(0, num_timesteps/10):
+#         scaledM[i].append(scaleToInterval(M[i].z[10*j], simMin, simMax))
+#
+#
+# phasic = []
+# for i in range(0,len(scaledM[0])):
+#     phasic.append(0)
+#     for j in range(0,N):
+#          phasic[i] += cmath.exp(complex(scaledM[j][i],0)*complex(0,1))
+#
+#     phasic[i] = abs(phasic[i])/N
+#
+#
+# h = phasic[len(phasic)/3:]
+# dhdt = []
+# for i in range(1,len(h)):
+#     dhdt.append(abs(h[i] - h[i-1]) * 1000)
+#
+# averagesync = sum(dhdt)/len(dhdt)
+# print("Synchronization value: " + str(averagesync))
+# title += str('%.4f'%(averagesync))
+#
+# simulation.add_subplot(3,1,3)
+# simulation.suptitle(title)
+#
+# plt.plot(phasic)
+# plt.ylim(ymin = 0, ymax = 1.1)
+# plt.ylabel("synchronization")
+# plt.xlabel("timestep")
 
 print("   ")
 print("--- %s seconds ---" % (TIME.time() - start_time))
 
-G = make_NX_graph(matrix)
+# G = make_NX_graph(matrix)
 
 # qwe = array(nx.to_numpy_matrix(G))
 # adj_matrix = np.zeros((N,N), dtype=int)
@@ -273,25 +273,25 @@ G = make_NX_graph(matrix)
 #
 # print(adj_matrix)
 
-plt.show(block=False)
-
-savesim = raw_input("save simulation? ")
-if(savesim == 'y'):
-    simname = raw_input("Simulation name: ")
-    if(simname == ''):
-        simname = matrix[:-4]
-    plt.savefig('../simulation_files/XZsync/' + simname + '.png')
-
-# wut...
-
-showgraph = plt.figure()
-# nx.draw_kamada_kawai(G, with_labels=True, font_weight='bold')
-nx.draw_shell(G, with_labels=True, font_weight='bold')
-plt.show(block=False)
-
-savesim = raw_input("save graph? ")
-if(savesim == 'y'):
-    simname = raw_input("network name: ")
-    if(simname == ''):
-        simname = matrix[:-4]
-    plt.savefig('../networks/' + simname + '.png')
+plt.show()
+#
+# savesim = raw_input("save simulation? ")
+# if(savesim == 'y'):
+#     simname = raw_input("Simulation name: ")
+#     if(simname == ''):
+#         simname = matrix[:-4]
+#     plt.savefig('../simulation_files/XZsync/' + simname + '.png')
+#
+# # wut...
+#
+# showgraph = plt.figure()
+# # nx.draw_kamada_kawai(G, with_labels=True, font_weight='bold')
+# nx.draw_shell(G, with_labels=True, font_weight='bold')
+# plt.show(block=False)
+#
+# savesim = raw_input("save graph? ")
+# if(savesim == 'y'):
+#     simname = raw_input("network name: ")
+#     if(simname == ''):
+#         simname = matrix[:-4]
+#     plt.savefig('../networks/' + simname + '.png')

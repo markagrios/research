@@ -98,13 +98,13 @@ if(numabl == "r"):
     pickle.dump(ablation_list, open("storeddata/ablationlist.p","wb"))
     print(ablation_list)
 
-networksimps = getsimps(network)
-homo = check_homology(networksimps,ablation_list)
-pickle.dump(homo, open("storeddata/homo.p","wb"))
+# networksimps = getsimps(network)
+# homo = check_homology(networksimps,ablation_list)
+# pickle.dump(homo, open("storeddata/homo.p","wb"))
 command = "python ablate.py " + network
 for i in range(len(ablation_list)):
     ablation_list[i] = str(ablation_list[i])
-    print(ablation_list[i], homo[i])
+    # print(ablation_list[i], homo[i])
 
 
 
@@ -124,4 +124,4 @@ if(qcontinue == "y"):
         os.system(argpassed)
 
 
-    os.system("python spikeplot.py " + network)
+    os.system("python plot.py " + network)
