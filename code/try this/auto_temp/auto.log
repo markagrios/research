@@ -1,0 +1,49 @@
+[39mrunning build[0m
+[39mrunning config_cc[0m
+[39munifing config_cc, config, build_clib, build_ext, build commands --compiler options[0m
+[39mrunning config_fc[0m
+[39munifing config_fc, config, build_clib, build_ext, build commands --fcompiler options[0m
+[39mrunning build_src[0m
+[39mbuild_src[0m
+[39mbuilding extension "_auto_HindmarshRoseFast_vf" sources[0m
+[39mswig: /home/osboxes/Documents/workspace/research/code/try this/auto_temp/auto_HindmarshRoseFast_vf.i[0m
+[39mswig -python -I/home/osboxes/anaconda2/lib/python2.7/site-packages/numpy/core/include -I/home/osboxes/Documents/workspace/research/code/try this -I/home/osboxes/anaconda2/lib/python2.7/site-packages/PyDSTool/PyCont/auto/module/include -I/home/osboxes/Documents/workspace/research/code/try this/auto_temp -I/home/osboxes/anaconda2/lib/python2.7/site-packages/PyDSTool/PyCont/auto/src/include -o auto_temp/src.linux-x86_64-2.7/auto_temp/auto_HindmarshRoseFast_vf_wrap.c -outdir auto_temp/src.linux-x86_64-2.7/auto_temp /home/osboxes/Documents/workspace/research/code/try this/auto_temp/auto_HindmarshRoseFast_vf.i[0m
+[39mbuild_src: building npy-pkg config files[0m
+[39mrunning build_ext[0m
+[36mnew_compiler returns distutils.unixccompiler.UnixCCompiler[0m
+[39mcustomize UnixCCompiler[0m
+[39mcustomize UnixCCompiler using build_ext[0m
+********************************************************************************
+distutils.unixccompiler.UnixCCompiler
+linker_exe    = ['gcc', '-pthread', '-B', '/home/osboxes/anaconda2/compiler_compat', '-Wl,--sysroot=/']
+compiler_so   = ['gcc', '-pthread', '-B', '/home/osboxes/anaconda2/compiler_compat', '-Wl,--sysroot=/', '-fno-strict-aliasing', '-g', '-O2', '-DNDEBUG', '-g', '-fwrapv', '-O3', '-Wall', '-Wstrict-prototypes', '-fPIC']
+archiver      = ['ar', 'rc']
+preprocessor  = ['gcc', '-pthread', '-B', '/home/osboxes/anaconda2/compiler_compat', '-Wl,--sysroot=/', '-E']
+linker_so     = ['gcc', '-pthread', '-shared', '-B', '/home/osboxes/anaconda2/compiler_compat', '-L/home/osboxes/anaconda2/lib', '-Wl,-rpath=/home/osboxes/anaconda2/lib', '-Wl,--no-as-needed', '-Wl,--sysroot=/']
+compiler_cxx  = ['g++', '-pthread', '-B', '/home/osboxes/anaconda2/compiler_compat', '-Wl,--sysroot=/']
+ranlib        = None
+compiler      = ['gcc', '-pthread', '-B', '/home/osboxes/anaconda2/compiler_compat', '-Wl,--sysroot=/', '-fno-strict-aliasing', '-g', '-O2', '-DNDEBUG', '-g', '-fwrapv', '-O3', '-Wall', '-Wstrict-prototypes']
+libraries     = []
+library_dirs  = ['/home/osboxes/anaconda2/lib']
+include_dirs  = ['/home/osboxes/anaconda2/include/python2.7']
+********************************************************************************
+[39mbuilding '_auto_HindmarshRoseFast_vf' extension[0m
+[39mcompiling C sources[0m
+[39mC compiler: gcc -pthread -B /home/osboxes/anaconda2/compiler_compat -Wl,--sysroot=/ -fno-strict-aliasing -g -O2 -DNDEBUG -g -fwrapv -O3 -Wall -Wstrict-prototypes -fPIC
+[0m
+[39mcompile options: '-I/home/osboxes/anaconda2/lib/python2.7/site-packages/numpy/core/include -I"/home/osboxes/Documents/workspace/research/code/try this" -I/home/osboxes/anaconda2/lib/python2.7/site-packages/PyDSTool/PyCont/auto/module/include -I"/home/osboxes/Documents/workspace/research/code/try this/auto_temp" -I/home/osboxes/anaconda2/lib/python2.7/site-packages/PyDSTool/PyCont/auto/src/include -I/home/osboxes/anaconda2/lib/python2.7/site-packages/numpy/core/include -I/home/osboxes/anaconda2/include/python2.7 -c'
+extra options: '-w -D__PYTHON__ -std=c99'[0m
+[39mgcc: /home/osboxes/Documents/workspace/research/code/try this/auto_temp/HindmarshRoseFast_vf.c[0m
+[36mexec_command(['gcc', '-pthread', '-B', '/home/osboxes/anaconda2/compiler_compat', '-Wl,--sysroot=/', '-fno-strict-aliasing', '-g', '-O2', '-DNDEBUG', '-g', '-fwrapv', '-O3', '-Wall', '-Wstrict-prototypes', '-fPIC', '-I/home/osboxes/anaconda2/lib/python2.7/site-packages/numpy/core/include', '-I"/home/osboxes/Documents/workspace/research/code/try this"', '-I/home/osboxes/anaconda2/lib/python2.7/site-packages/PyDSTool/PyCont/auto/module/include', '-I"/home/osboxes/Documents/workspace/research/code/try this/auto_temp"', '-I/home/osboxes/anaconda2/lib/python2.7/site-packages/PyDSTool/PyCont/auto/src/include', '-I/home/osboxes/anaconda2/lib/python2.7/site-packages/numpy/core/include', '-I/home/osboxes/anaconda2/include/python2.7', '-c', '/home/osboxes/Documents/workspace/research/code/try this/auto_temp/HindmarshRoseFast_vf.c', '-o', 'auto_temp/home/osboxes/Documents/workspace/research/code/try this/auto_temp/HindmarshRoseFast_vf.o', '-MMD', '-MF', 'auto_temp/home/osboxes/Documents/workspace/research/code/try this/auto_temp/HindmarshRoseFast_vf.o.d', '-w', '-D__PYTHON__', '-std=c99'],)[0m
+[36mRetaining cwd: /home/osboxes/Documents/workspace/research/code/try this[0m
+[36m_preserve_environment([])[0m
+[36m_update_environment(...)[0m
+gcc: error: /home/osboxes/Documents/workspace/research/code/try: No such file or directory
+gcc: error: this/auto_temp/HindmarshRoseFast_vf.c: No such file or directory
+gcc: error: this/auto_temp/HindmarshRoseFast_vf.o: No such file or directory
+gcc: error: this/auto_temp/HindmarshRoseFast_vf.o.d: No such file or directory
+[36m_update_environment(...)[0m
+gcc: error: /home/osboxes/Documents/workspace/research/code/try: No such file or directory
+gcc: error: this/auto_temp/HindmarshRoseFast_vf.c: No such file or directory
+gcc: error: this/auto_temp/HindmarshRoseFast_vf.o: No such file or directory
+gcc: error: this/auto_temp/HindmarshRoseFast_vf.o.d: No such file or directory

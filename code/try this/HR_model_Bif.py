@@ -17,14 +17,14 @@ def create_fast_subsystem():
     print("a=1,b=3.3,I=2,g=0,Vo=2,lam=10,thet=-0.6,c=1,d=5,r=0.001,s=4")
 
     user_pars = raw_input("")
-    pars = {'a': 1, 'b': 3.3, 'I': 2, 'g': 1, 'Vo': 2, 'lam': 10, 'thet': -0.6, 'c': 1, 'd': 5, 'r': 0.001, 's': 4, 'x1': x1, 'z': 0.}
+    pars = {'a': 1, 'b': 3.3, 'I': 2, 'g': 0, 'Vo': 2, 'lam': 10, 'thet': -0.6, 'c': 1, 'd': 5, 'r': 0.001, 's': 4, 'x1': x1, 'z': 0.}
 
     try:
         user_pars = user_pars.split(",")
         for i in range(len(user_pars)):
             pars[user_pars[i].split("=")[0]] = user_pars[i].split("=")[1]
     except:
-        pars = {'a': 1, 'b': 3.3, 'I': 2, 'g': 1, 'Vo': 2, 'lam': 10, 'thet': -0.6, 'c': 1, 'd': 5, 'r': 0.001, 's': 4, 'x1': x1, 'z': 0.}
+        pars = {'a': 1, 'b': 3.3, 'I': 2, 'g': 0, 'Vo': 2, 'lam': 10, 'thet': -0.6, 'c': 1, 'd': 5, 'r': 0.001, 's': 4, 'x1': x1, 'z': 0.}
 
 
     icdict = {'x': x, 'y': y}
@@ -107,15 +107,15 @@ def create_system():
     print("a=1,b=3.3,I=2,g=0,Vo=2,lam=10,thet=-0.6,c=1,d=5,r=0.001,s=4")
 
     user_pars = raw_input("")
-    pars = {'a': 1, 'b': 3.3, 'I': 2, 'g': 1, 'Vo': 2, 'lam': 10, 'thet': -0.6, 'c': 1, 'd': 5, 'r': 0.001, 's': 4, 'x1': x1}
+    pars = {'a': 1, 'b': 3.3, 'I': 2, 'g': 0, 'Vo': 2, 'lam': 10, 'thet': -0.6, 'c': 1, 'd': 5, 'r': 0.001, 's': 4, 'x1': x1}
 
     try:
         user_pars = user_pars.split(",")
-        pars = {'a': 1, 'b': 3.3, 'I': 2, 'g': 1, 'Vo': 2, 'lam': 10, 'thet': -0.6, 'c': 1, 'd': 5, 'r': 0.001, 's': 4, 'x1': x1}
+        pars = {'a': 1, 'b': 3.3, 'I': 2, 'g': 0, 'Vo': 2, 'lam': 10, 'thet': -0.6, 'c': 1, 'd': 5, 'r': 0.001, 's': 4, 'x1': x1}
         for i in range(len(user_pars)):
             pars[user_pars[i].split("=")[0]] = user_pars[i].split("=")[1]
     except:
-        pars = {'a': 1, 'b': 3.3, 'I': 2, 'g': 1, 'Vo': 2, 'lam': 10, 'thet': -0.6, 'c': 1, 'd': 5, 'r': 0.001, 's': 4, 'x1': x1}
+        pars = {'a': 1, 'b': 3.3, 'I': 2, 'g': 0, 'Vo': 2, 'lam': 10, 'thet': -0.6, 'c': 1, 'd': 5, 'r': 0.001, 's': 4, 'x1': x1}
 
 
     icdict = {'x': x, 'y': y, 'z': pars['I']}

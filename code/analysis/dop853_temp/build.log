@@ -1,0 +1,39 @@
+[39mrunning build_ext[0m
+[39mrunning build_src[0m
+[39mbuild_src[0m
+[39mbuilding py_modules sources[0m
+[39mbuilding extension "/home/osboxes/Documents/workspace/research/code/analysis/dop853_temp._dop853_HindmarshRose_vf" sources[0m
+[39mswig: /home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/dop853_HindmarshRose_vf.i[0m
+[39mswig -python -I/home/osboxes/anaconda2/lib/python2.7/site-packages/numpy/core/include -I/home/osboxes/Documents/workspace/research/code/analysis -I/home/osboxes/anaconda2/lib/python2.7/site-packages/PyDSTool/integrator -o /home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/dop853_HindmarshRose_vf_wrap.c -outdir /home/osboxes/Documents/workspace/research/code/analysis/dop853_temp /home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/dop853_HindmarshRose_vf.i[0m
+[39mbuild_src: building npy-pkg config files[0m
+[39mcustomize UnixCCompiler[0m
+[39mcustomize UnixCCompiler using build_ext[0m
+[39mbuilding '/home/osboxes/Documents/workspace/research/code/analysis/dop853_temp._dop853_HindmarshRose_vf' extension[0m
+[39mcompiling C sources[0m
+[39mC compiler: gcc -pthread -B /home/osboxes/anaconda2/compiler_compat -Wl,--sysroot=/ -fno-strict-aliasing -g -O2 -DNDEBUG -g -fwrapv -O3 -Wall -Wstrict-prototypes -fPIC
+[0m
+[39mcreating /home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/home[0m
+[39mcreating /home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/home/osboxes[0m
+[39mcreating /home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/home/osboxes/Documents[0m
+[39mcreating /home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/home/osboxes/Documents/workspace[0m
+[39mcreating /home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/home/osboxes/Documents/workspace/research[0m
+[39mcreating /home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/home/osboxes/Documents/workspace/research/code[0m
+[39mcreating /home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/home/osboxes/Documents/workspace/research/code/analysis[0m
+[39mcreating /home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/home/osboxes/Documents/workspace/research/code/analysis/dop853_temp[0m
+[39mcreating /home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/home/osboxes/anaconda2[0m
+[39mcreating /home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/home/osboxes/anaconda2/lib[0m
+[39mcreating /home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/home/osboxes/anaconda2/lib/python2.7[0m
+[39mcreating /home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/home/osboxes/anaconda2/lib/python2.7/site-packages[0m
+[39mcreating /home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/home/osboxes/anaconda2/lib/python2.7/site-packages/PyDSTool[0m
+[39mcreating /home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/home/osboxes/anaconda2/lib/python2.7/site-packages/PyDSTool/integrator[0m
+[39mcompile options: '-I/home/osboxes/anaconda2/lib/python2.7/site-packages/numpy/core/include -I/home/osboxes/Documents/workspace/research/code/analysis -I/home/osboxes/anaconda2/lib/python2.7/site-packages/PyDSTool/integrator -I/home/osboxes/anaconda2/lib/python2.7/site-packages/numpy/core/include -I/home/osboxes/anaconda2/include/python2.7 -c'
+extra options: '-w -Wno-return-type -Wall -D__DOPRI__'[0m
+[39mgcc: /home/osboxes/anaconda2/lib/python2.7/site-packages/PyDSTool/integrator/integration.c[0m
+[39mgcc: /home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/HindmarshRose_vf.c[0m
+[39mgcc: /home/osboxes/anaconda2/lib/python2.7/site-packages/PyDSTool/integrator/memory.c[0m
+[39mgcc: /home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/dop853_HindmarshRose_vf_wrap.c[0m
+[39mgcc: /home/osboxes/anaconda2/lib/python2.7/site-packages/PyDSTool/integrator/eventFinding.c[0m
+[39mgcc: /home/osboxes/anaconda2/lib/python2.7/site-packages/PyDSTool/integrator/interface.c[0m
+[39mgcc: /home/osboxes/anaconda2/lib/python2.7/site-packages/PyDSTool/integrator/dop853.c[0m
+[39mgcc: /home/osboxes/anaconda2/lib/python2.7/site-packages/PyDSTool/integrator/dop853mod.c[0m
+[39mgcc -pthread -shared -B /home/osboxes/anaconda2/compiler_compat -L/home/osboxes/anaconda2/lib -Wl,-rpath=/home/osboxes/anaconda2/lib -Wl,--no-as-needed -Wl,--sysroot=/ /home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/HindmarshRose_vf.o /home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/home/osboxes/anaconda2/lib/python2.7/site-packages/PyDSTool/integrator/dop853mod.o /home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/home/osboxes/anaconda2/lib/python2.7/site-packages/PyDSTool/integrator/dop853.o /home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/home/osboxes/anaconda2/lib/python2.7/site-packages/PyDSTool/integrator/integration.o /home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/home/osboxes/anaconda2/lib/python2.7/site-packages/PyDSTool/integrator/interface.o /home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/home/osboxes/anaconda2/lib/python2.7/site-packages/PyDSTool/integrator/eventFinding.o /home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/home/osboxes/anaconda2/lib/python2.7/site-packages/PyDSTool/integrator/memory.o /home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/dop853_HindmarshRose_vf_wrap.o -L/home/osboxes/anaconda2/lib -lpython2.7 -o /home/osboxes/Documents/workspace/research/code/analysis/dop853_temp/_dop853_HindmarshRose_vf.so -w[0m
