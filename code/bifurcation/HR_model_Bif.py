@@ -244,11 +244,11 @@ def fast_subsystem():
     plt.xlim([0, t_end])
 
     simulation.add_subplot(2,2,4)
-    # plt.xlabel('z')
-    # plt.ylabel('x')
-    # plot(plotData['z'], plotData['x'])
-    # plt.xlim([1.5, 2.4])
-    # plt.ylim([-1.8, 2])
+    plt.xlabel('z')
+    plt.ylabel('x')
+    plot(plotData['z'], plotData['x'])
+    plt.xlim([1.5, 2.4])
+    plt.ylim([-1.8, 2])
     #need to find a way to zoom fit this curve and not the bification curve.
 
     HR_fast['EQ1'].display(coords=('z', 'x'), stability=True)

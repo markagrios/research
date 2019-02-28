@@ -127,7 +127,8 @@ print(ablate)
 
 N = N_from_Matrix(matrix)                   # number of neurons in network
 N_syn = count_connections(matrix)           # number of synapses
-duration = 2000*ms                          # how long simulations runs
+duration = 10000*ms                          # how long simulations runs
+# duration = 2000*ms                          # how long simulations runs
 print(int(duration/ms))
 pickle.dump((int(duration/ms)), open("storeddata/" + matrix[:-4] + "-singlerun.p","wb"))
 

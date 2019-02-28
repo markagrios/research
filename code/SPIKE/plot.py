@@ -49,12 +49,15 @@ plt.xlabel('')
 
 # histogram for spikes
 simulation.add_subplot(4,1,2)
-spikeHist = th.psth(st, duration/1000)
+bin = 1000
+spikeHist = th.psth(st, bin)
+# spikeHist = th.psth(st, duration/1000)
 plt.plot(spikeHist[0])
 sys.stdout.write('\x1b[1A')
 sys.stdout.write('\x1b[2K')
 plt.ylabel("PST histogram")
-plt.xlim(xmin= 0,xmax=1000)
+# plt.xlim(xmin= 0, xmax=duration/1000)
+plt.xlim(xmin= 0)
 plt.xticks([])
 
 # betti number plot

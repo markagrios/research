@@ -12,7 +12,7 @@ x = x1
 y = 1-5*x*x
 
 # pars = {'a': 1, 'b': 3, 'I': 5, 'g': 0, 'Vo': 2, 'lam': 10, 'thet': -0.6, 'c': -3, 'd': 5, 'r': 0.002, 's': 4, 'x1': -1.3}      # these params burst with g=0
-pars = {'a': 1, 'b': 3, 'I': 5, 'g': 0, 'Vo': 2, 'lam': 10, 'thet': -0.6, 'c': -3, 'd': 5, 'r': 0.002, 's': 4, 'x1': -1.3}
+pars = {'a': 1, 'b': 3, 'I': 2, 'g': 0, 'Vo': 2, 'lam': 10, 'thet': -0.6, 'c': 1, 'd': 5, 'r': 0.001, 's': 4, 'x1': -1.6}
 
 icdict = {'x': x, 'y': y, 'z': pars['I']}
 
@@ -70,7 +70,7 @@ plt.xlim([0, t_end])
 simulation.add_subplot(2,2,4)
 # PyCont['LC1'].display(axes=(1,2,1))
 PyCont['LC1'].display()
-# PyCont['LC1'].display(('g','thet'), axes=(1,2,2))
-PyCont['LC1'].display(('I','b'))
+# PyCont['LC1'].display(('I','b'))
+PyCont['LC1'].display(('g','thet'), axes=(1,2,2))
 # PyCont.plot.info()
 show()
