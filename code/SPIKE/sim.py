@@ -36,5 +36,5 @@ if(run == 'y'):
     for g in range(len(ablate_groups)):
         os.system("python ablate.py " + matrix + " cont " + ",".join(ablate_groups[:g+1]))
 
-    os.system('spd-say "beep boop its a joop"')
+    # os.system('spd-say "beep boop its a joop"')
     os.system("python plot.py " + matrix)

@@ -14,12 +14,12 @@ from random import randint
 
 
 n = 33
-p = 0.1
+p = 0.2
 
 G = nx.erdos_renyi_graph(n,p,directed=True)
 
 N = G.number_of_nodes()
-print(N)
+print(n*p)
 
 qwe = array(nx.to_numpy_matrix(G))
 adj_matrix = np.zeros((N,N), dtype=int)
@@ -29,7 +29,8 @@ for i in range(0,N):
 
 print(adj_matrix)
 
-np.savetxt("../connection_matrices/" + "ER_n" + str(n) + "p" + str(p) + "_J" + ".csv", adj_matrix, delimiter=",", fmt='%s')
+np.savetxt("../connection_matrices/" + "ER_n" + str(n) + "p" + str(p) + ".csv", adj_matrix, delimiter=",", fmt='%s')
+# np.savetxt("../connection_matrices/" + "ER_n" + str(n) + "p" + str(p) + "_J" + ".csv", adj_matrix, delimiter=",", fmt='%s')
 
 
 # nx.draw_circular(G)
