@@ -30,21 +30,38 @@ st = th.make_trains(spiketimes)
 
 simulation = plt.figure(figsize=(17,10))
 simulation.add_subplot(2,1,1)
-th.plot_raster(st)
+th.plot_raster(st, markersize=2.5)
 
 
 # histogram for spikes
 simulation.add_subplot(2,1,2)
-bin = 10000
+bin = 1300
 spikeHist = th.psth(st, bin)
 # spikeHist = th.psth(st, duration/1000)
 plt.plot(spikeHist[0])
+smoothHist = np.convolve(spikeHist[0],1)
+# peaks = np.r_[False, smoothHist[1:] > smoothHist[:-1]] & numpy.r_[smoothHist[:-1] > smoothHist[1:], False]
+peaks = np.r_[False, spikeHist[0][1:] > spikeHist[0][:-1]] & numpy.r_[spikeHist[0][:-1] > spikeHist[0][1:], False]
+maxs = []
+for i in range(len(peaks)):
+    if (peaks[i] == True):
+        maxs.append(spikeHist[0][i])
+    else:
+        maxs.append(-0.001)
+
+
+plt.plot(maxs, linewidth=0, marker='o')
+# plt.plot(maxs, linestyle="", marker='o', markersize=0.7)
+
 sys.stdout.write('\x1b[1A')
 sys.stdout.write('\x1b[2K')
 plt.ylabel("PST histogram")
 # plt.xlim(xmin= 0, xmax=duration/1000)
-plt.xlim(xmin= 0)
+plt.xlim(xmin=0)
+plt.ylim(ymin=0)
 plt.xticks([])
+
+
 
 plt.show(block=False)
 
