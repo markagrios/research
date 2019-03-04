@@ -35,7 +35,7 @@ th.plot_raster(st, markersize=2.5)
 
 # histogram for spikes
 simulation.add_subplot(2,1,2)
-bin = 1300
+bin = 10000
 spikeHist = th.psth(st, bin)
 # spikeHist = th.psth(st, duration/1000)
 plt.plot(spikeHist[0])
