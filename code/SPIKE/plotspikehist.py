@@ -57,7 +57,7 @@ sys.stdout.write('\x1b[1A')
 sys.stdout.write('\x1b[2K')
 plt.ylabel("PST histogram")
 # plt.xlim(xmin= 0, xmax=duration/1000)
-plt.xlim(xmin=0)
+plt.xlim(xmin=0, xmax=len(spikeHist[0]))
 plt.ylim(ymin=0)
 plt.xticks([])
 
@@ -65,11 +65,15 @@ plt.xticks([])
 
 plt.show(block=False)
 
-savesim = raw_input("save simulation? ")
-if(savesim == 'y'):
-    simname = raw_input("Simulation name: ")
-    if(simname == ''):
-        simname = matrix
-    plt.savefig('../simulation_files/SPIKE/' + simname + "-spikehist" + '.png')
+# savesim = raw_input("save simulation? ")
+# if(savesim == 'y'):
+#     simname = raw_input("Simulation name: ")
+#     if(simname == ''):
+#         simname = matrix
+#     plt.savefig('../simulation_files/SPIKE/' + simname + "-spikehist" + '.png')
+
+
+simname = matrix
+plt.savefig('../simulation_files/SPIKE/' + simname + "-spikehist" + '.png')
 
 plt.close()
