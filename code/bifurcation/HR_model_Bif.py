@@ -12,19 +12,18 @@ def create_fast_subsystem():
     x = x1
     y = 1-5*x*x
 
-    print("1: Enter the paramters in the form 'param=value' separated by commas.")
-    print("Default:")
-    print("a=1,b=3.3,I=2,g=0,Vo=2,lam=10,thet=-0.6,c=1,d=5,r=0.001,s=4")
+    # pars = {'a': 1, 'b': 3.3.3, 'I': 3, 'g': 0, 'Vo': 2, 'lam': 10, 'thet': -0.25, 'c': 1, 'd': 5, 'r': 0.001, 's': 4, 'x1': x1, 'z': 0.}
+    pars = {'a': 1, 'b': 3, 'I': 3, 'g': 0, 'Vo': 2, 'lam': 10, 'thet': -0.25, 'c': 1, 'd': 5, 'r': 0.001, 's': 4, 'x1': -0.5*(1+sqrt(5)), 'z': 0.}
+    # all of these are consistent with Mamat except I...
 
-    user_pars = raw_input("")
-    pars = {'a': 1, 'b': 3.3, 'I': 2, 'g': 1, 'Vo': 2, 'lam': 10, 'thet': -0.6, 'c': 1, 'd': 5, 'r': 0.001, 's': 4, 'x1': x1, 'z': 0.}
+    # try:
+    #     user_pars = user_pars.split(",")
+    #     for i in range(len(user_pars)):
+    #         pars[user_pars[i].split("=")[0]] = user_pars[i].split("=")[1]
+    # except:
+    #     # pars = {'a': 1, 'b': 3.3.3, 'I': 3, 'g': 0, 'Vo': 2, 'lam': 10, 'thet': -0.25, 'c': 1, 'd': 5, 'r': 0.001, 's': 4, 'x1': x1, 'z': 0.}
+    #     pars = {'a': 1, 'b': 3, 'I': 3, 'g': 0, 'Vo': 2, 'lam': 10, 'thet': -0.25, 'c': 1, 'd': 5, 'r': 0.001, 's': 4, 'x1': -0.5*(1+sqrt(5)), 'z': 0.}
 
-    try:
-        user_pars = user_pars.split(",")
-        for i in range(len(user_pars)):
-            pars[user_pars[i].split("=")[0]] = user_pars[i].split("=")[1]
-    except:
-        pars = {'a': 1, 'b': 3.3, 'I': 2, 'g': 1, 'Vo': 2, 'lam': 10, 'thet': -0.6, 'c': 1, 'd': 5, 'r': 0.001, 's': 4, 'x1': x1, 'z': 0.}
 
 
     icdict = {'x': x, 'y': y}
@@ -102,20 +101,19 @@ def create_system():
     x = x1
     y = 1-5*x*x
 
-    print("2: Enter the paramters in the form 'param=value' separated by commas.")
-    print("Default:")
-    print("a=1,b=3.3,I=2,g=0,Vo=2,lam=10,thet=-0.6,c=1,d=5,r=0.001,s=4")
+    # pars = {'a': 1, 'b': 3.3.3, 'I': 3, 'g': 0, 'Vo': 2, 'lam': 10, 'thet': -0.25, 'c': 1, 'd': 5, 'r': 0.001, 's': 4, 'x1': x1}
+    pars = {'a': 1, 'b': 3, 'I': 3, 'g': 0, 'Vo': 2, 'lam': 10, 'thet': -0.25, 'c': 1, 'd': 5, 'r': 0.001, 's': 4, 'x1': -0.5*(1+sqrt(5))}
 
-    user_pars = raw_input("")
-    pars = {'a': 1, 'b': 3.3, 'I': 2, 'g': 1, 'Vo': 2, 'lam': 10, 'thet': -0.6, 'c': 1, 'd': 5, 'r': 0.001, 's': 4, 'x1': x1}
-
-    try:
-        user_pars = user_pars.split(",")
-        pars = {'a': 1, 'b': 3.3, 'I': 2, 'g': 1, 'Vo': 2, 'lam': 10, 'thet': -0.6, 'c': 1, 'd': 5, 'r': 0.001, 's': 4, 'x1': x1}
-        for i in range(len(user_pars)):
-            pars[user_pars[i].split("=")[0]] = user_pars[i].split("=")[1]
-    except:
-        pars = {'a': 1, 'b': 3.3, 'I': 2, 'g': 1, 'Vo': 2, 'lam': 10, 'thet': -0.6, 'c': 1, 'd': 5, 'r': 0.001, 's': 4, 'x1': x1}
+    # try:
+    #     user_pars = user_pars.split(",")
+    #     # pars = {'a': 1, 'b': 3.3.3, 'I': 3, 'g': 0, 'Vo': 2, 'lam': 10, 'thet': -0.25, 'c': 1, 'd': 5, 'r': 0.001, 's': 4, 'x1': x1}
+    #     pars = {'a': 1, 'b': 3, 'I': 3, 'g': 0, 'Vo': 2, 'lam': 10, 'thet': -0.25, 'c': 1, 'd': 5, 'r': 0.001, 's': 4, 'x1': -0.5*(1+sqrt(5))}
+    #
+    #     for i in range(len(user_pars)):
+    #         pars[user_pars[i].split("=")[0]] = user_pars[i].split("=")[1]
+    # except:
+    #     # pars = {'a': 1, 'b': 3.3.3, 'I': 3, 'g': 0, 'Vo': 2, 'lam': 10, 'thet': -0.25, 'c': 1, 'd': 5, 'r': 0.001, 's': 4, 'x1': x1}
+    #     pars = {'a': 1, 'b': 3, 'I': 3, 'g': 0, 'Vo': 2, 'lam': 10, 'thet': -0.25, 'c': 1, 'd': 5, 'r': 0.001, 's': 4, 'x1': -0.5*(1+sqrt(5))}
 
 
     icdict = {'x': x, 'y': y, 'z': pars['I']}
